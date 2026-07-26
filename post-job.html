@@ -1,0 +1,476 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Post a Job — TaskProX</title>
+  <meta name="description" content="Post a micro job on TaskProX and reach 100,000+ verified workers across 120+ countries. Set your reward, positions, and requirements in minutes." />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%232563EB%22/><path d=%22M30 52 L44 66 L72 34%22 stroke=%22white%22 stroke-width=%2210%22 fill=%22none%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/></svg>" />
+
+  <!-- Google Font: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome Free -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+  <!-- Tailwind CSS (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Alpine.js (form interactivity: live preview, budget calculator, mobile menu) -->
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js" defer></script>
+
+  <style>
+    html, body { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; }
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+      outline: 2px solid #2563EB;
+      outline-offset: 2px;
+      border-radius: 6px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+    [x-cloak] { display: none !important; }
+    .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800 antialiased">
+
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-blue-600 focus:text-white focus:px-4 focus:py-2 focus:rounded-lg">
+    Skip to main content
+  </a>
+
+  <!-- =====================================================================
+       HEADER / STICKY NAVIGATION (shared with the landing page)
+  ===================================================================== -->
+  <header x-data="{ mobileOpen: false }" class="fixed top-0 inset-x-0 z-50 glass border-b border-slate-200/70">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Primary">
+      <div class="flex items-center justify-between h-16 lg:h-[72px]">
+
+        <a href="index.html" class="flex items-center gap-2 shrink-0" aria-label="TaskProX home">
+          <span class="h-9 w-9 rounded-lg bg-blue-600 flex items-center justify-center shadow-md shadow-blue-600/30" aria-hidden="true">
+            <i class="fa-solid fa-bolt text-white text-sm"></i>
+          </span>
+          <span class="text-xl font-extrabold tracking-tight text-slate-900">Task<span class="text-blue-600">ProX</span></span>
+        </a>
+
+        <ul class="hidden lg:flex items-center gap-7 text-[14.5px] font-medium text-slate-600">
+          <li><a href="index.html#hero" class="hover:text-blue-600 transition-colors">Home</a></li>
+          <li><a href="index.html#featured-jobs" class="hover:text-blue-600 transition-colors">Browse Jobs</a></li>
+          <li><a href="index.html#categories" class="hover:text-blue-600 transition-colors">Categories</a></li>
+          <li><a href="index.html#pricing" class="hover:text-blue-600 transition-colors">Pricing</a></li>
+          <li><a href="index.html#how-it-works" class="hover:text-blue-600 transition-colors">How It Works</a></li>
+          <li><a href="index.html#faq" class="hover:text-blue-600 transition-colors">FAQ</a></li>
+        </ul>
+
+        <div class="hidden lg:flex items-center gap-2.5">
+          <a href="login.html" class="px-3.5 py-2 text-[14.5px] font-semibold text-slate-700 hover:text-blue-600 transition-colors">Login</a>
+          <a href="register.html" class="px-4 py-2 text-[14.5px] font-semibold rounded-lg border border-slate-300 text-slate-700 hover:border-blue-600 hover:text-blue-600 transition-colors">Register</a>
+          <a href="post-job.html" aria-current="page" class="px-4 py-2 text-[14.5px] font-semibold rounded-lg bg-blue-700 text-white shadow-md shadow-blue-600/25">Post a Job</a>
+        </div>
+
+        <button @click="mobileOpen = !mobileOpen" :aria-expanded="mobileOpen" aria-controls="mobile-menu" aria-label="Toggle navigation menu" class="lg:hidden h-10 w-10 flex items-center justify-center rounded-lg text-slate-700 hover:bg-slate-100">
+          <i class="fa-solid text-xl" :class="mobileOpen ? 'fa-xmark' : 'fa-bars'"></i>
+        </button>
+      </div>
+
+      <div id="mobile-menu" x-show="mobileOpen" x-cloak x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" class="lg:hidden border-t border-slate-200 py-4 space-y-1">
+        <a @click="mobileOpen=false" href="index.html#hero" class="block px-2 py-2.5 rounded-lg text-slate-700 font-medium hover:bg-slate-100">Home</a>
+        <a @click="mobileOpen=false" href="index.html#featured-jobs" class="block px-2 py-2.5 rounded-lg text-slate-700 font-medium hover:bg-slate-100">Browse Jobs</a>
+        <a @click="mobileOpen=false" href="index.html#categories" class="block px-2 py-2.5 rounded-lg text-slate-700 font-medium hover:bg-slate-100">Categories</a>
+        <a @click="mobileOpen=false" href="index.html#pricing" class="block px-2 py-2.5 rounded-lg text-slate-700 font-medium hover:bg-slate-100">Pricing</a>
+        <a @click="mobileOpen=false" href="index.html#how-it-works" class="block px-2 py-2.5 rounded-lg text-slate-700 font-medium hover:bg-slate-100">How It Works</a>
+        <a @click="mobileOpen=false" href="index.html#faq" class="block px-2 py-2.5 rounded-lg text-slate-700 font-medium hover:bg-slate-100">FAQ</a>
+        <div class="pt-3 mt-2 border-t border-slate-200 flex flex-col gap-2.5">
+          <a href="login.html" class="text-center px-4 py-2.5 rounded-lg border border-slate-300 font-semibold text-slate-700">Login</a>
+          <a href="register.html" class="text-center px-4 py-2.5 rounded-lg bg-blue-600 text-white font-semibold shadow-md shadow-blue-600/25">Register</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content" class="pt-16 lg:pt-[72px]">
+
+    <!-- =====================================================================
+         PAGE INTRO BANNER
+    ===================================================================== -->
+    <section class="bg-slate-900 py-14">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/10 text-xs font-semibold text-blue-200">
+          <i class="fa-solid fa-briefcase" aria-hidden="true"></i> For Clients
+        </span>
+        <h1 class="mt-4 text-3xl sm:text-4xl font-extrabold text-white max-w-2xl">Post a job and reach 100,000+ verified workers</h1>
+        <p class="mt-3 text-slate-300 max-w-xl">Describe your task, set your reward, and go live in minutes. You only pay for approved work.</p>
+
+        <div class="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-2xl">
+          <div>
+            <p class="text-2xl font-extrabold text-white">20K+</p>
+            <p class="text-xs text-slate-400 mt-0.5">Active Clients</p>
+          </div>
+          <div>
+            <p class="text-2xl font-extrabold text-white">~2 hrs</p>
+            <p class="text-xs text-slate-400 mt-0.5">Avg. Time to First Worker</p>
+          </div>
+          <div>
+            <p class="text-2xl font-extrabold text-white">120+</p>
+            <p class="text-xs text-slate-400 mt-0.5">Countries Reached</p>
+          </div>
+          <div>
+            <p class="text-2xl font-extrabold text-white">10%</p>
+            <p class="text-xs text-slate-400 mt-0.5">Flat Platform Fee</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         JOB POSTING FORM + LIVE PREVIEW
+    ===================================================================== -->
+    <section class="py-16 bg-slate-50">
+      <div
+        x-data="{
+          category: 'Website Visit',
+          jobTitle: '',
+          companyName: '',
+          description: '',
+          proofInstructions: '',
+          reward: 0.50,
+          positions: 100,
+          estimatedTime: '5',
+          difficulty: 'Easy',
+          countryScope: 'worldwide',
+          deadline: '',
+          get totalBudget() { return (parseFloat(this.reward) || 0) * (parseInt(this.positions) || 0); },
+          get platformFee() { return this.totalBudget * 0.10; },
+          get totalToPay() { return this.totalBudget + this.platformFee; },
+          get initials() {
+            if (!this.companyName) return 'CO';
+            return this.companyName.trim().split(/\s+/).slice(0,2).map(w => w[0]).join('').toUpperCase();
+          },
+          get difficultyClasses() {
+            return {
+              'Easy': 'bg-emerald-50 text-emerald-600',
+              'Medium': 'bg-amber-50 text-amber-600',
+              'Hard': 'bg-rose-50 text-rose-600',
+            }[this.difficulty];
+          }
+        }"
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-3 gap-10 items-start"
+      >
+        <!-- Form (left, 2 cols) -->
+        <form class="lg:col-span-2 bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 space-y-8" onsubmit="return false;" novalidate>
+
+          <!-- Section: Job details -->
+          <div>
+            <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2"><i class="fa-solid fa-file-lines text-blue-600 text-base" aria-hidden="true"></i>Job details</h2>
+
+            <div class="mt-5 grid sm:grid-cols-2 gap-5">
+              <div class="sm:col-span-2">
+                <label for="job-title" class="block text-sm font-semibold text-slate-700">Job title</label>
+                <input id="job-title" type="text" x-model="jobTitle" required placeholder="e.g. Follow Instagram page & like 3 posts"
+                  class="mt-1.5 w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600" />
+              </div>
+
+              <div>
+                <label for="company-name" class="block text-sm font-semibold text-slate-700">Company / brand name</label>
+                <input id="company-name" type="text" x-model="companyName" required placeholder="e.g. PixelCart"
+                  class="mt-1.5 w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600" />
+              </div>
+
+              <div>
+                <label for="job-category" class="block text-sm font-semibold text-slate-700">Category</label>
+                <div class="mt-1.5 relative">
+                  <select id="job-category" x-model="category" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 appearance-none">
+                    <option>Website Visit</option>
+                    <option>YouTube</option>
+                    <option>Facebook</option>
+                    <option>Instagram</option>
+                    <option>TikTok</option>
+                    <option>Telegram</option>
+                    <option>Discord</option>
+                    <option>App Install</option>
+                    <option>Survey</option>
+                    <option>Translation</option>
+                    <option>Data Entry</option>
+                    <option>AI Tasks</option>
+                    <option>SEO</option>
+                    <option>Google Review</option>
+                    <option>LinkedIn</option>
+                    <option>Email Signup</option>
+                  </select>
+                  <i class="fa-solid fa-chevron-down absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none" aria-hidden="true"></i>
+                </div>
+              </div>
+
+              <div class="sm:col-span-2">
+                <label for="job-description" class="block text-sm font-semibold text-slate-700">Job description</label>
+                <textarea id="job-description" x-model="description" required rows="4" placeholder="Explain exactly what the worker needs to do, step by step."
+                  class="mt-1.5 w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 resize-none"></textarea>
+              </div>
+
+              <div class="sm:col-span-2">
+                <label for="proof-instructions" class="block text-sm font-semibold text-slate-700">Proof requirements</label>
+                <textarea id="proof-instructions" x-model="proofInstructions" required rows="3" placeholder="What should the worker submit as proof? e.g. a screenshot showing the follow confirmation."
+                  class="mt-1.5 w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 resize-none"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <hr class="border-slate-200" />
+
+          <!-- Section: Reward & positions -->
+          <div>
+            <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2"><i class="fa-solid fa-sack-dollar text-blue-600 text-base" aria-hidden="true"></i>Reward &amp; positions</h2>
+
+            <div class="mt-5 grid sm:grid-cols-3 gap-5">
+              <div>
+                <label for="reward" class="block text-sm font-semibold text-slate-700">Reward per task ($)</label>
+                <div class="mt-1.5 relative">
+                  <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm">$</span>
+                  <input id="reward" type="number" min="0.05" step="0.05" x-model.number="reward" required
+                    class="w-full pl-7 pr-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600" />
+                </div>
+              </div>
+
+              <div>
+                <label for="positions" class="block text-sm font-semibold text-slate-700">Number of positions</label>
+                <input id="positions" type="number" min="1" step="1" x-model.number="positions" required
+                  class="mt-1.5 w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600" />
+              </div>
+
+              <div>
+                <label for="estimated-time" class="block text-sm font-semibold text-slate-700">Estimated time (minutes)</label>
+                <input id="estimated-time" type="number" min="1" step="1" x-model="estimatedTime" required
+                  class="mt-1.5 w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600" />
+              </div>
+            </div>
+
+            <!-- Difficulty toggle -->
+            <div class="mt-5">
+              <span class="block text-sm font-semibold text-slate-700">Difficulty</span>
+              <div class="mt-2 grid grid-cols-3 gap-3" role="radiogroup" aria-label="Job difficulty">
+                <button type="button" @click="difficulty = 'Easy'" :aria-pressed="difficulty === 'Easy'"
+                  class="py-2.5 rounded-lg border-2 text-sm font-semibold transition-colors"
+                  :class="difficulty === 'Easy' ? 'border-emerald-500 bg-emerald-50 text-emerald-700' : 'border-slate-200 text-slate-500 hover:border-slate-300'">Easy</button>
+                <button type="button" @click="difficulty = 'Medium'" :aria-pressed="difficulty === 'Medium'"
+                  class="py-2.5 rounded-lg border-2 text-sm font-semibold transition-colors"
+                  :class="difficulty === 'Medium' ? 'border-amber-500 bg-amber-50 text-amber-700' : 'border-slate-200 text-slate-500 hover:border-slate-300'">Medium</button>
+                <button type="button" @click="difficulty = 'Hard'" :aria-pressed="difficulty === 'Hard'"
+                  class="py-2.5 rounded-lg border-2 text-sm font-semibold transition-colors"
+                  :class="difficulty === 'Hard' ? 'border-rose-500 bg-rose-50 text-rose-700' : 'border-slate-200 text-slate-500 hover:border-slate-300'">Hard</button>
+              </div>
+            </div>
+          </div>
+
+          <hr class="border-slate-200" />
+
+          <!-- Section: Targeting & timing -->
+          <div>
+            <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2"><i class="fa-solid fa-earth-americas text-blue-600 text-base" aria-hidden="true"></i>Targeting &amp; timing</h2>
+
+            <div class="mt-5 grid sm:grid-cols-2 gap-5">
+              <div>
+                <span class="block text-sm font-semibold text-slate-700">Worker location</span>
+                <div class="mt-2 flex gap-3">
+                  <label class="flex-1 flex items-center gap-2 px-4 py-2.5 rounded-lg border-2 text-sm font-medium cursor-pointer transition-colors"
+                    :class="countryScope === 'worldwide' ? 'border-blue-600 bg-blue-50 text-blue-700' : 'border-slate-200 text-slate-500'">
+                    <input type="radio" name="country-scope" value="worldwide" x-model="countryScope" class="text-blue-600 focus:ring-blue-600" />
+                    Worldwide
+                  </label>
+                  <label class="flex-1 flex items-center gap-2 px-4 py-2.5 rounded-lg border-2 text-sm font-medium cursor-pointer transition-colors"
+                    :class="countryScope === 'specific' ? 'border-blue-600 bg-blue-50 text-blue-700' : 'border-slate-200 text-slate-500'">
+                    <input type="radio" name="country-scope" value="specific" x-model="countryScope" class="text-blue-600 focus:ring-blue-600" />
+                    Specific countries
+                  </label>
+                </div>
+              </div>
+
+              <div>
+                <label for="deadline" class="block text-sm font-semibold text-slate-700">Campaign deadline</label>
+                <input id="deadline" type="date" x-model="deadline"
+                  class="mt-1.5 w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600" />
+              </div>
+
+              <div class="sm:col-span-2" x-show="countryScope === 'specific'" x-cloak>
+                <label for="countries-list" class="block text-sm font-semibold text-slate-700">Target countries</label>
+                <input id="countries-list" type="text" placeholder="e.g. Bangladesh, India, Philippines"
+                  class="mt-1.5 w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Submit -->
+          <div class="pt-2 flex flex-col sm:flex-row gap-3">
+            <button type="submit" class="flex-1 py-3.5 rounded-xl bg-blue-600 text-white font-semibold shadow-lg shadow-blue-600/30 hover:bg-blue-700 hover:-translate-y-0.5 transition-all">
+              Publish Job <i class="fa-solid fa-arrow-right ml-1.5 text-sm" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="px-6 py-3.5 rounded-xl border border-slate-300 text-slate-700 font-semibold hover:border-blue-600 hover:text-blue-600 transition-colors">
+              Save as Draft
+            </button>
+          </div>
+        </form>
+
+        <!-- Sidebar: live preview + budget summary (right, 1 col, sticky) -->
+        <aside class="lg:sticky lg:top-24 space-y-6">
+          <!-- Live preview card -->
+          <div>
+            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">Live preview</p>
+            <article class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <span class="h-11 w-11 rounded-lg bg-blue-100 text-blue-600 font-bold flex items-center justify-center" x-text="initials"></span>
+                  <div>
+                    <p class="font-bold text-slate-900 text-sm" x-text="companyName || 'Your Company'"></p>
+                    <p class="text-xs text-slate-400" x-text="countryScope === 'worldwide' ? '🌍 Worldwide' : '📍 Specific countries'"></p>
+                  </div>
+                </div>
+                <span class="px-2.5 py-1 rounded-full text-xs font-bold" :class="difficultyClasses" x-text="difficulty"></span>
+              </div>
+              <h3 class="mt-4 font-semibold text-slate-800" x-text="jobTitle || 'Your job title will appear here'"></h3>
+              <div class="mt-4 flex items-center justify-between text-sm">
+                <span class="text-emerald-600 font-extrabold text-lg" x-text="'$' + (parseFloat(reward) || 0).toFixed(2)"></span>
+                <span class="text-slate-500"><i class="fa-regular fa-clock mr-1" aria-hidden="true"></i><span x-text="estimatedTime"></span> min</span>
+              </div>
+              <p class="mt-1 text-xs text-slate-400"><span x-text="positions"></span> positions available</p>
+              <div class="mt-4 block text-center w-full py-2.5 rounded-lg bg-slate-100 text-slate-400 font-semibold text-sm">Apply Now</div>
+            </article>
+          </div>
+
+          <!-- Budget summary -->
+          <div class="bg-slate-900 rounded-xl p-6 text-white">
+            <p class="text-xs font-semibold text-blue-200 uppercase tracking-wide">Budget summary</p>
+            <div class="mt-4 space-y-2.5 text-sm">
+              <div class="flex items-center justify-between text-slate-300">
+                <span>Reward × positions</span>
+                <span x-text="'$' + totalBudget.toFixed(2)"></span>
+              </div>
+              <div class="flex items-center justify-between text-slate-300">
+                <span>Platform fee (10%)</span>
+                <span x-text="'$' + platformFee.toFixed(2)"></span>
+              </div>
+              <div class="pt-2.5 mt-2.5 border-t border-white/10 flex items-center justify-between font-bold text-base">
+                <span>Total to pay</span>
+                <span class="text-emerald-400" x-text="'$' + totalToPay.toFixed(2)"></span>
+              </div>
+            </div>
+            <p class="mt-4 text-xs text-slate-400 leading-relaxed">You're only charged for tasks that are submitted and approved — unused budget is never billed.</p>
+          </div>
+
+          <!-- Trust note -->
+          <div class="flex items-start gap-3 text-xs text-slate-500">
+            <i class="fa-solid fa-shield-check text-blue-600 mt-0.5" aria-hidden="true"></i>
+            <p>All job postings are reviewed by our trust &amp; safety team before going live, usually within a few hours.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <!-- =====================================================================
+       FOOTER (shared with the landing page)
+  ===================================================================== -->
+  <footer id="site-footer" class="bg-slate-950 text-slate-400 pt-16 pb-8" style="background-color:#0B1322;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-6 gap-10">
+        <!-- Brand + newsletter -->
+        <div class="lg:col-span-2">
+          <a href="index.html" class="flex items-center gap-2" aria-label="TaskProX home">
+            <span class="h-9 w-9 rounded-lg bg-blue-600 flex items-center justify-center" aria-hidden="true"><i class="fa-solid fa-bolt text-white text-sm"></i></span>
+            <span class="text-xl font-extrabold text-white">Task<span class="text-blue-500">ProX</span></span>
+          </a>
+          <p class="mt-4 text-sm leading-relaxed max-w-xs">Complete simple tasks. Earn real rewards. A global micro job platform connecting 100,000+ workers with 20,000+ verified clients.</p>
+
+          <form class="mt-6" onsubmit="return false;">
+            <label for="newsletter-email" class="text-xs font-semibold text-slate-300 uppercase tracking-wide">Newsletter</label>
+            <div class="mt-2 flex">
+              <input id="newsletter-email" type="email" required placeholder="you@email.com" class="w-full px-3.5 py-2.5 rounded-l-lg bg-slate-800 border border-slate-700 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-600" />
+              <button type="submit" class="px-4 py-2.5 rounded-r-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-colors" aria-label="Subscribe to newsletter">
+                <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- About -->
+        <div>
+          <h3 class="text-sm font-bold text-white uppercase tracking-wide">About</h3>
+          <ul class="mt-4 space-y-2.5 text-sm">
+            <li><a href="index.html#why-us" class="hover:text-white transition-colors">Our Story</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Careers</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Press Kit</a></li>
+          </ul>
+        </div>
+
+        <!-- Workers -->
+        <div>
+          <h3 class="text-sm font-bold text-white uppercase tracking-wide">Workers</h3>
+          <ul class="mt-4 space-y-2.5 text-sm">
+            <li><a href="index.html#featured-jobs" class="hover:text-white transition-colors">Browse Jobs</a></li>
+            <li><a href="index.html#categories" class="hover:text-white transition-colors">Categories</a></li>
+            <li><a href="index.html#how-it-works" class="hover:text-white transition-colors">How It Works</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Help Center</a></li>
+          </ul>
+        </div>
+
+        <!-- Clients -->
+        <div>
+          <h3 class="text-sm font-bold text-white uppercase tracking-wide">Clients</h3>
+          <ul class="mt-4 space-y-2.5 text-sm">
+            <li><a href="post-job.html" class="hover:text-white transition-colors">Post a Job</a></li>
+            <li><a href="index.html#pricing" class="hover:text-white transition-colors">Pricing</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Enterprise</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">API Access</a></li>
+          </ul>
+        </div>
+
+        <!-- Legal -->
+        <div>
+          <h3 class="text-sm font-bold text-white uppercase tracking-wide">Legal</h3>
+          <ul class="mt-4 space-y-2.5 text-sm">
+            <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Cookie Policy</a></li>
+            <li><a href="index.html#faq" class="hover:text-white transition-colors">FAQ</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="mt-14 pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-xs text-slate-500">© 2026 TaskProX. All rights reserved.</p>
+        <div class="flex items-center gap-4" aria-label="Social media links">
+          <a href="#" aria-label="TaskProX on Facebook" class="h-9 w-9 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors"><i class="fa-brands fa-facebook-f text-sm" aria-hidden="true"></i></a>
+          <a href="#" aria-label="TaskProX on X" class="h-9 w-9 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors"><i class="fa-brands fa-x-twitter text-sm" aria-hidden="true"></i></a>
+          <a href="#" aria-label="TaskProX on LinkedIn" class="h-9 w-9 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors"><i class="fa-brands fa-linkedin-in text-sm" aria-hidden="true"></i></a>
+          <a href="#" aria-label="TaskProX on Instagram" class="h-9 w-9 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors"><i class="fa-brands fa-instagram text-sm" aria-hidden="true"></i></a>
+          <a href="#" aria-label="TaskProX on YouTube" class="h-9 w-9 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors"><i class="fa-brands fa-youtube text-sm" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
+
+
+
+

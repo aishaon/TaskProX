@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Jobs — TaskProX</title>
+  <meta name="description" content="Manage all your TaskProX job postings — pause, edit, view submissions, or duplicate listings." />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%232563EB%22/><path d=%22M30 52 L44 66 L72 34%22 stroke=%22white%22 stroke-width=%2210%22 fill=%22none%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'] } } } };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js" defer></script>
+  <style>
+    html, body { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; }
+    a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid #2563EB; outline-offset: 2px; border-radius: 6px; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; } }
+    [x-cloak] { display: none !important; }
+    ::-webkit-scrollbar { width: 8px; height: 8px; } ::-webkit-scrollbar-track { background: #F8FAFC; } ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 999px; }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800 antialiased" x-data="{ sidebarOpen: false }">
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-blue-600 focus:text-white focus:px-4 focus:py-2 focus:rounded-lg">Skip to main content</a>
+
+  <div class="min-h-screen lg:flex">
+    <!-- SIDEBAR -->
+    <div x-show="sidebarOpen" x-cloak @click="sidebarOpen = false" class="fixed inset-0 bg-slate-900/50 z-30 lg:hidden" aria-hidden="true"></div>
+    <aside class="fixed inset-y-0 left-0 z-40 w-72 bg-slate-900 flex flex-col transform transition-transform duration-200 lg:static lg:translate-x-0" :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'" aria-label="Sidebar navigation">
+      <div class="h-16 lg:h-[72px] flex items-center justify-between px-6 border-b border-white/10 shrink-0">
+        <a href="index.html" class="flex items-center gap-2" aria-label="TaskProX home">
+          <span class="h-9 w-9 rounded-lg bg-blue-600 flex items-center justify-center shadow-md shadow-blue-600/30" aria-hidden="true"><i class="fa-solid fa-bolt text-white text-sm"></i></span>
+          <span class="text-lg font-extrabold tracking-tight text-white">Task<span class="text-blue-400">ProX</span></span>
+        </a>
+        <button @click="sidebarOpen = false" class="lg:hidden text-slate-400 hover:text-white" aria-label="Close sidebar"><i class="fa-solid fa-xmark text-lg" aria-hidden="true"></i></button>
+      </div>
+      <nav class="flex-1 overflow-y-auto px-4 py-6 space-y-1" aria-label="Client dashboard navigation">
+        <p class="px-3 text-[11px] font-semibold text-slate-500 uppercase tracking-wide mb-2">Menu</p>
+        <a href="client-dashboard.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 text-sm font-medium hover:bg-white/5 hover:text-white transition-colors"><i class="fa-solid fa-gauge-high w-4 text-center" aria-hidden="true"></i> Dashboard</a>
+        <a href="post-job.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 text-sm font-medium hover:bg-white/5 hover:text-white transition-colors"><i class="fa-solid fa-circle-plus w-4 text-center" aria-hidden="true"></i> Post a Job</a>
+        <a href="my-jobs.html" aria-current="page" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-blue-600 text-white text-sm font-semibold"><i class="fa-solid fa-briefcase w-4 text-center" aria-hidden="true"></i> My Jobs</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 text-sm font-medium hover:bg-white/5 hover:text-white transition-colors"><i class="fa-solid fa-inbox w-4 text-center" aria-hidden="true"></i> Submissions<span class="ml-auto text-[11px] font-bold bg-amber-400/20 text-amber-300 px-2 py-0.5 rounded-full">14</span></a>
+        <a href="wallet.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 text-sm font-medium hover:bg-white/5 hover:text-white transition-colors"><i class="fa-solid fa-wallet w-4 text-center" aria-hidden="true"></i> Billing</a>
+        <a href="profile.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 text-sm font-medium hover:bg-white/5 hover:text-white transition-colors"><i class="fa-regular fa-user w-4 text-center" aria-hidden="true"></i> Profile</a>
+        <p class="px-3 text-[11px] font-semibold text-slate-500 uppercase tracking-wide mb-2 mt-6">Account</p>
+        <a href="profile.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 text-sm font-medium hover:bg-white/5 hover:text-white transition-colors"><i class="fa-solid fa-gear w-4 text-center" aria-hidden="true"></i> Settings</a>
+        <a href="contact.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 text-sm font-medium hover:bg-white/5 hover:text-white transition-colors"><i class="fa-solid fa-circle-question w-4 text-center" aria-hidden="true"></i> Help Center</a>
+      </nav>
+      <div class="px-4 py-5 border-t border-white/10 space-y-3 shrink-0">
+        <a href="post-job.html" class="flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold transition-colors"><i class="fa-solid fa-plus" aria-hidden="true"></i> New Job</a>
+        <a href="login.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 text-sm font-medium hover:bg-white/5 hover:text-white transition-colors"><i class="fa-solid fa-arrow-right-from-bracket w-4 text-center" aria-hidden="true"></i> Log Out</a>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="flex-1 flex flex-col min-w-0">
+      <header class="sticky top-0 z-20 h-16 lg:h-[72px] bg-white border-b border-slate-200 flex items-center justify-between px-4 sm:px-6 lg:px-8 shrink-0">
+        <div class="flex items-center gap-3">
+          <button @click="sidebarOpen = true" class="lg:hidden h-10 w-10 flex items-center justify-center rounded-lg text-slate-700 hover:bg-slate-100" aria-label="Open sidebar"><i class="fa-solid fa-bars text-lg" aria-hidden="true"></i></button>
+          <h1 class="text-lg font-bold text-slate-900">My Jobs</h1>
+        </div>
+        <div class="flex items-center gap-2 sm:gap-4">
+          <button class="relative h-10 w-10 flex items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100" aria-label="Notifications"><i class="fa-regular fa-bell text-lg" aria-hidden="true"></i><span class="absolute top-2 right-2 h-2 w-2 rounded-full bg-rose-500" aria-hidden="true"></span></button>
+          <span class="h-9 w-9 rounded-full bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center text-sm" aria-hidden="true">PC</span>
+        </div>
+      </header>
+
+      <main id="main-content" class="flex-1 px-4 sm:px-6 lg:px-8 py-8"
+        x-data="{
+          filter: 'all',
+          jobs: [
+            { title: 'Visit website & browse 3 pages', category: 'Website Visit', icon: 'fa-solid fa-globe', color: 'blue', filled: 1920, total: 3000, reward: 0.20, status: 'Active', submissions: 6 },
+            { title: 'Install app & submit review', category: 'App Install', icon: 'fa-solid fa-mobile-screen-button', color: 'emerald', filled: 268, total: 580, reward: 1.20, status: 'Active', submissions: 4 },
+            { title: 'Follow Instagram & like posts', category: 'Instagram', icon: 'fa-brands fa-instagram', color: 'pink', filled: 1848, total: 2100, reward: 0.30, status: 'Ending Soon', submissions: 3 },
+            { title: 'Translate product listing', category: 'Translation', icon: 'fa-solid fa-language', color: 'violet', filled: 90, total: 90, reward: 4.50, status: 'Completed', submissions: 0 },
+            { title: 'Subscribe & watch YouTube video', category: 'YouTube', icon: 'fa-brands fa-youtube', color: 'red', filled: 0, total: 1500, reward: 0.35, status: 'Paused', submissions: 0 },
+            { title: 'Categorize product images', category: 'AI Tasks', icon: 'fa-solid fa-robot', color: 'fuchsia', filled: 120, total: 450, reward: 2.80, status: 'Active', submissions: 1 },
+          ],
+          get filteredJobs() {
+            if (this.filter === 'all') return this.jobs;
+            return this.jobs.filter(j => j.status === this.filter);
+          },
+          statusBadge(s) {
+            return { Active: 'bg-emerald-50 text-emerald-600', 'Ending Soon': 'bg-amber-50 text-amber-600', Completed: 'bg-slate-100 text-slate-500', Paused: 'bg-rose-50 text-rose-600' }[s];
+          },
+          iconBadge(c) {
+            return { blue: 'bg-blue-100 text-blue-600', emerald: 'bg-emerald-100 text-emerald-600', pink: 'bg-pink-100 text-pink-600', violet: 'bg-violet-100 text-violet-600', red: 'bg-red-100 text-red-600', fuchsia: 'bg-fuchsia-100 text-fuchsia-600' }[c];
+          }
+        }"
+      >
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <p class="text-sm text-slate-500"><span class="font-bold text-slate-900" x-text="filteredJobs.length"></span> job postings</p>
+          <a href="post-job.html" class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 text-white font-semibold text-sm shadow-md shadow-blue-600/25 hover:bg-blue-700 transition-colors">
+            <i class="fa-solid fa-plus text-xs" aria-hidden="true"></i> Post a New Job
+          </a>
+        </div>
+
+        <!-- Status filter tabs -->
+        <div class="mt-5 flex flex-wrap gap-2">
+          <button @click="filter = 'all'" :class="filter === 'all' ? 'bg-blue-600 text-white' : 'bg-white text-slate-600 border border-slate-200'" class="px-4 py-2 rounded-lg text-sm font-semibold transition-colors">All Jobs</button>
+          <button @click="filter = 'Active'" :class="filter === 'Active' ? 'bg-blue-600 text-white' : 'bg-white text-slate-600 border border-slate-200'" class="px-4 py-2 rounded-lg text-sm font-semibold transition-colors">Active</button>
+          <button @click="filter = 'Ending Soon'" :class="filter === 'Ending Soon' ? 'bg-blue-600 text-white' : 'bg-white text-slate-600 border border-slate-200'" class="px-4 py-2 rounded-lg text-sm font-semibold transition-colors">Ending Soon</button>
+          <button @click="filter = 'Paused'" :class="filter === 'Paused' ? 'bg-blue-600 text-white' : 'bg-white text-slate-600 border border-slate-200'" class="px-4 py-2 rounded-lg text-sm font-semibold transition-colors">Paused</button>
+          <button @click="filter = 'Completed'" :class="filter === 'Completed' ? 'bg-blue-600 text-white' : 'bg-white text-slate-600 border border-slate-200'" class="px-4 py-2 rounded-lg text-sm font-semibold transition-colors">Completed</button>
+        </div>
+
+        <!-- Jobs list -->
+        <div class="mt-6 space-y-4">
+          <template x-for="job in filteredJobs" :key="job.title">
+            <div class="bg-white rounded-xl border border-slate-200 p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center gap-5">
+              <span class="h-12 w-12 rounded-lg flex items-center justify-center shrink-0" :class="iconBadge(job.color)"><i :class="job.icon" aria-hidden="true"></i></span>
+
+              <div class="flex-1 min-w-0">
+                <div class="flex flex-wrap items-center gap-2">
+                  <h3 class="font-bold text-slate-900" x-text="job.title"></h3>
+                  <span class="px-2.5 py-0.5 rounded-full text-xs font-bold" :class="statusBadge(job.status)" x-text="job.status"></span>
+                </div>
+                <p class="text-xs text-slate-400 mt-0.5" x-text="job.category"></p>
+                <div class="mt-3 flex items-center gap-3">
+                  <div class="h-1.5 flex-1 max-w-xs rounded-full bg-slate-100 overflow-hidden">
+                    <div class="h-full bg-blue-600" :style="'width:' + Math.round((job.filled / job.total) * 100) + '%'"></div>
+                  </div>
+                  <span class="text-xs text-slate-500 shrink-0" x-text="job.filled.toLocaleString('en-US') + ' / ' + job.total.toLocaleString('en-US')"></span>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-6 sm:gap-8">
+                <div class="text-center">
+                  <p class="font-bold text-slate-900" x-text="'$' + job.reward.toFixed(2)"></p>
+                  <p class="text-[11px] text-slate-400">Reward</p>
+                </div>
+                <div class="text-center">
+                  <p class="font-bold text-slate-900" x-text="job.submissions"></p>
+                  <p class="text-[11px] text-slate-400">To Review</p>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2 shrink-0">
+                <a href="job-details.html" class="h-9 w-9 rounded-lg border border-slate-200 flex items-center justify-center text-slate-500 hover:border-blue-600 hover:text-blue-600 transition-colors" aria-label="View job"><i class="fa-regular fa-eye text-sm" aria-hidden="true"></i></a>
+                <a href="post-job.html" class="h-9 w-9 rounded-lg border border-slate-200 flex items-center justify-center text-slate-500 hover:border-blue-600 hover:text-blue-600 transition-colors" aria-label="Edit job"><i class="fa-solid fa-pen text-sm" aria-hidden="true"></i></a>
+                <button class="h-9 w-9 rounded-lg border border-slate-200 flex items-center justify-center text-slate-500 hover:border-rose-500 hover:text-rose-500 transition-colors" aria-label="Pause job"><i class="fa-solid fa-pause text-sm" aria-hidden="true"></i></button>
+              </div>
+            </div>
+          </template>
+
+          <div x-show="filteredJobs.length === 0" x-cloak class="text-center py-16 bg-white rounded-xl border border-slate-200">
+            <i class="fa-solid fa-briefcase text-3xl text-slate-300" aria-hidden="true"></i>
+            <p class="mt-4 font-semibold text-slate-700">No jobs in this category</p>
+            <p class="mt-1 text-sm text-slate-500">Try a different filter or post a new job.</p>
+          </div>
+        </div>
+      </main>
+
+      <footer class="px-4 sm:px-6 lg:px-8 py-5 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
+        <p>© 2026 TaskProX. All rights reserved.</p>
+        <div class="flex items-center gap-5">
+          <a href="#" class="hover:text-slate-600 transition-colors">Privacy Policy</a>
+          <a href="#" class="hover:text-slate-600 transition-colors">Terms of Service</a>
+          <a href="contact.html" class="hover:text-slate-600 transition-colors">Help Center</a>
+        </div>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>
+
+
+
+

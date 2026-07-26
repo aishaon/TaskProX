@@ -1,1742 +1,1161 @@
-<!DOCTYPE html>
-<html lang="en">
+﻿<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="TaskProX - Complete Simple Tasks. Earn Real Rewards. Join thousands of workers worldwide earning money through micro jobs.">
-    <meta name="keywords" content="micro jobs, freelance work, online earnings, task completion, gig economy, work from home">
-    <meta name="author" content="TaskProX">
-    <meta name="robots" content="index, follow">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TaskProX — Complete Simple Tasks. Earn Real Rewards.</title>
+  <meta name="description" content="TaskProX is a subscription-based micro job and workforce platform. Complete simple online tasks, get paid fast, or post jobs and hire a global workforce of 100,000+ verified workers." />
+  <meta name="keywords" content="micro jobs, online tasks, earn money online, workforce platform, post a job, microworkers, gig platform" />
+  <meta property="og:title" content="TaskProX — Complete Simple Tasks. Earn Real Rewards." />
+  <meta property="og:description" content="Join 100,000+ workers in 120+ countries completing simple online tasks and earning real rewards on TaskProX." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%232563EB%22/><path d=%22M30 52 L44 66 L72 34%22 stroke=%22white%22 stroke-width=%2210%22 fill=%22none%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/></svg>" />
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="TaskProX - Complete Simple Tasks. Earn Real Rewards.">
-    <meta property="og:description" content="Join the world's fastest-growing micro job platform. Earn money by completing simple tasks online.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://taskprox.com">
+  <!-- Google Font: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
-    <title>TaskProX - Complete Simple Tasks. Earn Real Rewards.</title>
+  <!-- Font Awesome Free -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 
-    <!-- Google Fonts - Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Extend Tailwind's default theme. Note: brand colors below are intentionally
+    // identical to Tailwind's stock palette (blue-600 / slate-900 / emerald-500 / slate-50),
+    // so utility classes like bg-blue-600 already match the TaskProX brand exactly.
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+              '50%': { transform: 'translateY(-16px) rotate(2deg)' },
+            },
+            floatReverse: {
+              '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+              '50%': { transform: 'translateY(14px) rotate(-2deg)' },
+            },
+            fadeInUp: {
+              '0%': { opacity: 0, transform: 'translateY(28px)' },
+              '100%': { opacity: 1, transform: 'translateY(0)' },
+            },
+            pulseDot: {
+              '0%, 100%': { opacity: 1 },
+              '50%': { opacity: 0.4 },
+            },
+          },
+          animation: {
+            'float-a': 'float 6s ease-in-out infinite',
+            'float-b': 'floatReverse 7s ease-in-out infinite 0.5s',
+            'float-c': 'float 8s ease-in-out infinite 1.2s',
+            'float-d': 'floatReverse 6.5s ease-in-out infinite 0.8s',
+            'fade-up': 'fadeInUp 0.7s ease-out forwards',
+            'pulse-dot': 'pulseDot 2s ease-in-out infinite',
+          },
+        },
+      },
+    };
+  </script>
 
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Alpine.js (for FAQ accordion + mobile menu only) -->
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js" defer></script>
 
-    <!-- Alpine.js CDN -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+  <style>
+    /* ---------------------------------------------------------------------
+       Base + accessibility
+    --------------------------------------------------------------------- */
+    html, body { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; }
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    /* Visible keyboard focus ring everywhere */
+    a:focus-visible, button:focus-visible, summary:focus-visible {
+      outline: 2px solid #2563EB;
+      outline-offset: 3px;
+      border-radius: 6px;
+    }
 
-    <!-- Tailwind Config -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#2563EB',
-                        secondary: '#0F172A',
-                        accent: '#10B981',
-                        background: '#F8FAFC'
-                    },
-                    fontFamily: {
-                        'inter': ['Inter', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
+    /* Respect reduced-motion preference */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
 
-    <!-- Custom Styles -->
-    <style>
-        /* Base Styles */
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Inter', sans-serif; background-color: #F8FAFC; }
+    /* Scroll-reveal: elements start hidden, JS adds .reveal-in on intersect */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
+    .reveal-in { opacity: 1; transform: translateY(0); }
 
-        /* Animations */
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-        @keyframes float-delayed {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes slideInRight {
-            from { opacity: 0; transform: translateX(50px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(37, 99, 235, 0.3); }
-            50% { box-shadow: 0 0 40px rgba(37, 99, 235, 0.6); }
-        }
+    /* Gradient text helper */
+    .text-gradient {
+      background: linear-gradient(90deg, #2563EB 0%, #10B981 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
 
-        .animate-float { animation: float 6s ease-in-out infinite; }
-        .animate-float-delayed { animation: float-delayed 5s ease-in-out infinite; animation-delay: 1s; }
-        .animate-fade-in { animation: fadeInUp 0.8s ease-out forwards; }
-        .animate-slide-in { animation: slideInRight 1s ease-out forwards; }
-        .animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
-        .delay-100 { animation-delay: 0.1s; }
-        .delay-200 { animation-delay: 0.2s; }
-        .delay-300 { animation-delay: 0.3s; }
-        .delay-400 { animation-delay: 0.4s; }
+    /* Subtle dotted grid background for hero */
+    .bg-dot-grid {
+      background-image: radial-gradient(rgba(37, 99, 235, 0.16) 1.5px, transparent 1.5px);
+      background-size: 28px 28px;
+    }
 
-        /* Gradient Text */
-        .gradient-text {
-            background: linear-gradient(135deg, #2563EB 0%, #10B981 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+    /* Glassmorphism utility */
+    .glass {
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
 
-        /* Glassmorphism */
-        .glass {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-        }
-
-        /* Wave Divider */
-        .wave-divider { position: absolute; bottom: 0; left: 0; width: 100%; overflow: hidden; line-height: 0; }
-        .wave-divider svg { position: relative; display: block; width: calc(100% + 1.3px); height: 80px; }
-
-        /* Card Hover */
-        .card-hover { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .card-hover:hover { transform: translateY(-8px); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); }
-
-        /* Button Gradient */
-        .btn-gradient {
-            background: linear-gradient(135deg, #2563EB 0%, #3b82f6 50%, #10B981 100%);
-            background-size: 200% 200%;
-            transition: all 0.3s ease;
-        }
-        .btn-gradient:hover {
-            background-position: 100% 100%;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 40px rgba(37, 99, 235, 0.4);
-        }
-
-        /* Floating Elements */
-        .floating-element { position: absolute; border-radius: 50%; opacity: 0.1; pointer-events: none; }
-
-        /* Ribbon */
-        .ribbon { position: absolute; top: 12px; right: -8px; padding: 4px 12px; font-size: 12px; font-weight: 600; }
-        .ribbon::before {
-            content: '';
-            position: absolute;
-            right: 0;
-            bottom: -8px;
-            border-style: solid;
-            border-width: 0 8px 8px 0;
-            border-color: transparent #0F172A transparent transparent;
-        }
-
-        /* FAQ */
-        .faq-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
-        .faq-content.active { max-height: 500px; }
-
-        /* Pricing Highlight */
-        .pricing-highlight { position: relative; border: 2px solid #2563EB; transform: scale(1.05); z-index: 10; }
-        .pricing-highlight::before {
-            content: 'MOST POPULAR';
-            position: absolute;
-            top: -14px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, #2563EB, #10B981);
-            color: white;
-            padding: 4px 20px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
-        /* Timeline */
-        .timeline-connector { position: absolute; top: 40px; left: 50%; width: 100%; height: 2px; background: linear-gradient(90deg, #2563EB, #10B981); z-index: 0; }
-        @media (max-width: 768px) { .timeline-connector { display: none; } }
-
-        /* Mobile Menu */
-        .mobile-menu { transform: translateX(100%); transition: transform 0.3s ease-in-out; }
-        .mobile-menu.active { transform: translateX(0); }
-
-        /* Scroll Reveal - Only applies when in viewport */
-        .scroll-reveal {
-            opacity: 1;
-            transform: translateY(0);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        .scroll-reveal.animate-on-scroll {
-            opacity: 0;
-            transform: translateY(40px);
-        }
-        .scroll-reveal.animate-on-scroll.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Alpine cloak */
-        [x-cloak] { display: none !important; }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: #F8FAFC; }
-        ::-webkit-scrollbar-thumb { background: #2563EB; border-radius: 5px; }
-        ::-webkit-scrollbar-thumb:hover { background: #1d4ed8; }
-    </style>
+    /* Custom scrollbar (cosmetic, non-essential) */
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #F8FAFC; }
+    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+  </style>
 </head>
-<body class="font-inter text-secondary antialiased">
 
-    <!-- ==================== HEADER ==================== -->
-    <header class="fixed top-0 left-0 right-0 z-50 glass border-b border-gray-200/50" x-data="{ mobileMenu: false }">
-        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <a href="#" class="flex items-center space-x-2">
-                    <div class="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center">
-                        <i class="fas fa-bolt text-white text-xl"></i>
-                    </div>
-                    <span class="text-2xl font-bold gradient-text">TaskProX</span>
-                </a>
+<body class="bg-slate-50 text-slate-800 antialiased">
 
-                <div class="hidden lg:flex items-center space-x-8">
-                    <a href="#home" class="text-secondary/80 hover:text-primary font-medium transition-colors">Home</a>
-                    <a href="#categories" class="text-secondary/80 hover:text-primary font-medium transition-colors">Browse Jobs</a>
-                    <a href="#categories" class="text-secondary/80 hover:text-primary font-medium transition-colors">Categories</a>
-                    <a href="#pricing" class="text-secondary/80 hover:text-primary font-medium transition-colors">Pricing</a>
-                    <a href="#how-it-works" class="text-secondary/80 hover:text-primary font-medium transition-colors">How It Works</a>
-                    <a href="#faq" class="text-secondary/80 hover:text-primary font-medium transition-colors">FAQ</a>
-                    <a href="#footer" class="text-secondary/80 hover:text-primary font-medium transition-colors">Contact</a>
-                </div>
+  <!-- Skip link for keyboard / screen-reader users -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-blue-600 focus:text-white focus:px-4 focus:py-2 focus:rounded-lg">
+    Skip to main content
+  </a>
 
-                <div class="hidden lg:flex items-center space-x-4">
-                    <a href="#" class="px-5 py-2.5 text-secondary font-semibold hover:text-primary transition-colors">Login</a>
-                    <a href="#" class="px-5 py-2.5 bg-secondary text-white rounded-xl font-semibold hover:bg-secondary/90 transition-all">Register</a>
-                    <a href="#" class="px-5 py-2.5 btn-gradient text-white rounded-xl font-semibold shadow-lg">Post a Job</a>
-                </div>
+  <!-- =====================================================================
+       HEADER / STICKY NAVIGATION
+  ===================================================================== -->
+  <header x-data="{ mobileOpen: false }" class="fixed top-0 inset-x-0 z-50 glass border-b border-slate-200/70">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Primary">
+      <div class="flex items-center justify-between h-16 lg:h-[72px]">
 
-                <button @click="mobileMenu = !mobileMenu" class="lg:hidden p-2 rounded-lg hover:bg-gray-100">
-                    <i class="fas fa-bars text-2xl text-secondary" x-show="!mobileMenu"></i>
-                    <i class="fas fa-times text-2xl text-secondary" x-show="mobileMenu" x-cloak></i>
-                </button>
+        <!-- Logo -->
+        <a href="#hero" class="flex items-center gap-2 shrink-0" aria-label="TaskProX home">
+          <span class="h-9 w-9 rounded-lg bg-blue-600 flex items-center justify-center shadow-md shadow-blue-600/30" aria-hidden="true">
+            <i class="fa-solid fa-bolt text-white text-sm"></i>
+          </span>
+          <span class="text-xl font-extrabold tracking-tight text-slate-900">Task<span class="text-blue-600">ProX</span></span>
+        </a>
+
+        <!-- Desktop menu -->
+        <ul class="hidden lg:flex items-center gap-7 text-[14.5px] font-medium text-slate-600">
+          <li><a href="#hero" class="hover:text-blue-600 transition-colors">Home</a></li>
+          <li><a href="#featured-jobs" class="hover:text-blue-600 transition-colors">Browse Jobs</a></li>
+          <li><a href="#categories" class="hover:text-blue-600 transition-colors">Categories</a></li>
+          <li><a href="#pricing" class="hover:text-blue-600 transition-colors">Pricing</a></li>
+          <li><a href="#how-it-works" class="hover:text-blue-600 transition-colors">How It Works</a></li>
+          <li><a href="#why-us" class="hover:text-blue-600 transition-colors">About</a></li>
+          <li><a href="#faq" class="hover:text-blue-600 transition-colors">FAQ</a></li>
+          <li><a href="contact.html" class="hover:text-blue-600 transition-colors">Contact</a></li>
+        </ul>
+
+        <!-- Desktop buttons -->
+        <div class="hidden lg:flex items-center gap-2.5">
+          <a href="login.html" class="px-3.5 py-2 text-[14.5px] font-semibold text-slate-700 hover:text-blue-600 transition-colors">Login</a>
+          <a href="register.html" class="px-4 py-2 text-[14.5px] font-semibold rounded-lg border border-slate-300 text-slate-700 hover:border-blue-600 hover:text-blue-600 transition-colors">Register</a>
+          <a href="post-job.html" class="px-4 py-2 text-[14.5px] font-semibold rounded-lg bg-blue-600 text-white hover:bg-blue-700 shadow-md shadow-blue-600/25 transition-all hover:-translate-y-0.5">Post a Job</a>
+        </div>
+
+        <!-- Mobile menu toggle -->
+        <button @click="mobileOpen = !mobileOpen" :aria-expanded="mobileOpen" aria-controls="mobile-menu" aria-label="Toggle navigation menu" class="lg:hidden h-10 w-10 flex items-center justify-center rounded-lg text-slate-700 hover:bg-slate-100">
+          <i class="fa-solid text-xl" :class="mobileOpen ? 'fa-xmark' : 'fa-bars'"></i>
+        </button>
+      </div>
+
+      <!-- Mobile menu panel -->
+      <div id="mobile-menu" x-show="mobileOpen" x-cloak x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" class="lg:hidden border-t border-slate-200 py-4 space-y-1">
+        <a @click="mobileOpen=false" href="#hero" class="block px-2 py-2.5 rounded-lg text-slate-700 font-medium hover:bg-slate-100">Home</a>
+        <a @click="mobileOpen=false" href="#featured-jobs" class="block px-2 py-2.5 rounded-lg text-slate-700 font-medium hover:bg-slate-100">Browse Jobs</a>
+        <a @click="mobileOpen=false" href="#categories" class="block px-2 py-2.5 rounded-lg text-slate-700 font-medium hover:bg-slate-100">Categories</a>
+        <a @click="mobileOpen=false" href="#pricing" class="block px-2 py-2.5 rounded-lg text-slate-700 font-medium hover:bg-slate-100">Pricing</a>
+        <a @click="mobileOpen=false" href="#how-it-works" class="block px-2 py-2.5 rounded-lg text-slate-700 font-medium hover:bg-slate-100">How It Works</a>
+        <a @click="mobileOpen=false" href="#why-us" class="block px-2 py-2.5 rounded-lg text-slate-700 font-medium hover:bg-slate-100">About</a>
+        <a @click="mobileOpen=false" href="#faq" class="block px-2 py-2.5 rounded-lg text-slate-700 font-medium hover:bg-slate-100">FAQ</a>
+        <a @click="mobileOpen=false" href="contact.html" class="block px-2 py-2.5 rounded-lg text-slate-700 font-medium hover:bg-slate-100">Contact</a>
+        <div class="pt-3 mt-2 border-t border-slate-200 flex flex-col gap-2.5">
+          <a href="login.html" class="text-center px-4 py-2.5 rounded-lg border border-slate-300 font-semibold text-slate-700">Login</a>
+          <a href="register.html" class="text-center px-4 py-2.5 rounded-lg border border-slate-300 font-semibold text-slate-700">Register</a>
+          <a href="post-job.html" class="text-center px-4 py-2.5 rounded-lg bg-blue-600 text-white font-semibold shadow-md shadow-blue-600/25">Post a Job</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <!-- =====================================================================
+         HERO SECTION
+    ===================================================================== -->
+    <section id="hero" class="relative overflow-hidden pt-32 pb-28 lg:pt-40 lg:pb-36 bg-gradient-to-b from-blue-50 via-white to-white">
+      <!-- Decorative dotted grid + blurred gradient blobs -->
+      <div class="absolute inset-0 bg-dot-grid opacity-60" aria-hidden="true"></div>
+      <div class="absolute -top-24 -left-24 h-96 w-96 bg-blue-300/30 rounded-full blur-3xl" aria-hidden="true"></div>
+      <div class="absolute top-40 -right-32 h-[28rem] w-[28rem] bg-emerald-300/25 rounded-full blur-3xl" aria-hidden="true"></div>
+
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-16 items-center">
+        <!-- Left: copy -->
+        <div>
+          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200 shadow-sm text-xs font-semibold text-slate-600">
+            <span class="h-2 w-2 rounded-full bg-emerald-500 animate-pulse-dot" aria-hidden="true"></span>
+            Trusted by 100,000+ workers worldwide
+          </span>
+
+          <h1 class="mt-6 text-4xl sm:text-5xl lg:text-[3.4rem] font-extrabold tracking-tight text-slate-900 leading-[1.08]">
+            Start earning online by completing <span class="text-gradient">simple tasks.</span>
+          </h1>
+
+          <p class="mt-6 text-lg text-slate-600 max-w-xl leading-relaxed">
+            TaskProX connects everyday workers with real, paying clients — visit a website, follow a page, fill out a survey, or test an app. Pick a subscription plan, complete tasks at your own pace, and withdraw your earnings whenever you're ready.
+          </p>
+
+          <div class="mt-9 flex flex-col sm:flex-row gap-4">
+            <a href="#pricing" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-blue-600 text-white font-semibold shadow-lg shadow-blue-600/30 hover:bg-blue-700 hover:-translate-y-0.5 transition-all">
+              Start Earning <i class="fa-solid fa-arrow-right text-sm" aria-hidden="true"></i>
+            </a>
+            <a href="#" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-white border border-slate-300 text-slate-800 font-semibold hover:border-blue-600 hover:text-blue-600 hover:-translate-y-0.5 transition-all">
+              Post a Job <i class="fa-solid fa-briefcase text-sm" aria-hidden="true"></i>
+            </a>
+          </div>
+
+          <div class="mt-10 flex items-center gap-4">
+            <div class="flex -space-x-3" aria-hidden="true">
+              <span class="h-10 w-10 rounded-full ring-2 ring-white bg-blue-200 flex items-center justify-center text-blue-700 font-bold text-sm">AH</span>
+              <span class="h-10 w-10 rounded-full ring-2 ring-white bg-emerald-200 flex items-center justify-center text-emerald-700 font-bold text-sm">MS</span>
+              <span class="h-10 w-10 rounded-full ring-2 ring-white bg-amber-200 flex items-center justify-center text-amber-700 font-bold text-sm">GW</span>
+              <span class="h-10 w-10 rounded-full ring-2 ring-white bg-slate-200 flex items-center justify-center text-slate-700 font-bold text-sm">+9K</span>
             </div>
-        </nav>
-
-        <!-- Mobile Menu -->
-        <div class="mobile-menu fixed top-0 right-0 w-80 h-full bg-white shadow-2xl lg:hidden z-50" :class="{ 'active': mobileMenu }">
-            <div class="p-6">
-                <div class="flex justify-between items-center mb-8">
-                    <span class="text-xl font-bold gradient-text">TaskProX</span>
-                    <button @click="mobileMenu = false" class="p-2 rounded-lg hover:bg-gray-100"><i class="fas fa-times text-xl"></i></button>
-                </div>
-                <nav class="space-y-4">
-                    <a href="#home" class="block py-3 px-4 rounded-xl hover:bg-gray-100 font-medium" @click="mobileMenu = false">Home</a>
-                    <a href="#categories" class="block py-3 px-4 rounded-xl hover:bg-gray-100 font-medium" @click="mobileMenu = false">Browse Jobs</a>
-                    <a href="#categories" class="block py-3 px-4 rounded-xl hover:bg-gray-100 font-medium" @click="mobileMenu = false">Categories</a>
-                    <a href="#pricing" class="block py-3 px-4 rounded-xl hover:bg-gray-100 font-medium" @click="mobileMenu = false">Pricing</a>
-                    <a href="#how-it-works" class="block py-3 px-4 rounded-xl hover:bg-gray-100 font-medium" @click="mobileMenu = false">How It Works</a>
-                    <a href="#faq" class="block py-3 px-4 rounded-xl hover:bg-gray-100 font-medium" @click="mobileMenu = false">FAQ</a>
-                    <a href="#footer" class="block py-3 px-4 rounded-xl hover:bg-gray-100 font-medium" @click="mobileMenu = false">Contact</a>
-                </nav>
-                <div class="mt-8 space-y-4">
-                    <a href="#" class="block w-full py-3 text-center border-2 border-secondary rounded-xl font-semibold">Login</a>
-                    <a href="#" class="block w-full py-3 text-center bg-secondary text-white rounded-xl font-semibold">Register</a>
-                    <a href="#" class="block w-full py-3 text-center btn-gradient text-white rounded-xl font-semibold">Post a Job</a>
-                </div>
+            <div>
+              <div class="flex items-center gap-1 text-amber-400 text-sm" aria-hidden="true">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+              </div>
+              <p class="text-sm text-slate-500 font-medium">4.9/5 average from 12,400+ reviews</p>
             </div>
-        </div>
-        <div class="fixed inset-0 bg-black/50 lg:hidden z-40 transition-opacity" :class="mobileMenu ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'" @click="mobileMenu = false" x-cloak></div>
-    </header>
-
-    <!-- ==================== HERO SECTION ==================== -->
-    <section id="home" class="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-background via-white to-blue-50 pt-20">
-        <!-- Background -->
-        <div class="absolute inset-0 overflow-hidden pointer-events-none">
-            <div class="floating-element w-72 h-72 bg-primary top-20 -left-20 animate-float"></div>
-            <div class="floating-element w-96 h-96 bg-accent top-40 right-0 animate-float-delayed"></div>
-            <div class="floating-element w-48 h-48 bg-primary bottom-20 left-1/4 animate-float" style="animation-delay: 0.5s;"></div>
+          </div>
         </div>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <div class="text-center lg:text-left">
-                    <div class="inline-flex items-center px-4 py-2 bg-primary/10 rounded-full mb-6 animate-fade-in">
-                        <i class="fas fa-rocket text-primary mr-2"></i>
-                        <span class="text-primary font-semibold text-sm">The Future of Micro Jobs is Here</span>
-                    </div>
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-secondary leading-tight mb-6 animate-fade-in delay-100">
-                        Start earning online by <span class="gradient-text">completing simple tasks</span>
-                    </h1>
-                    <p class="text-lg sm:text-xl text-secondary/70 mb-8 max-w-xl mx-auto lg:mx-0 animate-fade-in delay-200">
-                        Join over 100,000 workers earning real rewards every day. Complete surveys, app installs, social media tasks, and more.
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-in delay-300">
-                        <a href="#" class="inline-flex items-center justify-center px-8 py-4 btn-gradient text-white rounded-xl font-bold text-lg shadow-xl">
-                            <i class="fas fa-dollar-sign mr-2"></i> Start Earning
-                        </a>
-                        <a href="#" class="inline-flex items-center justify-center px-8 py-4 bg-white text-secondary border-2 border-secondary rounded-xl font-bold text-lg hover:bg-secondary hover:text-white transition-all">
-                            <i class="fas fa-briefcase mr-2"></i> Post a Job
-                        </a>
-                    </div>
-                    <div class="mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-6 animate-fade-in delay-400">
-                        <div class="flex items-center">
-                            <div class="flex -space-x-2">
-                                <img src="https://i.pravatar.cc/40?img=1" alt="User" class="w-10 h-10 rounded-full border-2 border-white">
-                                <img src="https://i.pravatar.cc/40?img=2" alt="User" class="w-10 h-10 rounded-full border-2 border-white">
-                                <img src="https://i.pravatar.cc/40?img=3" alt="User" class="w-10 h-10 rounded-full border-2 border-white">
-                                <img src="https://i.pravatar.cc/40?img=4" alt="User" class="w-10 h-10 rounded-full border-2 border-white">
-                            </div>
-                            <span class="ml-3 text-sm text-secondary/70"><span class="font-bold text-secondary">4.9/5</span> from 50K+ reviews</span>
-                        </div>
-                        <div class="flex items-center text-sm text-secondary/70">
-                            <i class="fas fa-shield-halved text-accent mr-2"></i> SSL Secured & Verified
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Hero Illustration -->
-                <div class="relative hidden lg:block animate-slide-in">
-                    <div class="relative">
-                        <div class="bg-white rounded-3xl shadow-2xl p-6 animate-float">
-                            <div class="flex items-center justify-between mb-4">
-                                <div class="flex items-center space-x-2">
-                                    <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center"><i class="fas fa-chart-line text-white text-sm"></i></div>
-                                    <span class="font-bold text-secondary">Earnings Overview</span>
-                                </div>
-                                <span class="text-accent font-bold">+24.5%</span>
-                            </div>
-                            <div class="h-32 flex items-end space-x-2 mb-4">
-                                <div class="flex-1 bg-primary/20 rounded-t-lg" style="height: 40%"></div>
-                                <div class="flex-1 bg-primary/30 rounded-t-lg" style="height: 60%"></div>
-                                <div class="flex-1 bg-primary/40 rounded-t-lg" style="height: 45%"></div>
-                                <div class="flex-1 bg-primary/50 rounded-t-lg" style="height: 80%"></div>
-                                <div class="flex-1 bg-primary/60 rounded-t-lg" style="height: 70%"></div>
-                                <div class="flex-1 bg-primary/70 rounded-t-lg" style="height: 90%"></div>
-                                <div class="flex-1 bg-primary rounded-t-lg" style="height: 100%"></div>
-                            </div>
-                            <div class="flex justify-between text-sm text-secondary/60">
-                                <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
-                            </div>
-                        </div>
-                        <div class="absolute -left-10 top-10 bg-white rounded-2xl shadow-xl p-4 animate-float-delayed">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-12 h-12 bg-accent/20 rounded-xl flex items-center justify-center"><i class="fab fa-youtube text-accent text-xl"></i></div>
-                                <div>
-                                    <p class="font-bold text-secondary">YouTube Subscribe</p>
-                                    <p class="text-accent font-bold">$2.50</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="absolute -right-5 bottom-20 bg-white rounded-2xl shadow-xl p-4 animate-float" style="animation-delay: 1.5s;">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center"><i class="fas fa-check-circle text-green-500 text-xl"></i></div>
-                                <div>
-                                    <p class="font-bold text-secondary">Payment Received</p>
-                                    <p class="text-green-500 font-bold">+$125.00</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="absolute right-0 top-0 bg-white rounded-2xl shadow-xl p-4 animate-float-delayed" style="animation-delay: 2s;">
-                            <div class="flex items-center space-x-2">
-                                <div class="flex -space-x-2">
-                                    <img src="https://i.pravatar.cc/30?img=5" class="w-8 h-8 rounded-full border-2 border-white">
-                                    <img src="https://i.pravatar.cc/30?img=6" class="w-8 h-8 rounded-full border-2 border-white">
-                                    <img src="https://i.pravatar.cc/30?img=7" class="w-8 h-8 rounded-full border-2 border-white">
-                                </div>
-                                <span class="text-sm font-semibold text-secondary">+2.5K today</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <!-- Right: illustration with floating task chips (signature element) -->
+        <div class="relative h-[420px] hidden lg:block" aria-hidden="true">
+          <!-- Central dashboard mock card -->
+          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 bg-white rounded-2xl shadow-2xl shadow-slate-300/60 border border-slate-100 p-5">
+            <div class="flex items-center justify-between">
+              <p class="text-xs font-semibold text-slate-400 uppercase tracking-wide">Today's earnings</p>
+              <span class="h-7 w-7 rounded-full bg-emerald-100 flex items-center justify-center"><i class="fa-solid fa-arrow-trend-up text-emerald-600 text-xs"></i></span>
             </div>
-        </div>
+            <p class="mt-2 text-3xl font-extrabold text-slate-900">$48.20</p>
+            <div class="mt-4 h-2 w-full rounded-full bg-slate-100 overflow-hidden">
+              <div class="h-full w-3/4 rounded-full bg-gradient-to-r from-blue-600 to-emerald-500"></div>
+            </div>
+            <p class="mt-2 text-xs text-slate-400">12 of 16 daily tasks completed</p>
+          </div>
 
-        <div class="wave-divider">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C57.1,118.92,156.63,69.08,321.39,56.44Z" fill="#F8FAFC"></path>
-            </svg>
+          <!-- Floating job chips -->
+          <div class="absolute top-2 left-0 animate-float-a bg-white rounded-xl shadow-lg shadow-slate-300/50 border border-slate-100 px-4 py-2.5 flex items-center gap-2.5">
+            <span class="h-8 w-8 rounded-lg bg-blue-100 flex items-center justify-center"><i class="fa-solid fa-globe text-blue-600 text-sm"></i></span>
+            <div><p class="text-xs font-semibold text-slate-800">Website Visit</p><p class="text-xs text-emerald-600 font-bold">+$0.20</p></div>
+          </div>
+
+          <div class="absolute top-16 right-0 animate-float-b bg-white rounded-xl shadow-lg shadow-slate-300/50 border border-slate-100 px-4 py-2.5 flex items-center gap-2.5">
+            <span class="h-8 w-8 rounded-lg bg-red-100 flex items-center justify-center"><i class="fa-brands fa-youtube text-red-600 text-sm"></i></span>
+            <div><p class="text-xs font-semibold text-slate-800">YouTube Subscribe</p><p class="text-xs text-emerald-600 font-bold">+$0.35</p></div>
+          </div>
+
+          <div class="absolute bottom-14 left-4 animate-float-c bg-white rounded-xl shadow-lg shadow-slate-300/50 border border-slate-100 px-4 py-2.5 flex items-center gap-2.5">
+            <span class="h-8 w-8 rounded-lg bg-emerald-100 flex items-center justify-center"><i class="fa-solid fa-mobile-screen-button text-emerald-600 text-sm"></i></span>
+            <div><p class="text-xs font-semibold text-slate-800">App Install</p><p class="text-xs text-emerald-600 font-bold">+$1.20</p></div>
+          </div>
+
+          <div class="absolute bottom-0 right-2 animate-float-d bg-white rounded-xl shadow-lg shadow-slate-300/50 border border-slate-100 px-4 py-2.5 flex items-center gap-2.5">
+            <span class="h-8 w-8 rounded-lg bg-amber-100 flex items-center justify-center"><i class="fa-solid fa-clipboard-list text-amber-600 text-sm"></i></span>
+            <div><p class="text-xs font-semibold text-slate-800">Survey Completed</p><p class="text-xs text-emerald-600 font-bold">+$2.50</p></div>
+          </div>
         </div>
+      </div>
+
+      <!-- Wave shape divider -->
+      <svg class="absolute bottom-0 left-0 w-full h-16 sm:h-20" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true">
+        <path fill="#0F172A" d="M0,40 C240,90 480,0 720,30 C960,60 1200,100 1440,50 L1440,100 L0,100 Z"></path>
+      </svg>
     </section>
 
-    <!-- ==================== TRUST BAR ==================== -->
-    <section class="relative -mt-10 z-20 pb-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-white rounded-3xl shadow-xl p-8 scroll-reveal">
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
-                    <div class="text-center">
-                        <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-3"><i class="fas fa-users text-primary text-2xl"></i></div>
-                        <p class="text-3xl font-extrabold text-secondary">100K+</p>
-                        <p class="text-secondary/60 text-sm mt-1">Workers</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="w-14 h-14 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-3"><i class="fas fa-building text-accent text-2xl"></i></div>
-                        <p class="text-3xl font-extrabold text-secondary">20K+</p>
-                        <p class="text-secondary/60 text-sm mt-1">Clients</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="w-14 h-14 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-3"><i class="fas fa-clipboard-check text-purple-600 text-2xl"></i></div>
-                        <p class="text-3xl font-extrabold text-secondary">5M+</p>
-                        <p class="text-secondary/60 text-sm mt-1">Completed Jobs</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="w-14 h-14 bg-yellow-100 rounded-2xl flex items-center justify-center mx-auto mb-3"><i class="fas fa-coins text-yellow-600 text-2xl"></i></div>
-                        <p class="text-3xl font-extrabold text-secondary">$10M+</p>
-                        <p class="text-secondary/60 text-sm mt-1">Paid Out</p>
-                    </div>
-                    <div class="text-center col-span-2 md:col-span-1">
-                        <div class="w-14 h-14 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-3"><i class="fas fa-globe text-red-600 text-2xl"></i></div>
-                        <p class="text-3xl font-extrabold text-secondary">120+</p>
-                        <p class="text-secondary/60 text-sm mt-1">Countries</p>
-                    </div>
-                </div>
-            </div>
+    <!-- =====================================================================
+         TRUST BAR
+    ===================================================================== -->
+    <section class="bg-slate-900 text-white py-12 -mt-px">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <p class="text-center text-sm font-medium text-slate-400 mb-8 tracking-wide uppercase">Trusted by thousands of workers worldwide</p>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-8 text-center">
+          <div>
+            <p class="text-3xl sm:text-4xl font-extrabold text-white">100K+</p>
+            <p class="mt-1 text-sm text-slate-400">Workers</p>
+          </div>
+          <div>
+            <p class="text-3xl sm:text-4xl font-extrabold text-white">20K+</p>
+            <p class="mt-1 text-sm text-slate-400">Clients</p>
+          </div>
+          <div>
+            <p class="text-3xl sm:text-4xl font-extrabold text-white">5M+</p>
+            <p class="mt-1 text-sm text-slate-400">Completed Jobs</p>
+          </div>
+          <div>
+            <p class="text-3xl sm:text-4xl font-extrabold text-white">$10M+</p>
+            <p class="mt-1 text-sm text-slate-400">Paid Out</p>
+          </div>
+          <div class="col-span-2 md:col-span-1">
+            <p class="text-3xl sm:text-4xl font-extrabold text-white">120+</p>
+            <p class="mt-1 text-sm text-slate-400">Countries</p>
+          </div>
         </div>
+      </div>
     </section>
 
-    <!-- ==================== HOW IT WORKS ==================== -->
-    <section id="how-it-works" class="py-20 lg:py-32 bg-background">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16 scroll-reveal">
-                <span class="inline-block px-4 py-2 bg-primary/10 text-primary font-semibold rounded-full text-sm mb-4">Simple Process</span>
-                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-secondary mb-6">How It Works</h2>
-                <p class="text-lg text-secondary/70">Get started in minutes and begin earning. Our streamlined process makes it easy.</p>
-            </div>
-
-            <div class="relative">
-                <div class="timeline-connector hidden lg:block" style="left: 8.33%; right: 8.33%;"></div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="relative scroll-reveal">
-                        <div class="bg-white rounded-2xl p-6 shadow-lg card-hover h-full">
-                            <div class="w-16 h-16 bg-gradient-to-br from-primary to-blue-600 rounded-2xl flex items-center justify-center mb-6 relative z-10"><i class="fas fa-user-plus text-white text-2xl"></i></div>
-                            <span class="absolute top-6 right-6 text-5xl font-extrabold text-primary/10">01</span>
-                            <h3 class="text-xl font-bold text-secondary mb-3">Create Account</h3>
-                            <p class="text-secondary/70">Sign up for free in seconds. No credit card required.</p>
-                        </div>
-                    </div>
-                    <div class="relative scroll-reveal">
-                        <div class="bg-white rounded-2xl p-6 shadow-lg card-hover h-full">
-                            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-6 relative z-10"><i class="fas fa-credit-card text-white text-2xl"></i></div>
-                            <span class="absolute top-6 right-6 text-5xl font-extrabold text-primary/10">02</span>
-                            <h3 class="text-xl font-bold text-secondary mb-3">Choose Subscription</h3>
-                            <p class="text-secondary/70">Select a plan that fits your needs and budget.</p>
-                        </div>
-                    </div>
-                    <div class="relative scroll-reveal">
-                        <div class="bg-white rounded-2xl p-6 shadow-lg card-hover h-full">
-                            <div class="w-16 h-16 bg-gradient-to-br from-accent to-emerald-600 rounded-2xl flex items-center justify-center mb-6 relative z-10"><i class="fas fa-tasks text-white text-2xl"></i></div>
-                            <span class="absolute top-6 right-6 text-5xl font-extrabold text-primary/10">03</span>
-                            <h3 class="text-xl font-bold text-secondary mb-3">Complete Tasks</h3>
-                            <p class="text-secondary/70">Browse jobs and select tasks that match your skills.</p>
-                        </div>
-                    </div>
-                    <div class="relative scroll-reveal">
-                        <div class="bg-white rounded-2xl p-6 shadow-lg card-hover h-full">
-                            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6 relative z-10"><i class="fas fa-paper-plane text-white text-2xl"></i></div>
-                            <span class="absolute top-6 right-6 text-5xl font-extrabold text-primary/10">04</span>
-                            <h3 class="text-xl font-bold text-secondary mb-3">Submit Proof</h3>
-                            <p class="text-secondary/70">Complete tasks and submit proof of completion.</p>
-                        </div>
-                    </div>
-                    <div class="relative scroll-reveal">
-                        <div class="bg-white rounded-2xl p-6 shadow-lg card-hover h-full">
-                            <div class="w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-2xl flex items-center justify-center mb-6 relative z-10"><i class="fas fa-check-double text-white text-2xl"></i></div>
-                            <span class="absolute top-6 right-6 text-5xl font-extrabold text-primary/10">05</span>
-                            <h3 class="text-xl font-bold text-secondary mb-3">Get Approved</h3>
-                            <p class="text-secondary/70">Earnings credited instantly after approval.</p>
-                        </div>
-                    </div>
-                    <div class="relative scroll-reveal">
-                        <div class="bg-white rounded-2xl p-6 shadow-lg card-hover h-full">
-                            <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-6 relative z-10"><i class="fas fa-wallet text-white text-2xl"></i></div>
-                            <span class="absolute top-6 right-6 text-5xl font-extrabold text-primary/10">06</span>
-                            <h3 class="text-xl font-bold text-secondary mb-3">Withdraw Earnings</h3>
-                            <p class="text-secondary/70">Withdraw to PayPal, bank, or crypto instantly.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- =====================================================================
+         HOW IT WORKS
+    ===================================================================== -->
+    <section id="how-it-works" class="py-24 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto reveal">
+          <span class="text-blue-600 font-semibold text-sm tracking-wide uppercase">How it works</span>
+          <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold text-slate-900">From sign-up to payout in six simple steps</h2>
+          <p class="mt-4 text-slate-600">TaskProX is built to get you earning fast — here's exactly what the journey looks like, start to finish.</p>
         </div>
+
+        <div class="mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+          <!-- Step 1 -->
+          <div class="reveal flex gap-4">
+            <div class="shrink-0 h-12 w-12 rounded-xl bg-blue-600 text-white font-bold flex items-center justify-center shadow-md shadow-blue-600/30">01</div>
+            <div>
+              <h3 class="font-bold text-slate-900 text-lg flex items-center gap-2"><i class="fa-solid fa-user-plus text-blue-600 text-base" aria-hidden="true"></i>Create Account</h3>
+              <p class="mt-1.5 text-sm text-slate-600 leading-relaxed">Sign up free in under a minute with your email — no setup fees, no credit card required to get started.</p>
+            </div>
+          </div>
+          <!-- Step 2 -->
+          <div class="reveal flex gap-4">
+            <div class="shrink-0 h-12 w-12 rounded-xl bg-blue-600 text-white font-bold flex items-center justify-center shadow-md shadow-blue-600/30">02</div>
+            <div>
+              <h3 class="font-bold text-slate-900 text-lg flex items-center gap-2"><i class="fa-solid fa-layer-group text-blue-600 text-base" aria-hidden="true"></i>Choose Subscription</h3>
+              <p class="mt-1.5 text-sm text-slate-600 leading-relaxed">Pick the plan that matches your goals — from Free to Premium — and unlock higher-paying task tiers.</p>
+            </div>
+          </div>
+          <!-- Step 3 -->
+          <div class="reveal flex gap-4">
+            <div class="shrink-0 h-12 w-12 rounded-xl bg-blue-600 text-white font-bold flex items-center justify-center shadow-md shadow-blue-600/30">03</div>
+            <div>
+              <h3 class="font-bold text-slate-900 text-lg flex items-center gap-2"><i class="fa-solid fa-list-check text-blue-600 text-base" aria-hidden="true"></i>Complete Tasks</h3>
+              <p class="mt-1.5 text-sm text-slate-600 leading-relaxed">Browse thousands of live micro jobs and complete the ones that fit your skills and available time.</p>
+            </div>
+          </div>
+          <!-- Step 4 -->
+          <div class="reveal flex gap-4">
+            <div class="shrink-0 h-12 w-12 rounded-xl bg-blue-600 text-white font-bold flex items-center justify-center shadow-md shadow-blue-600/30">04</div>
+            <div>
+              <h3 class="font-bold text-slate-900 text-lg flex items-center gap-2"><i class="fa-solid fa-camera text-blue-600 text-base" aria-hidden="true"></i>Submit Proof</h3>
+              <p class="mt-1.5 text-sm text-slate-600 leading-relaxed">Upload a screenshot or short confirmation so the client can verify your work was completed correctly.</p>
+            </div>
+          </div>
+          <!-- Step 5 -->
+          <div class="reveal flex gap-4">
+            <div class="shrink-0 h-12 w-12 rounded-xl bg-blue-600 text-white font-bold flex items-center justify-center shadow-md shadow-blue-600/30">05</div>
+            <div>
+              <h3 class="font-bold text-slate-900 text-lg flex items-center gap-2"><i class="fa-solid fa-shield-check text-blue-600 text-base" aria-hidden="true"></i>Get Paid</h3>
+              <p class="mt-1.5 text-sm text-slate-600 leading-relaxed">Once approved, your reward lands in your TaskProX balance — most tasks are reviewed within hours.</p>
+            </div>
+          </div>
+          <!-- Step 6 -->
+          <div class="reveal flex gap-4">
+            <div class="shrink-0 h-12 w-12 rounded-xl bg-blue-600 text-white font-bold flex items-center justify-center shadow-md shadow-blue-600/30">06</div>
+            <div>
+              <h3 class="font-bold text-slate-900 text-lg flex items-center gap-2"><i class="fa-solid fa-wallet text-blue-600 text-base" aria-hidden="true"></i>Withdraw Earnings</h3>
+              <p class="mt-1.5 text-sm text-slate-600 leading-relaxed">Cash out anytime via bank transfer, mobile wallet, or PayPal — with instant withdrawals on paid plans.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- ==================== JOB CATEGORIES ==================== -->
-    <section id="categories" class="py-20 lg:py-32 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16 scroll-reveal">
-                <span class="inline-block px-4 py-2 bg-accent/10 text-accent font-semibold rounded-full text-sm mb-4">Browse Opportunities</span>
-                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-secondary mb-6">Popular Job Categories</h2>
-                <p class="text-lg text-secondary/70">Explore our diverse range of task categories.</p>
-            </div>
-
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                <div class="bg-background rounded-2xl p-6 text-center card-hover cursor-pointer scroll-reveal">
-                    <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4"><i class="fas fa-globe text-blue-600 text-2xl"></i></div>
-                    <h3 class="font-bold text-secondary mb-1">Website Visit</h3>
-                    <p class="text-sm text-secondary/60">2,450+ Jobs</p>
-                </div>
-                <div class="bg-background rounded-2xl p-6 text-center card-hover cursor-pointer scroll-reveal">
-                    <div class="w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-4"><i class="fab fa-youtube text-red-600 text-2xl"></i></div>
-                    <h3 class="font-bold text-secondary mb-1">YouTube</h3>
-                    <p class="text-sm text-secondary/60">1,820+ Jobs</p>
-                </div>
-                <div class="bg-background rounded-2xl p-6 text-center card-hover cursor-pointer scroll-reveal">
-                    <div class="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-4"><i class="fab fa-facebook text-indigo-600 text-2xl"></i></div>
-                    <h3 class="font-bold text-secondary mb-1">Facebook</h3>
-                    <p class="text-sm text-secondary/60">1,650+ Jobs</p>
-                </div>
-                <div class="bg-background rounded-2xl p-6 text-center card-hover cursor-pointer scroll-reveal">
-                    <div class="w-16 h-16 bg-pink-100 rounded-2xl flex items-center justify-center mx-auto mb-4"><i class="fab fa-instagram text-pink-600 text-2xl"></i></div>
-                    <h3 class="font-bold text-secondary mb-1">Instagram</h3>
-                    <p class="text-sm text-secondary/60">1,420+ Jobs</p>
-                </div>
-                <div class="bg-background rounded-2xl p-6 text-center card-hover cursor-pointer scroll-reveal">
-                    <div class="w-16 h-16 bg-black/10 rounded-2xl flex items-center justify-center mx-auto mb-4"><i class="fab fa-tiktok text-black text-2xl"></i></div>
-                    <h3 class="font-bold text-secondary mb-1">TikTok</h3>
-                    <p class="text-sm text-secondary/60">980+ Jobs</p>
-                </div>
-                <div class="bg-background rounded-2xl p-6 text-center card-hover cursor-pointer scroll-reveal">
-                    <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4"><i class="fab fa-telegram text-blue-500 text-2xl"></i></div>
-                    <h3 class="font-bold text-secondary mb-1">Telegram</h3>
-                    <p class="text-sm text-secondary/60">750+ Jobs</p>
-                </div>
-                <div class="bg-background rounded-2xl p-6 text-center card-hover cursor-pointer scroll-reveal">
-                    <div class="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-4"><i class="fab fa-discord text-indigo-600 text-2xl"></i></div>
-                    <h3 class="font-bold text-secondary mb-1">Discord</h3>
-                    <p class="text-sm text-secondary/60">620+ Jobs</p>
-                </div>
-                <div class="bg-background rounded-2xl p-6 text-center card-hover cursor-pointer scroll-reveal">
-                    <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4"><i class="fas fa-mobile-alt text-green-600 text-2xl"></i></div>
-                    <h3 class="font-bold text-secondary mb-1">App Install</h3>
-                    <p class="text-sm text-secondary/60">1,150+ Jobs</p>
-                </div>
-                <div class="bg-background rounded-2xl p-6 text-center card-hover cursor-pointer scroll-reveal">
-                    <div class="w-16 h-16 bg-yellow-100 rounded-2xl flex items-center justify-center mx-auto mb-4"><i class="fas fa-poll text-yellow-600 text-2xl"></i></div>
-                    <h3 class="font-bold text-secondary mb-1">Survey</h3>
-                    <p class="text-sm text-secondary/60">890+ Jobs</p>
-                </div>
-                <div class="bg-background rounded-2xl p-6 text-center card-hover cursor-pointer scroll-reveal">
-                    <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-4"><i class="fas fa-language text-purple-600 text-2xl"></i></div>
-                    <h3 class="font-bold text-secondary mb-1">Translation</h3>
-                    <p class="text-sm text-secondary/60">540+ Jobs</p>
-                </div>
-                <div class="bg-background rounded-2xl p-6 text-center card-hover cursor-pointer scroll-reveal">
-                    <div class="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-4"><i class="fas fa-database text-orange-600 text-2xl"></i></div>
-                    <h3 class="font-bold text-secondary mb-1">Data Entry</h3>
-                    <p class="text-sm text-secondary/60">720+ Jobs</p>
-                </div>
-                <div class="bg-background rounded-2xl p-6 text-center card-hover cursor-pointer scroll-reveal">
-                    <div class="w-16 h-16 bg-cyan-100 rounded-2xl flex items-center justify-center mx-auto mb-4"><i class="fas fa-robot text-cyan-600 text-2xl"></i></div>
-                    <h3 class="font-bold text-secondary mb-1">AI Tasks</h3>
-                    <p class="text-sm text-secondary/60">1,100+ Jobs</p>
-                </div>
-                <div class="bg-background rounded-2xl p-6 text-center card-hover cursor-pointer scroll-reveal">
-                    <div class="w-16 h-16 bg-teal-100 rounded-2xl flex items-center justify-center mx-auto mb-4"><i class="fas fa-search text-teal-600 text-2xl"></i></div>
-                    <h3 class="font-bold text-secondary mb-1">SEO</h3>
-                    <p class="text-sm text-secondary/60">480+ Jobs</p>
-                </div>
-                <div class="bg-background rounded-2xl p-6 text-center card-hover cursor-pointer scroll-reveal">
-                    <div class="w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-4"><i class="fab fa-google text-red-600 text-2xl"></i></div>
-                    <h3 class="font-bold text-secondary mb-1">Google Review</h3>
-                    <p class="text-sm text-secondary/60">390+ Jobs</p>
-                </div>
-                <div class="bg-background rounded-2xl p-6 text-center card-hover cursor-pointer scroll-reveal">
-                    <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4"><i class="fab fa-linkedin text-blue-700 text-2xl"></i></div>
-                    <h3 class="font-bold text-secondary mb-1">LinkedIn</h3>
-                    <p class="text-sm text-secondary/60">320+ Jobs</p>
-                </div>
-                <div class="bg-background rounded-2xl p-6 text-center card-hover cursor-pointer scroll-reveal">
-                    <div class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4"><i class="fas fa-envelope text-gray-600 text-2xl"></i></div>
-                    <h3 class="font-bold text-secondary mb-1">Email Signup</h3>
-                    <p class="text-sm text-secondary/60">680+ Jobs</p>
-                </div>
-            </div>
-
-            <div class="text-center mt-12 scroll-reveal">
-                <a href="#" class="inline-flex items-center px-8 py-4 border-2 border-primary text-primary rounded-xl font-bold hover:bg-primary hover:text-white transition-all">
-                    View All Categories <i class="fas fa-arrow-right ml-2"></i>
-                </a>
-            </div>
+    <!-- =====================================================================
+         POPULAR JOB CATEGORIES
+    ===================================================================== -->
+    <section id="categories" class="py-24 bg-slate-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto reveal">
+          <span class="text-blue-600 font-semibold text-sm tracking-wide uppercase">Categories</span>
+          <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold text-slate-900">Popular job categories</h2>
+          <p class="mt-4 text-slate-600">From social engagement to AI data labeling — find tasks that match what you're good at.</p>
         </div>
+
+        <div class="mt-14 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+          <!-- Category card template repeated for each category -->
+          <a href="#featured-jobs" class="reveal group bg-white rounded-xl border border-slate-200 p-5 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-100 hover:-translate-y-1 transition-all">
+            <span class="h-12 w-12 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-lg group-hover:bg-blue-600 group-hover:text-white transition-colors"><i class="fa-solid fa-globe" aria-hidden="true"></i></span>
+            <h3 class="mt-4 font-bold text-slate-900">Website Visit</h3>
+            <p class="text-sm text-slate-500 mt-0.5">3,420 jobs</p>
+          </a>
+
+          <a href="#featured-jobs" class="reveal group bg-white rounded-xl border border-slate-200 p-5 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-100 hover:-translate-y-1 transition-all">
+            <span class="h-12 w-12 rounded-lg bg-red-50 text-red-600 flex items-center justify-center text-lg group-hover:bg-red-600 group-hover:text-white transition-colors"><i class="fa-brands fa-youtube" aria-hidden="true"></i></span>
+            <h3 class="mt-4 font-bold text-slate-900">YouTube</h3>
+            <p class="text-sm text-slate-500 mt-0.5">2,180 jobs</p>
+          </a>
+
+          <a href="#featured-jobs" class="reveal group bg-white rounded-xl border border-slate-200 p-5 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-100 hover:-translate-y-1 transition-all">
+            <span class="h-12 w-12 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-lg group-hover:bg-blue-600 group-hover:text-white transition-colors"><i class="fa-brands fa-facebook" aria-hidden="true"></i></span>
+            <h3 class="mt-4 font-bold text-slate-900">Facebook</h3>
+            <p class="text-sm text-slate-500 mt-0.5">2,940 jobs</p>
+          </a>
+
+          <a href="#featured-jobs" class="reveal group bg-white rounded-xl border border-slate-200 p-5 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-100 hover:-translate-y-1 transition-all">
+            <span class="h-12 w-12 rounded-lg bg-pink-50 text-pink-600 flex items-center justify-center text-lg group-hover:bg-pink-600 group-hover:text-white transition-colors"><i class="fa-brands fa-instagram" aria-hidden="true"></i></span>
+            <h3 class="mt-4 font-bold text-slate-900">Instagram</h3>
+            <p class="text-sm text-slate-500 mt-0.5">3,110 jobs</p>
+          </a>
+
+          <a href="#featured-jobs" class="reveal group bg-white rounded-xl border border-slate-200 p-5 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-100 hover:-translate-y-1 transition-all">
+            <span class="h-12 w-12 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center text-lg group-hover:bg-slate-800 group-hover:text-white transition-colors"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></span>
+            <h3 class="mt-4 font-bold text-slate-900">TikTok</h3>
+            <p class="text-sm text-slate-500 mt-0.5">1,860 jobs</p>
+          </a>
+
+          <a href="#featured-jobs" class="reveal group bg-white rounded-xl border border-slate-200 p-5 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-100 hover:-translate-y-1 transition-all">
+            <span class="h-12 w-12 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center text-lg group-hover:bg-sky-500 group-hover:text-white transition-colors"><i class="fa-brands fa-telegram" aria-hidden="true"></i></span>
+            <h3 class="mt-4 font-bold text-slate-900">Telegram</h3>
+            <p class="text-sm text-slate-500 mt-0.5">1,240 jobs</p>
+          </a>
+
+          <a href="#featured-jobs" class="reveal group bg-white rounded-xl border border-slate-200 p-5 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-100 hover:-translate-y-1 transition-all">
+            <span class="h-12 w-12 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center text-lg group-hover:bg-indigo-600 group-hover:text-white transition-colors"><i class="fa-brands fa-discord" aria-hidden="true"></i></span>
+            <h3 class="mt-4 font-bold text-slate-900">Discord</h3>
+            <p class="text-sm text-slate-500 mt-0.5">980 jobs</p>
+          </a>
+
+          <a href="#featured-jobs" class="reveal group bg-white rounded-xl border border-slate-200 p-5 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-100 hover:-translate-y-1 transition-all">
+            <span class="h-12 w-12 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg group-hover:bg-emerald-600 group-hover:text-white transition-colors"><i class="fa-solid fa-mobile-screen-button" aria-hidden="true"></i></span>
+            <h3 class="mt-4 font-bold text-slate-900">App Install</h3>
+            <p class="text-sm text-slate-500 mt-0.5">2,560 jobs</p>
+          </a>
+
+          <a href="#featured-jobs" class="reveal group bg-white rounded-xl border border-slate-200 p-5 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-100 hover:-translate-y-1 transition-all">
+            <span class="h-12 w-12 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center text-lg group-hover:bg-amber-500 group-hover:text-white transition-colors"><i class="fa-solid fa-clipboard-list" aria-hidden="true"></i></span>
+            <h3 class="mt-4 font-bold text-slate-900">Survey</h3>
+            <p class="text-sm text-slate-500 mt-0.5">1,470 jobs</p>
+          </a>
+
+          <a href="#featured-jobs" class="reveal group bg-white rounded-xl border border-slate-200 p-5 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-100 hover:-translate-y-1 transition-all">
+            <span class="h-12 w-12 rounded-lg bg-violet-50 text-violet-600 flex items-center justify-center text-lg group-hover:bg-violet-600 group-hover:text-white transition-colors"><i class="fa-solid fa-language" aria-hidden="true"></i></span>
+            <h3 class="mt-4 font-bold text-slate-900">Translation</h3>
+            <p class="text-sm text-slate-500 mt-0.5">640 jobs</p>
+          </a>
+
+          <a href="#featured-jobs" class="reveal group bg-white rounded-xl border border-slate-200 p-5 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-100 hover:-translate-y-1 transition-all">
+            <span class="h-12 w-12 rounded-lg bg-cyan-50 text-cyan-600 flex items-center justify-center text-lg group-hover:bg-cyan-600 group-hover:text-white transition-colors"><i class="fa-solid fa-keyboard" aria-hidden="true"></i></span>
+            <h3 class="mt-4 font-bold text-slate-900">Data Entry</h3>
+            <p class="text-sm text-slate-500 mt-0.5">1,920 jobs</p>
+          </a>
+
+          <a href="#featured-jobs" class="reveal group bg-white rounded-xl border border-slate-200 p-5 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-100 hover:-translate-y-1 transition-all">
+            <span class="h-12 w-12 rounded-lg bg-fuchsia-50 text-fuchsia-600 flex items-center justify-center text-lg group-hover:bg-fuchsia-600 group-hover:text-white transition-colors"><i class="fa-solid fa-robot" aria-hidden="true"></i></span>
+            <h3 class="mt-4 font-bold text-slate-900">AI Tasks</h3>
+            <p class="text-sm text-slate-500 mt-0.5">3,050 jobs</p>
+          </a>
+
+          <a href="#featured-jobs" class="reveal group bg-white rounded-xl border border-slate-200 p-5 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-100 hover:-translate-y-1 transition-all">
+            <span class="h-12 w-12 rounded-lg bg-teal-50 text-teal-600 flex items-center justify-center text-lg group-hover:bg-teal-600 group-hover:text-white transition-colors"><i class="fa-solid fa-magnifying-glass-chart" aria-hidden="true"></i></span>
+            <h3 class="mt-4 font-bold text-slate-900">SEO</h3>
+            <p class="text-sm text-slate-500 mt-0.5">810 jobs</p>
+          </a>
+
+          <a href="#featured-jobs" class="reveal group bg-white rounded-xl border border-slate-200 p-5 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-100 hover:-translate-y-1 transition-all">
+            <span class="h-12 w-12 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center text-lg group-hover:bg-rose-600 group-hover:text-white transition-colors"><i class="fa-brands fa-google" aria-hidden="true"></i></span>
+            <h3 class="mt-4 font-bold text-slate-900">Google Review</h3>
+            <p class="text-sm text-slate-500 mt-0.5">1,130 jobs</p>
+          </a>
+
+          <a href="#featured-jobs" class="reveal group bg-white rounded-xl border border-slate-200 p-5 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-100 hover:-translate-y-1 transition-all">
+            <span class="h-12 w-12 rounded-lg bg-blue-50 text-blue-700 flex items-center justify-center text-lg group-hover:bg-blue-700 group-hover:text-white transition-colors"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></span>
+            <h3 class="mt-4 font-bold text-slate-900">LinkedIn</h3>
+            <p class="text-sm text-slate-500 mt-0.5">760 jobs</p>
+          </a>
+
+          <a href="#featured-jobs" class="reveal group bg-white rounded-xl border border-slate-200 p-5 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-100 hover:-translate-y-1 transition-all">
+            <span class="h-12 w-12 rounded-lg bg-orange-50 text-orange-600 flex items-center justify-center text-lg group-hover:bg-orange-500 group-hover:text-white transition-colors"><i class="fa-solid fa-envelope-circle-check" aria-hidden="true"></i></span>
+            <h3 class="mt-4 font-bold text-slate-900">Email Signup</h3>
+            <p class="text-sm text-slate-500 mt-0.5">1,380 jobs</p>
+          </a>
+        </div>
+      </div>
     </section>
 
-    <!-- ==================== FEATURED JOBS ==================== -->
-    <section class="py-20 lg:py-32 bg-background">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-12 scroll-reveal">
+    <!-- =====================================================================
+         FEATURED JOBS
+    ===================================================================== -->
+    <section id="featured-jobs" class="py-24 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 reveal">
+          <div>
+            <span class="text-blue-600 font-semibold text-sm tracking-wide uppercase">Live opportunities</span>
+            <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold text-slate-900">Featured jobs available now</h2>
+          </div>
+          <a href="#pricing" class="hidden sm:inline-flex items-center gap-2 text-blue-600 font-semibold hover:gap-3 transition-all">Browse all jobs <i class="fa-solid fa-arrow-right text-sm"></i></a>
+        </div>
+
+        <div class="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Job card 1 -->
+          <article class="reveal bg-white rounded-xl border border-slate-200 p-6 hover:shadow-xl hover:shadow-slate-200 hover:-translate-y-1 transition-all">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <span class="h-11 w-11 rounded-lg bg-red-100 text-red-600 font-bold flex items-center justify-center">NS</span>
                 <div>
-                    <span class="inline-block px-4 py-2 bg-primary/10 text-primary font-semibold rounded-full text-sm mb-4">Featured Opportunities</span>
-                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-secondary">Featured Jobs</h2>
+                  <p class="font-bold text-slate-900 text-sm">NovaStream Media</p>
+                  <p class="text-xs text-slate-400">🌍 Worldwide</p>
                 </div>
-                <a href="#" class="text-primary font-semibold hover:underline mt-4 md:mt-0">View All Jobs <i class="fas fa-arrow-right ml-1"></i></a>
+              </div>
+              <span class="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-600 text-xs font-bold">Easy</span>
             </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Job Card 1 -->
-                <div class="bg-white rounded-2xl p-6 shadow-lg card-hover relative overflow-hidden scroll-reveal">
-                    <div class="ribbon bg-accent text-white">HOT</div>
-                    <div class="flex items-start justify-between mb-4">
-                        <div class="flex items-center space-x-3">
-                            <img src="https://i.pravatar.cc/50?img=10" alt="Company" class="w-12 h-12 rounded-xl">
-                            <div>
-                                <h4 class="font-bold text-secondary">TechFlow Inc.</h4>
-                                <p class="text-sm text-secondary/60">Software Company</p>
-                            </div>
-                        </div>
-                    </div>
-                    <h3 class="text-lg font-bold text-secondary mb-2">YouTube Channel Subscription</h3>
-                    <p class="text-secondary/70 text-sm mb-4">Subscribe and watch a 2-minute tech review video, then leave a comment.</p>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">YouTube</span>
-                        <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">Easy</span>
-                        <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">Worldwide</span>
-                    </div>
-                    <div class="flex items-center justify-between pt-4 border-t border-gray-100">
-                        <div class="flex items-center space-x-4 text-sm text-secondary/60">
-                            <span><i class="fas fa-dollar-sign text-accent mr-1"></i> $2.50</span>
-                            <span><i class="fas fa-clock text-primary mr-1"></i> 3 min</span>
-                            <span><i class="fas fa-users text-purple-600 mr-1"></i> 45/50</span>
-                        </div>
-                    </div>
-                    <a href="#" class="mt-4 block w-full py-3 bg-primary text-white text-center rounded-xl font-semibold hover:bg-primary/90">Apply Now</a>
-                </div>
-
-                <!-- Job Card 2 -->
-                <div class="bg-white rounded-2xl p-6 shadow-lg card-hover relative overflow-hidden scroll-reveal">
-                    <div class="ribbon bg-primary text-white">NEW</div>
-                    <div class="flex items-start justify-between mb-4">
-                        <div class="flex items-center space-x-3">
-                            <img src="https://i.pravatar.cc/50?img=11" alt="Company" class="w-12 h-12 rounded-xl">
-                            <div>
-                                <h4 class="font-bold text-secondary">MarketingPro</h4>
-                                <p class="text-sm text-secondary/60">Digital Agency</p>
-                            </div>
-                        </div>
-                    </div>
-                    <h3 class="text-lg font-bold text-secondary mb-2">App Download & Trial</h3>
-                    <p class="text-secondary/70 text-sm mb-4">Download our partner app, complete onboarding, and reach level 5.</p>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">App Install</span>
-                        <span class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-semibold">Medium</span>
-                        <span class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-semibold">USA Only</span>
-                    </div>
-                    <div class="flex items-center justify-between pt-4 border-t border-gray-100">
-                        <div class="flex items-center space-x-4 text-sm text-secondary/60">
-                            <span><i class="fas fa-dollar-sign text-accent mr-1"></i> $5.00</span>
-                            <span><i class="fas fa-clock text-primary mr-1"></i> 10 min</span>
-                            <span><i class="fas fa-users text-purple-600 mr-1"></i> 28/100</span>
-                        </div>
-                    </div>
-                    <a href="#" class="mt-4 block w-full py-3 bg-primary text-white text-center rounded-xl font-semibold hover:bg-primary/90">Apply Now</a>
-                </div>
-
-                <!-- Job Card 3 -->
-                <div class="bg-white rounded-2xl p-6 shadow-lg card-hover relative overflow-hidden scroll-reveal">
-                    <div class="flex items-start justify-between mb-4">
-                        <div class="flex items-center space-x-3">
-                            <img src="https://i.pravatar.cc/50?img=12" alt="Company" class="w-12 h-12 rounded-xl">
-                            <div>
-                                <h4 class="font-bold text-secondary">SurveyWorld</h4>
-                                <p class="text-sm text-secondary/60">Market Research</p>
-                            </div>
-                        </div>
-                    </div>
-                    <h3 class="text-lg font-bold text-secondary mb-2">Product Feedback Survey</h3>
-                    <p class="text-secondary/70 text-sm mb-4">Complete a 15-question survey about consumer electronics preferences.</p>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-semibold">Survey</span>
-                        <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">Easy</span>
-                        <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">Worldwide</span>
-                    </div>
-                    <div class="flex items-center justify-between pt-4 border-t border-gray-100">
-                        <div class="flex items-center space-x-4 text-sm text-secondary/60">
-                            <span><i class="fas fa-dollar-sign text-accent mr-1"></i> $3.25</span>
-                            <span><i class="fas fa-clock text-primary mr-1"></i> 8 min</span>
-                            <span><i class="fas fa-users text-purple-600 mr-1"></i> 156/200</span>
-                        </div>
-                    </div>
-                    <a href="#" class="mt-4 block w-full py-3 bg-primary text-white text-center rounded-xl font-semibold hover:bg-primary/90">Apply Now</a>
-                </div>
-
-                <!-- Job Card 4 -->
-                <div class="bg-white rounded-2xl p-6 shadow-lg card-hover relative overflow-hidden scroll-reveal">
-                    <div class="flex items-start justify-between mb-4">
-                        <div class="flex items-center space-x-3">
-                            <img src="https://i.pravatar.cc/50?img=13" alt="Company" class="w-12 h-12 rounded-xl">
-                            <div>
-                                <h4 class="font-bold text-secondary">SocialBoost</h4>
-                                <p class="text-sm text-secondary/60">Social Media Agency</p>
-                            </div>
-                        </div>
-                    </div>
-                    <h3 class="text-lg font-bold text-secondary mb-2">Instagram Follow & Like</h3>
-                    <p class="text-secondary/70 text-sm mb-4">Follow the account and like the latest 10 posts.</p>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-xs font-semibold">Instagram</span>
-                        <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">Easy</span>
-                        <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">Worldwide</span>
-                    </div>
-                    <div class="flex items-center justify-between pt-4 border-t border-gray-100">
-                        <div class="flex items-center space-x-4 text-sm text-secondary/60">
-                            <span><i class="fas fa-dollar-sign text-accent mr-1"></i> $1.50</span>
-                            <span><i class="fas fa-clock text-primary mr-1"></i> 2 min</span>
-                            <span><i class="fas fa-users text-purple-600 mr-1"></i> 89/100</span>
-                        </div>
-                    </div>
-                    <a href="#" class="mt-4 block w-full py-3 bg-primary text-white text-center rounded-xl font-semibold hover:bg-primary/90">Apply Now</a>
-                </div>
-
-                <!-- Job Card 5 -->
-                <div class="bg-white rounded-2xl p-6 shadow-lg card-hover relative overflow-hidden scroll-reveal">
-                    <div class="ribbon bg-red-500 text-white">URGENT</div>
-                    <div class="flex items-start justify-between mb-4">
-                        <div class="flex items-center space-x-3">
-                            <img src="https://i.pravatar.cc/50?img=14" alt="Company" class="w-12 h-12 rounded-xl">
-                            <div>
-                                <h4 class="font-bold text-secondary">DataCorp</h4>
-                                <p class="text-sm text-secondary/60">Data Services</p>
-                            </div>
-                        </div>
-                    </div>
-                    <h3 class="text-lg font-bold text-secondary mb-2">Data Entry - 100 Records</h3>
-                    <p class="text-secondary/70 text-sm mb-4">Enter product information into spreadsheet.</p>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-semibold">Data Entry</span>
-                        <span class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-semibold">Medium</span>
-                        <span class="px-3 py-1 bg-red-100 text-red-700 rounded-full text-xs font-semibold">USA Only</span>
-                    </div>
-                    <div class="flex items-center justify-between pt-4 border-t border-gray-100">
-                        <div class="flex items-center space-x-4 text-sm text-secondary/60">
-                            <span><i class="fas fa-dollar-sign text-accent mr-1"></i> $15.00</span>
-                            <span><i class="fas fa-clock text-primary mr-1"></i> 45 min</span>
-                            <span><i class="fas fa-users text-purple-600 mr-1"></i> 5/20</span>
-                        </div>
-                    </div>
-                    <a href="#" class="mt-4 block w-full py-3 bg-primary text-white text-center rounded-xl font-semibold hover:bg-primary/90">Apply Now</a>
-                </div>
-
-                <!-- Job Card 6 -->
-                <div class="bg-white rounded-2xl p-6 shadow-lg card-hover relative overflow-hidden scroll-reveal">
-                    <div class="flex items-start justify-between mb-4">
-                        <div class="flex items-center space-x-3">
-                            <img src="https://i.pravatar.cc/50?img=15" alt="Company" class="w-12 h-12 rounded-xl">
-                            <div>
-                                <h4 class="font-bold text-secondary">CryptoWallet</h4>
-                                <p class="text-sm text-secondary/60">Fintech Startup</p>
-                            </div>
-                        </div>
-                    </div>
-                    <h3 class="text-lg font-bold text-secondary mb-2">Crypto Wallet Signup</h3>
-                    <p class="text-secondary/70 text-sm mb-4">Create account and complete KYC verification.</p>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">Email Signup</span>
-                        <span class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-semibold">Medium</span>
-                        <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">Worldwide</span>
-                    </div>
-                    <div class="flex items-center justify-between pt-4 border-t border-gray-100">
-                        <div class="flex items-center space-x-4 text-sm text-secondary/60">
-                            <span><i class="fas fa-dollar-sign text-accent mr-1"></i> $8.50</span>
-                            <span><i class="fas fa-clock text-primary mr-1"></i> 15 min</span>
-                            <span><i class="fas fa-users text-purple-600 mr-1"></i> 67/150</span>
-                        </div>
-                    </div>
-                    <a href="#" class="mt-4 block w-full py-3 bg-primary text-white text-center rounded-xl font-semibold hover:bg-primary/90">Apply Now</a>
-                </div>
+            <h3 class="mt-4 font-semibold text-slate-800">Subscribe & watch a YouTube video</h3>
+            <div class="mt-4 flex items-center justify-between text-sm">
+              <span class="text-emerald-600 font-extrabold text-lg">$0.35</span>
+              <span class="text-slate-500"><i class="fa-regular fa-clock mr-1" aria-hidden="true"></i>5 min</span>
             </div>
-        </div>
-    </section>
+            <p class="mt-1 text-xs text-slate-400">1,240 positions available</p>
+            <a href="#" class="mt-4 block text-center w-full py-2.5 rounded-lg bg-blue-600 text-white font-semibold text-sm hover:bg-blue-700 transition-colors">Apply Now</a>
+          </article>
 
-    <!-- ==================== PRICING ==================== -->
-    <section id="pricing" class="py-20 lg:py-32 bg-gradient-to-br from-secondary to-gray-900 text-white relative overflow-hidden">
-        <div class="absolute inset-0 overflow-hidden pointer-events-none">
-            <div class="absolute top-20 left-10 w-72 h-72 bg-primary/20 rounded-full blur-3xl"></div>
-            <div class="absolute bottom-20 right-10 w-96 h-96 bg-accent/20 rounded-full blur-3xl"></div>
-        </div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center max-w-3xl mx-auto mb-16 scroll-reveal">
-                <span class="inline-block px-4 py-2 bg-primary/30 text-blue-300 font-semibold rounded-full text-sm mb-4">Flexible Plans</span>
-                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-6">Subscription Plans</h2>
-                <p class="text-lg text-gray-300">Choose the plan that fits your needs. Start free and upgrade as you grow.</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 items-start">
-                <!-- Free -->
-                <div class="bg-white/5 backdrop-blur-lg rounded-3xl p-8 border border-white/10 card-hover scroll-reveal">
-                    <div class="text-center mb-8">
-                        <h3 class="text-xl font-bold mb-2">Free</h3>
-                        <p class="text-gray-400 text-sm mb-6">For beginners</p>
-                        <div class="flex items-baseline justify-center"><span class="text-4xl font-extrabold">$0</span><span class="text-gray-400 ml-2">/month</span></div>
-                    </div>
-                    <ul class="space-y-4 mb-8">
-                        <li class="flex items-center"><i class="fas fa-check text-accent mr-3"></i><span class="text-gray-300">5 tasks per day</span></li>
-                        <li class="flex items-center"><i class="fas fa-check text-accent mr-3"></i><span class="text-gray-300">Basic categories</span></li>
-                        <li class="flex items-center"><i class="fas fa-check text-accent mr-3"></i><span class="text-gray-300">PayPal withdrawals</span></li>
-                        <li class="flex items-center"><i class="fas fa-check text-accent mr-3"></i><span class="text-gray-300">Email support</span></li>
-                        <li class="flex items-center text-gray-500"><i class="fas fa-times mr-3"></i><span>Priority support</span></li>
-                        <li class="flex items-center text-gray-500"><i class="fas fa-times mr-3"></i><span>Premium tasks</span></li>
-                    </ul>
-                    <a href="#" class="block w-full py-4 text-center border-2 border-white/30 rounded-xl font-bold hover:bg-white hover:text-secondary transition-all">Get Started</a>
-                </div>
-
-                <!-- Starter -->
-                <div class="bg-white/5 backdrop-blur-lg rounded-3xl p-8 border border-white/10 card-hover scroll-reveal">
-                    <div class="text-center mb-8">
-                        <h3 class="text-xl font-bold mb-2">Starter</h3>
-                        <p class="text-gray-400 text-sm mb-6">For casual earners</p>
-                        <div class="flex items-baseline justify-center"><span class="text-4xl font-extrabold">$9</span><span class="text-gray-400 ml-2">/month</span></div>
-                    </div>
-                    <ul class="space-y-4 mb-8">
-                        <li class="flex items-center"><i class="fas fa-check text-accent mr-3"></i><span class="text-gray-300">25 tasks per day</span></li>
-                        <li class="flex items-center"><i class="fas fa-check text-accent mr-3"></i><span class="text-gray-300">All categories</span></li>
-                        <li class="flex items-center"><i class="fas fa-check text-accent mr-3"></i><span class="text-gray-300">Instant withdrawals</span></li>
-                        <li class="flex items-center"><i class="fas fa-check text-accent mr-3"></i><span class="text-gray-300">Priority support</span></li>
-                        <li class="flex items-center"><i class="fas fa-check text-accent mr-3"></i><span class="text-gray-300">Basic analytics</span></li>
-                        <li class="flex items-center text-gray-500"><i class="fas fa-times mr-3"></i><span>Premium tasks</span></li>
-                    </ul>
-                    <a href="#" class="block w-full py-4 text-center border-2 border-white/30 rounded-xl font-bold hover:bg-white hover:text-secondary transition-all">Choose Starter</a>
-                </div>
-
-                <!-- Professional -->
-                <div class="bg-white rounded-3xl p-8 shadow-2xl pricing-highlight scroll-reveal">
-                    <div class="text-center mb-8">
-                        <h3 class="text-xl font-bold text-secondary mb-2">Professional</h3>
-                        <p class="text-secondary/60 text-sm mb-6">For serious earners</p>
-                        <div class="flex items-baseline justify-center"><span class="text-4xl font-extrabold gradient-text">$29</span><span class="text-secondary/60 ml-2">/month</span></div>
-                    </div>
-                    <ul class="space-y-4 mb-8">
-                        <li class="flex items-center"><i class="fas fa-check text-accent mr-3"></i><span class="text-secondary">Unlimited tasks</span></li>
-                        <li class="flex items-center"><i class="fas fa-check text-accent mr-3"></i><span class="text-secondary">All categories + Premium</span></li>
-                        <li class="flex items-center"><i class="fas fa-check text-accent mr-3"></i><span class="text-secondary">Instant withdrawals</span></li>
-                        <li class="flex items-center"><i class="fas fa-check text-accent mr-3"></i><span class="text-secondary">24/7 Priority support</span></li>
-                        <li class="flex items-center"><i class="fas fa-check text-accent mr-3"></i><span class="text-secondary">Advanced analytics</span></li>
-                        <li class="flex items-center"><i class="fas fa-check text-accent mr-3"></i><span class="text-secondary">Multi-account management</span></li>
-                    </ul>
-                    <a href="#" class="block w-full py-4 text-center btn-gradient text-white rounded-xl font-bold shadow-lg">Choose Professional</a>
-                </div>
-
-                <!-- Premium -->
-                <div class="bg-white/5 backdrop-blur-lg rounded-3xl p-8 border border-white/10 card-hover scroll-reveal">
-                    <div class="text-center mb-8">
-                        <h3 class="text-xl font-bold mb-2">Premium</h3>
-                        <p class="text-gray-400 text-sm mb-6">For power users</p>
-                        <div class="flex items-baseline justify-center"><span class="text-4xl font-extrabold">$59</span><span class="text-gray-400 ml-2">/month</span></div>
-                    </div>
-                    <ul class="space-y-4 mb-8">
-                        <li class="flex items-center"><i class="fas fa-check text-accent mr-3"></i><span class="text-gray-300">Everything in Pro</span></li>
-                        <li class="flex items-center"><i class="fas fa-check text-accent mr-3"></i><span class="text-gray-300">Team management</span></li>
-                        <li class="flex items-center"><i class="fas fa-check text-accent mr-3"></i><span class="text-gray-300">API access</span></li>
-                        <li class="flex items-center"><i class="fas fa-check text-accent mr-3"></i><span class="text-gray-300">Dedicated account manager</span></li>
-                        <li class="flex items-center"><i class="fas fa-check text-accent mr-3"></i><span class="text-gray-300">Custom integrations</span></li>
-                        <li class="flex items-center"><i class="fas fa-check text-accent mr-3"></i><span class="text-gray-300">Volume discounts</span></li>
-                    </ul>
-                    <a href="#" class="block w-full py-4 text-center border-2 border-white/30 rounded-xl font-bold hover:bg-white hover:text-secondary transition-all">Choose Premium</a>
-                </div>
-            </div>
-
-            <div class="text-center mt-12 scroll-reveal">
-                <div class="inline-flex items-center px-6 py-3 bg-white/10 rounded-full">
-                    <i class="fas fa-shield-halved text-accent mr-2"></i>
-                    <span class="text-gray-300">30-day money-back guarantee on all paid plans</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== WHY CHOOSE US ==================== -->
-    <section class="py-20 lg:py-32 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16 scroll-reveal">
-                <span class="inline-block px-4 py-2 bg-accent/10 text-accent font-semibold rounded-full text-sm mb-4">Why TaskProX</span>
-                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-secondary mb-6">Why Choose Us</h2>
-                <p class="text-lg text-secondary/70">Experience the difference with our feature-rich platform.</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="text-center scroll-reveal">
-                    <div class="w-20 h-20 bg-gradient-to-br from-green-100 to-emerald-100 rounded-3xl flex items-center justify-center mx-auto mb-6 card-hover"><i class="fas fa-shield-halved text-green-600 text-3xl"></i></div>
-                    <h3 class="text-xl font-bold text-secondary mb-3">Secure Payments</h3>
-                    <p class="text-secondary/70">Bank-level encryption protects all transactions.</p>
-                </div>
-                <div class="text-center scroll-reveal">
-                    <div class="w-20 h-20 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-3xl flex items-center justify-center mx-auto mb-6 card-hover"><i class="fas fa-bolt text-blue-600 text-3xl"></i></div>
-                    <h3 class="text-xl font-bold text-secondary mb-3">Fast Withdrawals</h3>
-                    <p class="text-secondary/70">Get paid within minutes to PayPal or crypto.</p>
-                </div>
-                <div class="text-center scroll-reveal">
-                    <div class="w-20 h-20 bg-gradient-to-br from-purple-100 to-pink-100 rounded-3xl flex items-center justify-center mx-auto mb-6 card-hover"><i class="fas fa-certificate text-purple-600 text-3xl"></i></div>
-                    <h3 class="text-xl font-bold text-secondary mb-3">Verified Clients</h3>
-                    <p class="text-secondary/70">All clients are verified and rated.</p>
-                </div>
-                <div class="text-center scroll-reveal">
-                    <div class="w-20 h-20 bg-gradient-to-br from-yellow-100 to-orange-100 rounded-3xl flex items-center justify-center mx-auto mb-6 card-hover"><i class="fas fa-robot text-yellow-600 text-3xl"></i></div>
-                    <h3 class="text-xl font-bold text-secondary mb-3">AI Fraud Detection</h3>
-                    <p class="text-secondary/70">Advanced AI ensures fair work practices.</p>
-                </div>
-                <div class="text-center scroll-reveal">
-                    <div class="w-20 h-20 bg-gradient-to-br from-red-100 to-rose-100 rounded-3xl flex items-center justify-center mx-auto mb-6 card-hover"><i class="fas fa-chart-line text-red-600 text-3xl"></i></div>
-                    <h3 class="text-xl font-bold text-secondary mb-3">Real Time Tracking</h3>
-                    <p class="text-secondary/70">Track earnings and progress in real-time.</p>
-                </div>
-                <div class="text-center scroll-reveal">
-                    <div class="w-20 h-20 bg-gradient-to-br from-cyan-100 to-teal-100 rounded-3xl flex items-center justify-center mx-auto mb-6 card-hover"><i class="fas fa-headset text-cyan-600 text-3xl"></i></div>
-                    <h3 class="text-xl font-bold text-secondary mb-3">24/7 Support</h3>
-                    <p class="text-secondary/70">Dedicated support team available around the clock.</p>
-                </div>
-                <div class="text-center scroll-reveal">
-                    <div class="w-20 h-20 bg-gradient-to-br from-gray-100 to-slate-100 rounded-3xl flex items-center justify-center mx-auto mb-6 card-hover"><i class="fas fa-percentage text-gray-600 text-3xl"></i></div>
-                    <h3 class="text-xl font-bold text-secondary mb-3">Low Fees</h3>
-                    <p class="text-secondary/70">Keep more of your earnings.</p>
-                </div>
-                <div class="text-center scroll-reveal">
-                    <div class="w-20 h-20 bg-gradient-to-br from-indigo-100 to-violet-100 rounded-3xl flex items-center justify-center mx-auto mb-6 card-hover"><i class="fas fa-globe text-indigo-600 text-3xl"></i></div>
-                    <h3 class="text-xl font-bold text-secondary mb-3">Global Availability</h3>
-                    <p class="text-secondary/70">Available in 120+ countries.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== LIVE STATISTICS ==================== -->
-    <section class="py-20 lg:py-32 bg-gradient-to-br from-primary to-blue-700 text-white relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10" style="background-image: url('data:image/svg+xml,%3Csvg width=&quot;60&quot; height=&quot;60&quot; viewBox=&quot;0 0 60 60&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;%3E%3Cg fill=&quot;none&quot; fill-rule=&quot;evenodd&quot;%3E%3Cg fill=&quot;%23ffffff&quot; fill-opacity=&quot;1&quot;%3E%3Cpath d=&quot;M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z&quot;/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center max-w-3xl mx-auto mb-16 scroll-reveal">
-                <span class="inline-block px-4 py-2 bg-white/20 text-white font-semibold rounded-full text-sm mb-4"><i class="fas fa-circle text-accent mr-2 animate-pulse"></i>Live Platform Statistics</span>
-                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-6">Real-Time Platform Activity</h2>
-                <p class="text-lg text-blue-100">Watch our platform grow as workers and clients connect worldwide.</p>
-            </div>
-
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-                <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-8 text-center card-hover scroll-reveal">
-                    <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-6"><i class="fas fa-users text-3xl"></i></div>
-                    <p class="text-4xl lg:text-5xl font-extrabold mb-2"><span class="counter" data-target="12847">12,847</span></p>
-                    <p class="text-blue-100 font-medium">Workers Online Now</p>
-                    <div class="flex items-center justify-center mt-4 text-sm text-accent"><i class="fas fa-arrow-up mr-1"></i>+234 in last hour</div>
-                </div>
-                <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-8 text-center card-hover scroll-reveal">
-                    <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-6"><i class="fas fa-briefcase text-3xl"></i></div>
-                    <p class="text-4xl lg:text-5xl font-extrabold mb-2"><span class="counter" data-target="3842">3,842</span></p>
-                    <p class="text-blue-100 font-medium">Jobs Completed Today</p>
-                    <div class="flex items-center justify-center mt-4 text-sm text-accent"><i class="fas fa-arrow-up mr-1"></i>+156 this hour</div>
-                </div>
-                <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-8 text-center card-hover scroll-reveal">
-                    <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-6"><i class="fas fa-coins text-3xl"></i></div>
-                    <p class="text-4xl lg:text-5xl font-extrabold mb-2">$<span class="counter" data-target="45628">45,628</span></p>
-                    <p class="text-blue-100 font-medium">Paid Today</p>
-                    <div class="flex items-center justify-center mt-4 text-sm text-accent"><i class="fas fa-arrow-up mr-1"></i>+$2,340 this hour</div>
-                </div>
-                <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-8 text-center card-hover scroll-reveal">
-                    <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-6"><i class="fas fa-wallet text-3xl"></i></div>
-                    <p class="text-4xl lg:text-5xl font-extrabold mb-2"><span class="counter" data-target="892">892</span></p>
-                    <p class="text-blue-100 font-medium">Withdrawals Processed</p>
-                    <div class="flex items-center justify-center mt-4 text-sm text-accent"><i class="fas fa-check-circle mr-1"></i>Avg. 3 min processing</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== TESTIMONIALS ==================== -->
-    <section class="py-20 lg:py-32 bg-background">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16 scroll-reveal">
-                <span class="inline-block px-4 py-2 bg-primary/10 text-primary font-semibold rounded-full text-sm mb-4">Success Stories</span>
-                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-secondary mb-6">What Our Users Say</h2>
-                <p class="text-lg text-secondary/70">Join thousands of satisfied workers and clients.</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-white rounded-3xl p-8 shadow-lg card-hover scroll-reveal">
-                    <div class="flex items-center mb-4"><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i></div>
-                    <p class="text-secondary/80 mb-6 leading-relaxed">"TaskProX has been a game-changer. I started earning within the first day and now make $500+/month working just a few hours. The variety of tasks keeps things interesting!"</p>
-                    <div class="flex items-center">
-                        <img src="https://i.pravatar.cc/60?img=20" alt="User" class="w-14 h-14 rounded-full mr-4">
-                        <div>
-                            <h4 class="font-bold text-secondary">Sarah Johnson</h4>
-                            <p class="text-sm text-secondary/60"><i class="fas fa-map-marker-alt text-primary mr-1"></i>United States</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white rounded-3xl p-8 shadow-lg card-hover scroll-reveal">
-                    <div class="flex items-center mb-4"><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i></div>
-                    <p class="text-secondary/80 mb-6 leading-relaxed">"As a freelancer, I struggled to find micro tasks. TaskProX solved that. The Professional plan is worth it - I get access to premium tasks that pay well. Highly recommended!"</p>
-                    <div class="flex items-center">
-                        <img src="https://i.pravatar.cc/60?img=33" alt="User" class="w-14 h-14 rounded-full mr-4">
-                        <div>
-                            <h4 class="font-bold text-secondary">Michael Chen</h4>
-                            <p class="text-sm text-secondary/60"><i class="fas fa-map-marker-alt text-primary mr-1"></i>Philippines</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white rounded-3xl p-8 shadow-lg card-hover scroll-reveal">
-                    <div class="flex items-center mb-4"><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i></div>
-                    <p class="text-secondary/80 mb-6 leading-relaxed">"The instant withdrawal feature is amazing! I earned $50 yesterday and had it in my PayPal within minutes. Best micro job platform I've used. Period."</p>
-                    <div class="flex items-center">
-                        <img src="https://i.pravatar.cc/60?img=44" alt="User" class="w-14 h-14 rounded-full mr-4">
-                        <div>
-                            <h4 class="font-bold text-secondary">Emma Williams</h4>
-                            <p class="text-sm text-secondary/60"><i class="fas fa-map-marker-alt text-primary mr-1"></i>United Kingdom</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white rounded-3xl p-8 shadow-lg card-hover scroll-reveal">
-                    <div class="flex items-center mb-4"><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i></div>
-                    <p class="text-secondary/80 mb-6 leading-relaxed">"I run a small marketing agency and TaskProX has been perfect for our tasks. Verified workers, fair pricing, and excellent support. We've posted over 500 jobs."</p>
-                    <div class="flex items-center">
-                        <img src="https://i.pravatar.cc/60?img=15" alt="User" class="w-14 h-14 rounded-full mr-4">
-                        <div>
-                            <h4 class="font-bold text-secondary">David Rodriguez</h4>
-                            <p class="text-sm text-secondary/60"><i class="fas fa-map-marker-alt text-primary mr-1"></i>Brazil</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white rounded-3xl p-8 shadow-lg card-hover scroll-reveal">
-                    <div class="flex items-center mb-4"><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i></div>
-                    <p class="text-secondary/80 mb-6 leading-relaxed">"Being from Nigeria, finding legitimate online work was tough. TaskProX changed that. I've earned over $2,000 in the past month!"</p>
-                    <div class="flex items-center">
-                        <img src="https://i.pravatar.cc/60?img=47" alt="User" class="w-14 h-14 rounded-full mr-4">
-                        <div>
-                            <h4 class="font-bold text-secondary">Aisha Okonkwo</h4>
-                            <p class="text-sm text-secondary/60"><i class="fas fa-map-marker-alt text-primary mr-1"></i>Nigeria</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white rounded-3xl p-8 shadow-lg card-hover scroll-reveal">
-                    <div class="flex items-center mb-4"><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i></div>
-                    <p class="text-secondary/80 mb-6 leading-relaxed">"The AI fraud detection gives me peace of mind. TaskProX is professional, reliable, and actually pays out. 10/10!"</p>
-                    <div class="flex items-center">
-                        <img src="https://i.pravatar.cc/60?img=51" alt="User" class="w-14 h-14 rounded-full mr-4">
-                        <div>
-                            <h4 class="font-bold text-secondary">James Mitchell</h4>
-                            <p class="text-sm text-secondary/60"><i class="fas fa-map-marker-alt text-primary mr-1"></i>Australia</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== FAQ ==================== -->
-    <section id="faq" class="py-20 lg:py-32 bg-white">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16 scroll-reveal">
-                <span class="inline-block px-4 py-2 bg-accent/10 text-accent font-semibold rounded-full text-sm mb-4">Got Questions?</span>
-                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-secondary mb-6">Frequently Asked Questions</h2>
-                <p class="text-lg text-secondary/70">Find answers to the most common questions.</p>
-            </div>
-
-            <div class="space-y-4" x-data="{ active: null }">
-                <div class="bg-background rounded-2xl overflow-hidden scroll-reveal">
-                    <button @click="active !== 1 ? active = 1 : active = null" class="w-full px-6 py-5 flex items-center justify-between text-left">
-                        <span class="font-bold text-secondary text-lg">How do I get started as a worker?</span>
-                        <i class="fas fa-plus text-primary transition-transform" :class="{ 'rotate-45': active === 1 }"></i>
-                    </button>
-                    <div class="faq-content" :class="{ 'active': active === 1 }">
-                        <div class="px-6 pb-5 text-secondary/70">Getting started is easy! Simply click "Register" and create your free account. Complete your profile, choose a subscription plan, and you'll be able to browse and apply for tasks immediately.</div>
-                    </div>
-                </div>
-                <div class="bg-background rounded-2xl overflow-hidden scroll-reveal">
-                    <button @click="active !== 2 ? active = 2 : active = null" class="w-full px-6 py-5 flex items-center justify-between text-left">
-                        <span class="font-bold text-secondary text-lg">What payment methods are available?</span>
-                        <i class="fas fa-plus text-primary transition-transform" :class="{ 'rotate-45': active === 2 }"></i>
-                    </button>
-                    <div class="faq-content" :class="{ 'active': active === 2 }">
-                        <div class="px-6 pb-5 text-secondary/70">We offer PayPal, Payoneer, bank transfer, and cryptocurrency (Bitcoin, Ethereum, USDT). Withdrawals are instant for Professional and Premium members.</div>
-                    </div>
-                </div>
-                <div class="bg-background rounded-2xl overflow-hidden scroll-reveal">
-                    <button @click="active !== 3 ? active = 3 : active = null" class="w-full px-6 py-5 flex items-center justify-between text-left">
-                        <span class="font-bold text-secondary text-lg">How much can I realistically earn?</span>
-                        <i class="fas fa-plus text-primary transition-transform" :class="{ 'rotate-45': active === 3 }"></i>
-                    </button>
-                    <div class="faq-content" :class="{ 'active': active === 3 }">
-                        <div class="px-6 pb-5 text-secondary/70">Earnings vary based on tasks and subscription plan. Average workers earn $200-$1,000+/month. Top earners report over $2,000 monthly.</div>
-                    </div>
-                </div>
-                <div class="bg-background rounded-2xl overflow-hidden scroll-reveal">
-                    <button @click="active !== 4 ? active = 4 : active = null" class="w-full px-6 py-5 flex items-center justify-between text-left">
-                        <span class="font-bold text-secondary text-lg">Is TaskProX available in my country?</span>
-                        <i class="fas fa-plus text-primary transition-transform" :class="{ 'rotate-45': active === 4 }"></i>
-                    </button>
-                    <div class="faq-content" :class="{ 'active': active === 4 }">
-                        <div class="px-6 pb-5 text-secondary/70">TaskProX is available in over 120 countries worldwide with support for multiple languages including English, Spanish, French, German, Portuguese, and Arabic.</div>
-                    </div>
-                </div>
-                <div class="bg-background rounded-2xl overflow-hidden scroll-reveal">
-                    <button @click="active !== 5 ? active = 5 : active = null" class="w-full px-6 py-5 flex items-center justify-between text-left">
-                        <span class="font-bold text-secondary text-lg">How does the subscription work?</span>
-                        <i class="fas fa-plus text-primary transition-transform" :class="{ 'rotate-45': active === 5 }"></i>
-                    </button>
-                    <div class="faq-content" :class="{ 'active': active === 5 }">
-                        <div class="px-6 pb-5 text-secondary/70">Subscription plans unlock features and earning potential. Free plan has basic access. Paid plans unlock more tasks, instant withdrawals, priority support, and premium opportunities.</div>
-                    </div>
-                </div>
-                <div class="bg-background rounded-2xl overflow-hidden scroll-reveal">
-                    <button @click="active !== 6 ? active = 6 : active = null" class="w-full px-6 py-5 flex items-center justify-between text-left">
-                        <span class="font-bold text-secondary text-lg">How do I post a job as a client?</span>
-                        <i class="fas fa-plus text-primary transition-transform" :class="{ 'rotate-45': active === 6 }"></i>
-                    </button>
-                    <div class="faq-content" :class="{ 'active': active === 6 }">
-                        <div class="px-6 pb-5 text-secondary/70">Register as a client, complete verification, then create tasks, set prices, and manage submissions. We handle payments, verification, and fraud prevention automatically.</div>
-                    </div>
-                </div>
-                <div class="bg-background rounded-2xl overflow-hidden scroll-reveal">
-                    <button @click="active !== 7 ? active = 7 : active = null" class="w-full px-6 py-5 flex items-center justify-between text-left">
-                        <span class="font-bold text-secondary text-lg">Is my personal information safe?</span>
-                        <i class="fas fa-plus text-primary transition-transform" :class="{ 'rotate-45': active === 7 }"></i>
-                    </button>
-                    <div class="faq-content" :class="{ 'active': active === 7 }">
-                        <div class="px-6 pb-5 text-secondary/70">Absolutely! We use 256-bit SSL encryption and follow strict data protection protocols. We're GDPR compliant and never share your information with third parties.</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="text-center mt-12 scroll-reveal">
-                <p class="text-secondary/70 mb-4">Still have questions?</p>
-                <a href="#" class="inline-flex items-center px-6 py-3 bg-primary text-white rounded-xl font-semibold hover:bg-primary/90"><i class="fas fa-headset mr-2"></i>Contact Support</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== CTA ==================== -->
-    <section class="py-20 lg:py-32 bg-gradient-to-br from-secondary via-gray-900 to-secondary text-white relative overflow-hidden">
-        <div class="absolute inset-0 overflow-hidden pointer-events-none">
-            <div class="absolute top-0 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl"></div>
-            <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl"></div>
-        </div>
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 scroll-reveal">
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-6">Ready to Get Started?</h2>
-            <p class="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">Join over 100,000 workers already earning on TaskProX. Start today.</p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#" class="inline-flex items-center justify-center px-8 py-4 btn-gradient text-white rounded-xl font-bold text-lg shadow-xl"><i class="fas fa-user-plus mr-2"></i>Join as Worker</a>
-                <a href="#" class="inline-flex items-center justify-center px-8 py-4 bg-white text-secondary rounded-xl font-bold text-lg hover:bg-gray-100"><i class="fas fa-briefcase mr-2"></i>Post a Job</a>
-            </div>
-            <div class="flex flex-wrap items-center justify-center gap-6 mt-12 text-sm text-gray-400">
-                <div class="flex items-center"><i class="fas fa-check-circle text-accent mr-2"></i>Free to join</div>
-                <div class="flex items-center"><i class="fas fa-check-circle text-accent mr-2"></i>No credit card required</div>
-                <div class="flex items-center"><i class="fas fa-check-circle text-accent mr-2"></i>Instant earnings</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== FOOTER ==================== -->
-    <footer id="footer" class="bg-secondary text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-12">
-                <div class="col-span-2 md:col-span-3 lg:col-span-2">
-                    <a href="#" class="flex items-center space-x-2 mb-6">
-                        <div class="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center"><i class="fas fa-bolt text-white text-xl"></i></div>
-                        <span class="text-2xl font-bold">TaskProX</span>
-                    </a>
-                    <p class="text-gray-400 mb-6 max-w-sm">Complete Simple Tasks. Earn Real Rewards. Join the world's fastest-growing micro job platform.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-primary"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-primary"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-primary"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-primary"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-primary"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
+          <!-- Job card 2 -->
+          <article class="reveal bg-white rounded-xl border border-slate-200 p-6 hover:shadow-xl hover:shadow-slate-200 hover:-translate-y-1 transition-all">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <span class="h-11 w-11 rounded-lg bg-emerald-100 text-emerald-600 font-bold flex items-center justify-center">BA</span>
                 <div>
-                    <h4 class="font-bold mb-4">For Workers</h4>
-                    <ul class="space-y-3 text-gray-400">
-                        <li><a href="#" class="hover:text-white">Browse Jobs</a></li>
-                        <li><a href="#" class="hover:text-white">Categories</a></li>
-                        <li><a href="#" class="hover:text-white">Pricing</a></li>
-                        <li><a href="#" class="hover:text-white">How It Works</a></li>
-                    </ul>
+                  <p class="font-bold text-slate-900 text-sm">BrightApp Inc.</p>
+                  <p class="text-xs text-slate-400">🌍 Worldwide</p>
                 </div>
-                <div>
-                    <h4 class="font-bold mb-4">For Clients</h4>
-                    <ul class="space-y-3 text-gray-400">
-                        <li><a href="#" class="hover:text-white">Post a Job</a></li>
-                        <li><a href="#" class="hover:text-white">Pricing</a></li>
-                        <li><a href="#" class="hover:text-white">API Access</a></li>
-                        <li><a href="#" class="hover:text-white">Enterprise</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold mb-4">Company</h4>
-                    <ul class="space-y-3 text-gray-400">
-                        <li><a href="#" class="hover:text-white">About Us</a></li>
-                        <li><a href="#" class="hover:text-white">Careers</a></li>
-                        <li><a href="#" class="hover:text-white">Blog</a></li>
-                        <li><a href="#" class="hover:text-white">Contact</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold mb-4">Support</h4>
-                    <ul class="space-y-3 text-gray-400">
-                        <li><a href="#" class="hover:text-white">Help Center</a></li>
-                        <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
-                        <li><a href="#" class="hover:text-white">Terms of Service</a></li>
-                        <li><a href="#" class="hover:text-white">Trust & Safety</a></li>
-                    </ul>
-                </div>
+              </div>
+              <span class="px-2.5 py-1 rounded-full bg-amber-50 text-amber-600 text-xs font-bold">Medium</span>
             </div>
+            <h3 class="mt-4 font-semibold text-slate-800">Install app & submit a written review</h3>
+            <div class="mt-4 flex items-center justify-between text-sm">
+              <span class="text-emerald-600 font-extrabold text-lg">$1.20</span>
+              <span class="text-slate-500"><i class="fa-regular fa-clock mr-1" aria-hidden="true"></i>15 min</span>
+            </div>
+            <p class="mt-1 text-xs text-slate-400">580 positions available</p>
+            <a href="#" class="mt-4 block text-center w-full py-2.5 rounded-lg bg-blue-600 text-white font-semibold text-sm hover:bg-blue-700 transition-colors">Apply Now</a>
+          </article>
 
-            <div class="mt-12 pt-12 border-t border-white/10">
-                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-                    <div>
-                        <h4 class="font-bold mb-2">Subscribe to our newsletter</h4>
-                        <p class="text-gray-400 text-sm">Get the latest updates and offers.</p>
-                    </div>
-                    <form class="flex w-full lg:w-auto gap-3" onsubmit="event.preventDefault(); alert('Thank you for subscribing!');">
-                        <input type="email" placeholder="Enter your email" required class="flex-1 lg:w-72 px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:outline-none focus:border-primary text-white placeholder-gray-400">
-                        <button type="submit" class="px-6 py-3 btn-gradient text-white rounded-xl font-semibold">Subscribe</button>
-                    </form>
+          <!-- Job card 3 -->
+          <article class="reveal bg-white rounded-xl border border-slate-200 p-6 hover:shadow-xl hover:shadow-slate-200 hover:-translate-y-1 transition-all">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <span class="h-11 w-11 rounded-lg bg-blue-100 text-blue-600 font-bold flex items-center justify-center">PC</span>
+                <div>
+                  <p class="font-bold text-slate-900 text-sm">PixelCart</p>
+                  <p class="text-xs text-slate-400">🌍 Worldwide</p>
                 </div>
+              </div>
+              <span class="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-600 text-xs font-bold">Easy</span>
             </div>
+            <h3 class="mt-4 font-semibold text-slate-800">Visit website & browse 3 product pages</h3>
+            <div class="mt-4 flex items-center justify-between text-sm">
+              <span class="text-emerald-600 font-extrabold text-lg">$0.20</span>
+              <span class="text-slate-500"><i class="fa-regular fa-clock mr-1" aria-hidden="true"></i>3 min</span>
+            </div>
+            <p class="mt-1 text-xs text-slate-400">3,000 positions available</p>
+            <a href="#" class="mt-4 block text-center w-full py-2.5 rounded-lg bg-blue-600 text-white font-semibold text-sm hover:bg-blue-700 transition-colors">Apply Now</a>
+          </article>
+
+          <!-- Job card 4 -->
+          <article class="reveal bg-white rounded-xl border border-slate-200 p-6 hover:shadow-xl hover:shadow-slate-200 hover:-translate-y-1 transition-all">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <span class="h-11 w-11 rounded-lg bg-violet-100 text-violet-600 font-bold flex items-center justify-center">LB</span>
+                <div>
+                  <p class="font-bold text-slate-900 text-sm">LinguaBridge</p>
+                  <p class="text-xs text-slate-400">🌍 Worldwide</p>
+                </div>
+              </div>
+              <span class="px-2.5 py-1 rounded-full bg-rose-50 text-rose-600 text-xs font-bold">Hard</span>
+            </div>
+            <h3 class="mt-4 font-semibold text-slate-800">Translate product description (EN → FR)</h3>
+            <div class="mt-4 flex items-center justify-between text-sm">
+              <span class="text-emerald-600 font-extrabold text-lg">$4.50</span>
+              <span class="text-slate-500"><i class="fa-regular fa-clock mr-1" aria-hidden="true"></i>30 min</span>
+            </div>
+            <p class="mt-1 text-xs text-slate-400">90 positions available</p>
+            <a href="#" class="mt-4 block text-center w-full py-2.5 rounded-lg bg-blue-600 text-white font-semibold text-sm hover:bg-blue-700 transition-colors">Apply Now</a>
+          </article>
+
+          <!-- Job card 5 -->
+          <article class="reveal bg-white rounded-xl border border-slate-200 p-6 hover:shadow-xl hover:shadow-slate-200 hover:-translate-y-1 transition-all">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <span class="h-11 w-11 rounded-lg bg-fuchsia-100 text-fuchsia-600 font-bold flex items-center justify-center">DF</span>
+                <div>
+                  <p class="font-bold text-slate-900 text-sm">DataForge Labs</p>
+                  <p class="text-xs text-slate-400">🌍 Worldwide</p>
+                </div>
+              </div>
+              <span class="px-2.5 py-1 rounded-full bg-amber-50 text-amber-600 text-xs font-bold">Medium</span>
+            </div>
+            <h3 class="mt-4 font-semibold text-slate-800">Categorize product images for AI training</h3>
+            <div class="mt-4 flex items-center justify-between text-sm">
+              <span class="text-emerald-600 font-extrabold text-lg">$2.80</span>
+              <span class="text-slate-500"><i class="fa-regular fa-clock mr-1" aria-hidden="true"></i>20 min</span>
+            </div>
+            <p class="mt-1 text-xs text-slate-400">450 positions available</p>
+            <a href="#" class="mt-4 block text-center w-full py-2.5 rounded-lg bg-blue-600 text-white font-semibold text-sm hover:bg-blue-700 transition-colors">Apply Now</a>
+          </article>
+
+          <!-- Job card 6 -->
+          <article class="reveal bg-white rounded-xl border border-slate-200 p-6 hover:shadow-xl hover:shadow-slate-200 hover:-translate-y-1 transition-all">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <span class="h-11 w-11 rounded-lg bg-pink-100 text-pink-600 font-bold flex items-center justify-center">SB</span>
+                <div>
+                  <p class="font-bold text-slate-900 text-sm">SocialBoost Co.</p>
+                  <p class="text-xs text-slate-400">🌍 Worldwide</p>
+                </div>
+              </div>
+              <span class="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-600 text-xs font-bold">Easy</span>
+            </div>
+            <h3 class="mt-4 font-semibold text-slate-800">Follow Instagram page & like 3 posts</h3>
+            <div class="mt-4 flex items-center justify-between text-sm">
+              <span class="text-emerald-600 font-extrabold text-lg">$0.30</span>
+              <span class="text-slate-500"><i class="fa-regular fa-clock mr-1" aria-hidden="true"></i>4 min</span>
+            </div>
+            <p class="mt-1 text-xs text-slate-400">2,100 positions available</p>
+            <a href="#" class="mt-4 block text-center w-full py-2.5 rounded-lg bg-blue-600 text-white font-semibold text-sm hover:bg-blue-700 transition-colors">Apply Now</a>
+          </article>
         </div>
-        <div class="border-t border-white/10">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-sm text-gray-400">
-                    <p>© 2024 TaskProX. All rights reserved.</p>
-                    <div class="flex flex-wrap items-center gap-4">
-                        <i class="fab fa-cc-visa text-2xl opacity-60 hover:opacity-100"></i>
-                        <i class="fab fa-cc-mastercard text-2xl opacity-60 hover:opacity-100"></i>
-                        <i class="fab fa-paypal text-2xl opacity-60 hover:opacity-100"></i>
-                        <i class="fab fa-bitcoin text-2xl opacity-60 hover:opacity-100"></i>
-                    </div>
-                </div>
-            </div>
+
+        <a href="#pricing" class="sm:hidden mt-8 inline-flex items-center gap-2 text-blue-600 font-semibold">Browse all jobs <i class="fa-solid fa-arrow-right text-sm"></i></a>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         SUBSCRIPTION PLANS
+    ===================================================================== -->
+    <section id="pricing" class="py-24 bg-slate-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto reveal">
+          <span class="text-blue-600 font-semibold text-sm tracking-wide uppercase">Pricing</span>
+          <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold text-slate-900">Choose the plan that fits how you work</h2>
+          <p class="mt-4 text-slate-600">Upgrade anytime to unlock more daily tasks, higher-paying jobs, and faster withdrawals.</p>
         </div>
-    </footer>
 
-    <!-- ==================== SCRIPTS ==================== -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add animate-on-scroll class to all scroll-reveal elements
-            const scrollRevealElements = document.querySelectorAll('.scroll-reveal');
-            scrollRevealElements.forEach(el => el.classList.add('animate-on-scroll'));
+        <div class="mt-14 grid md:grid-cols-2 lg:grid-cols-4 gap-6 items-start">
+          <!-- Free -->
+          <div class="reveal bg-white rounded-2xl border border-slate-200 p-7 hover:shadow-lg transition-shadow">
+            <h3 class="font-bold text-lg text-slate-900">Free</h3>
+            <p class="text-sm text-slate-500 mt-1">Try TaskProX with zero risk</p>
+            <p class="mt-5"><span class="text-4xl font-extrabold text-slate-900">$0</span><span class="text-slate-500">/mo</span></p>
+            <a href="#" class="mt-6 block text-center py-2.5 rounded-lg border border-slate-300 font-semibold text-slate-700 hover:border-blue-600 hover:text-blue-600 transition-colors">Get Started</a>
+            <ul class="mt-7 space-y-3 text-sm text-slate-600">
+              <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-emerald-500 mt-0.5" aria-hidden="true"></i>5 tasks per day</li>
+              <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-emerald-500 mt-0.5" aria-hidden="true"></i>Standard task pool</li>
+              <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-emerald-500 mt-0.5" aria-hidden="true"></i>Basic email support</li>
+              <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-emerald-500 mt-0.5" aria-hidden="true"></i>3-day withdrawal time</li>
+            </ul>
+          </div>
 
-            // Scroll Reveal Observer
-            const scrollRevealObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+          <!-- Starter -->
+          <div class="reveal bg-white rounded-2xl border border-slate-200 p-7 hover:shadow-lg transition-shadow">
+            <h3 class="font-bold text-lg text-slate-900">Starter</h3>
+            <p class="text-sm text-slate-500 mt-1">For consistent part-time earners</p>
+            <p class="mt-5"><span class="text-4xl font-extrabold text-slate-900">$9</span><span class="text-slate-500">/mo</span></p>
+            <a href="#" class="mt-6 block text-center py-2.5 rounded-lg border border-slate-300 font-semibold text-slate-700 hover:border-blue-600 hover:text-blue-600 transition-colors">Choose Starter</a>
+            <ul class="mt-7 space-y-3 text-sm text-slate-600">
+              <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-emerald-500 mt-0.5" aria-hidden="true"></i>25 tasks per day</li>
+              <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-emerald-500 mt-0.5" aria-hidden="true"></i>Priority task queue</li>
+              <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-emerald-500 mt-0.5" aria-hidden="true"></i>Email support</li>
+              <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-emerald-500 mt-0.5" aria-hidden="true"></i>24-hour withdrawal time</li>
+            </ul>
+          </div>
 
-            scrollRevealElements.forEach(el => scrollRevealObserver.observe(el));
+          <!-- Professional (highlighted) -->
+          <div class="reveal relative bg-slate-900 rounded-2xl p-7 shadow-2xl shadow-blue-900/30 lg:scale-105 ring-2 ring-blue-600">
+            <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3.5 py-1 rounded-full bg-blue-600 text-white text-xs font-bold tracking-wide">MOST POPULAR</span>
+            <h3 class="font-bold text-lg text-white">Professional</h3>
+            <p class="text-sm text-slate-400 mt-1">For serious full-time workers</p>
+            <p class="mt-5"><span class="text-4xl font-extrabold text-white">$29</span><span class="text-slate-400">/mo</span></p>
+            <a href="#" class="mt-6 block text-center py-2.5 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 shadow-md shadow-blue-600/30 transition-colors">Choose Professional</a>
+            <ul class="mt-7 space-y-3 text-sm text-slate-300">
+              <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-emerald-400 mt-0.5" aria-hidden="true"></i>Unlimited daily tasks</li>
+              <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-emerald-400 mt-0.5" aria-hidden="true"></i>Premium high-pay tasks</li>
+              <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-emerald-400 mt-0.5" aria-hidden="true"></i>Priority live chat support</li>
+              <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-emerald-400 mt-0.5" aria-hidden="true"></i>Instant withdrawals</li>
+              <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-emerald-400 mt-0.5" aria-hidden="true"></i>Early access to new jobs</li>
+            </ul>
+          </div>
 
-            // Counter Animation
-            const counters = document.querySelectorAll('.counter');
-            const counterObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const counter = entry.target;
-                        const target = parseInt(counter.getAttribute('data-target'));
-                        if (target) {
-                            const duration = 2000;
-                            const increment = target / (duration / 16);
-                            let current = 0;
-                            const updateCounter = () => {
-                                current += increment;
-                                if (current < target) {
-                                    counter.textContent = Math.floor(current).toLocaleString();
-                                    requestAnimationFrame(updateCounter);
-                                } else {
-                                    counter.textContent = target.toLocaleString();
-                                }
-                            };
-                            updateCounter();
-                        }
-                        counterObserver.unobserve(counter);
-                    }
-                });
-            }, { threshold: 0.5 });
-            counters.forEach(counter => counterObserver.observe(counter));
+          <!-- Premium -->
+          <div class="reveal bg-white rounded-2xl border border-slate-200 p-7 hover:shadow-lg transition-shadow">
+            <h3 class="font-bold text-lg text-slate-900">Premium</h3>
+            <p class="text-sm text-slate-500 mt-1">Maximum earnings, VIP treatment</p>
+            <p class="mt-5"><span class="text-4xl font-extrabold text-slate-900">$79</span><span class="text-slate-500">/mo</span></p>
+            <a href="#" class="mt-6 block text-center py-2.5 rounded-lg border border-slate-300 font-semibold text-slate-700 hover:border-blue-600 hover:text-blue-600 transition-colors">Choose Premium</a>
+            <ul class="mt-7 space-y-3 text-sm text-slate-600">
+              <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-emerald-500 mt-0.5" aria-hidden="true"></i>Everything in Professional</li>
+              <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-emerald-500 mt-0.5" aria-hidden="true"></i>Dedicated account manager</li>
+              <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-emerald-500 mt-0.5" aria-hidden="true"></i>Custom task matching</li>
+              <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-emerald-500 mt-0.5" aria-hidden="true"></i>0% withdrawal fees</li>
+              <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-emerald-500 mt-0.5" aria-hidden="true"></i>VIP profile badge</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            // Smooth scroll
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                });
-            });
+    <!-- =====================================================================
+         WHY CHOOSE US
+    ===================================================================== -->
+    <section id="why-us" class="py-24 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto reveal">
+          <span class="text-blue-600 font-semibold text-sm tracking-wide uppercase">Why TaskProX</span>
+          <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold text-slate-900">Built for trust, speed, and scale</h2>
+          <p class="mt-4 text-slate-600">Whether you're earning or hiring, here's what makes TaskProX different.</p>
+        </div>
+
+        <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="reveal bg-slate-50 rounded-xl p-6 hover:bg-white hover:shadow-xl hover:shadow-slate-200 transition-all border border-transparent hover:border-slate-100">
+            <span class="h-11 w-11 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center"><i class="fa-solid fa-lock" aria-hidden="true"></i></span>
+            <h3 class="mt-4 font-bold text-slate-900">Secure Payments</h3>
+            <p class="mt-1.5 text-sm text-slate-600">Bank-grade encryption protects every transaction on the platform.</p>
+          </div>
+          <div class="reveal bg-slate-50 rounded-xl p-6 hover:bg-white hover:shadow-xl hover:shadow-slate-200 transition-all border border-transparent hover:border-slate-100">
+            <span class="h-11 w-11 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center"><i class="fa-solid fa-bolt" aria-hidden="true"></i></span>
+            <h3 class="mt-4 font-bold text-slate-900">Fast Withdrawals</h3>
+            <p class="mt-1.5 text-sm text-slate-600">Cash out in as little as a few hours on Professional and Premium plans.</p>
+          </div>
+          <div class="reveal bg-slate-50 rounded-xl p-6 hover:bg-white hover:shadow-xl hover:shadow-slate-200 transition-all border border-transparent hover:border-slate-100">
+            <span class="h-11 w-11 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center"><i class="fa-solid fa-circle-check" aria-hidden="true"></i></span>
+            <h3 class="mt-4 font-bold text-slate-900">Verified Clients</h3>
+            <p class="mt-1.5 text-sm text-slate-600">Every job poster goes through identity and payment verification.</p>
+          </div>
+          <div class="reveal bg-slate-50 rounded-xl p-6 hover:bg-white hover:shadow-xl hover:shadow-slate-200 transition-all border border-transparent hover:border-slate-100">
+            <span class="h-11 w-11 rounded-lg bg-violet-100 text-violet-600 flex items-center justify-center"><i class="fa-solid fa-robot" aria-hidden="true"></i></span>
+            <h3 class="mt-4 font-bold text-slate-900">AI Fraud Detection</h3>
+            <p class="mt-1.5 text-sm text-slate-600">Smart systems flag fake submissions before they ever reach a client.</p>
+          </div>
+          <div class="reveal bg-slate-50 rounded-xl p-6 hover:bg-white hover:shadow-xl hover:shadow-slate-200 transition-all border border-transparent hover:border-slate-100">
+            <span class="h-11 w-11 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center"><i class="fa-solid fa-chart-line" aria-hidden="true"></i></span>
+            <h3 class="mt-4 font-bold text-slate-900">Real-Time Tracking</h3>
+            <p class="mt-1.5 text-sm text-slate-600">Watch task approvals and earnings update live from your dashboard.</p>
+          </div>
+          <div class="reveal bg-slate-50 rounded-xl p-6 hover:bg-white hover:shadow-xl hover:shadow-slate-200 transition-all border border-transparent hover:border-slate-100">
+            <span class="h-11 w-11 rounded-lg bg-sky-100 text-sky-600 flex items-center justify-center"><i class="fa-solid fa-headset" aria-hidden="true"></i></span>
+            <h3 class="mt-4 font-bold text-slate-900">24/7 Support</h3>
+            <p class="mt-1.5 text-sm text-slate-600">A real human is always on the other end of live chat, day or night.</p>
+          </div>
+          <div class="reveal bg-slate-50 rounded-xl p-6 hover:bg-white hover:shadow-xl hover:shadow-slate-200 transition-all border border-transparent hover:border-slate-100">
+            <span class="h-11 w-11 rounded-lg bg-teal-100 text-teal-600 flex items-center justify-center"><i class="fa-solid fa-tags" aria-hidden="true"></i></span>
+            <h3 class="mt-4 font-bold text-slate-900">Low Fees</h3>
+            <p class="mt-1.5 text-sm text-slate-600">Keep more of what you earn with industry-low platform commissions.</p>
+          </div>
+          <div class="reveal bg-slate-50 rounded-xl p-6 hover:bg-white hover:shadow-xl hover:shadow-slate-200 transition-all border border-transparent hover:border-slate-100">
+            <span class="h-11 w-11 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center"><i class="fa-solid fa-earth-americas" aria-hidden="true"></i></span>
+            <h3 class="mt-4 font-bold text-slate-900">Global Availability</h3>
+            <p class="mt-1.5 text-sm text-slate-600">Work and hire from 120+ countries with local payout options.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         LIVE PLATFORM STATISTICS (animated counters)
+    ===================================================================== -->
+    <section class="py-20 bg-gradient-to-br from-blue-600 to-blue-800 text-white" data-counters-section>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-xl mx-auto reveal">
+          <h2 class="text-3xl sm:text-4xl font-extrabold">Live platform activity</h2>
+          <p class="mt-3 text-blue-100">Real numbers updating across TaskProX right now.</p>
+        </div>
+        <div class="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="reveal bg-white/10 rounded-2xl p-6 text-center backdrop-blur-sm border border-white/10">
+            <i class="fa-solid fa-user-group text-2xl text-blue-200" aria-hidden="true"></i>
+            <p class="mt-3 text-3xl sm:text-4xl font-extrabold tabular-nums" data-counter data-target="8431">0</p>
+            <p class="mt-1 text-sm text-blue-100">Workers Online</p>
+          </div>
+          <div class="reveal bg-white/10 rounded-2xl p-6 text-center backdrop-blur-sm border border-white/10">
+            <i class="fa-solid fa-list-check text-2xl text-blue-200" aria-hidden="true"></i>
+            <p class="mt-3 text-3xl sm:text-4xl font-extrabold tabular-nums"><span data-counter data-target="52940">0</span></p>
+            <p class="mt-1 text-sm text-blue-100">Jobs Completed Today</p>
+          </div>
+          <div class="reveal bg-white/10 rounded-2xl p-6 text-center backdrop-blur-sm border border-white/10">
+            <i class="fa-solid fa-sack-dollar text-2xl text-blue-200" aria-hidden="true"></i>
+            <p class="mt-3 text-3xl sm:text-4xl font-extrabold tabular-nums">$<span data-counter data-target="10482300">0</span></p>
+            <p class="mt-1 text-sm text-blue-100">Total Earnings Paid</p>
+          </div>
+          <div class="reveal bg-white/10 rounded-2xl p-6 text-center backdrop-blur-sm border border-white/10">
+            <i class="fa-solid fa-money-bill-transfer text-2xl text-blue-200" aria-hidden="true"></i>
+            <p class="mt-3 text-3xl sm:text-4xl font-extrabold tabular-nums" data-counter data-target="1204">0</p>
+            <p class="mt-1 text-sm text-blue-100">Withdrawals Today</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         TESTIMONIALS
+    ===================================================================== -->
+    <section id="testimonials" class="py-24 bg-slate-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto reveal">
+          <span class="text-blue-600 font-semibold text-sm tracking-wide uppercase">Testimonials</span>
+          <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold text-slate-900">What our workers are saying</h2>
+          <p class="mt-4 text-slate-600">Real stories from real members of the TaskProX community.</p>
+        </div>
+
+        <div class="mt-14 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <figure class="reveal bg-white rounded-xl border border-slate-200 p-6 hover:shadow-lg transition-shadow">
+            <div class="flex items-center gap-1 text-amber-400 text-sm" aria-hidden="true">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <blockquote class="mt-4 text-slate-600 text-sm leading-relaxed">"I complete tasks during my commute and after work. The Starter plan paid for itself within the first week, and withdrawals always arrive on time."</blockquote>
+            <figcaption class="mt-5 flex items-center gap-3">
+              <span class="h-10 w-10 rounded-full bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-sm">AH</span>
+              <div>
+                <p class="font-semibold text-slate-900 text-sm">Aminul Hasan</p>
+                <p class="text-xs text-slate-500">🇧🇩 Bangladesh</p>
+              </div>
+            </figcaption>
+          </figure>
+
+          <figure class="reveal bg-white rounded-xl border border-slate-200 p-6 hover:shadow-lg transition-shadow">
+            <div class="flex items-center gap-1 text-amber-400 text-sm" aria-hidden="true">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <blockquote class="mt-4 text-slate-600 text-sm leading-relaxed">"Upgrading to Professional changed everything — unlimited tasks and instant withdrawals mean I can actually treat this as a steady income source."</blockquote>
+            <figcaption class="mt-5 flex items-center gap-3">
+              <span class="h-10 w-10 rounded-full bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center text-sm">MS</span>
+              <div>
+                <p class="font-semibold text-slate-900 text-sm">Maria Santos</p>
+                <p class="text-xs text-slate-500">🇵🇭 Philippines</p>
+              </div>
+            </figcaption>
+          </figure>
+
+          <figure class="reveal bg-white rounded-xl border border-slate-200 p-6 hover:shadow-lg transition-shadow">
+            <div class="flex items-center gap-1 text-amber-400 text-sm" aria-hidden="true">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+            </div>
+            <blockquote class="mt-4 text-slate-600 text-sm leading-relaxed">"As a client, posting jobs took five minutes and I had qualified workers within the hour. The fraud detection genuinely catches the bad submissions."</blockquote>
+            <figcaption class="mt-5 flex items-center gap-3">
+              <span class="h-10 w-10 rounded-full bg-amber-100 text-amber-700 font-bold flex items-center justify-center text-sm">GW</span>
+              <div>
+                <p class="font-semibold text-slate-900 text-sm">Grace Wanjiru</p>
+                <p class="text-xs text-slate-500">🇰🇪 Kenya</p>
+              </div>
+            </figcaption>
+          </figure>
+
+          <figure class="reveal bg-white rounded-xl border border-slate-200 p-6 hover:shadow-lg transition-shadow">
+            <div class="flex items-center gap-1 text-amber-400 text-sm" aria-hidden="true">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <blockquote class="mt-4 text-slate-600 text-sm leading-relaxed">"The AI data labeling tasks pay noticeably better than basic clicks, and there's always a fresh batch available when I log in."</blockquote>
+            <figcaption class="mt-5 flex items-center gap-3">
+              <span class="h-10 w-10 rounded-full bg-violet-100 text-violet-700 font-bold flex items-center justify-center text-sm">AM</span>
+              <div>
+                <p class="font-semibold text-slate-900 text-sm">Arjun Mehta</p>
+                <p class="text-xs text-slate-500">🇮🇳 India</p>
+              </div>
+            </figcaption>
+          </figure>
+
+          <figure class="reveal bg-white rounded-xl border border-slate-200 p-6 hover:shadow-lg transition-shadow">
+            <div class="flex items-center gap-1 text-amber-400 text-sm" aria-hidden="true">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <blockquote class="mt-4 text-slate-600 text-sm leading-relaxed">"Support actually responds. I had a payout question at midnight and got a real answer from live chat in under ten minutes."</blockquote>
+            <figcaption class="mt-5 flex items-center gap-3">
+              <span class="h-10 w-10 rounded-full bg-rose-100 text-rose-700 font-bold flex items-center justify-center text-sm">CR</span>
+              <div>
+                <p class="font-semibold text-slate-900 text-sm">Carlos Rivera</p>
+                <p class="text-xs text-slate-500">🇲🇽 Mexico</p>
+              </div>
+            </figcaption>
+          </figure>
+
+          <figure class="reveal bg-white rounded-xl border border-slate-200 p-6 hover:shadow-lg transition-shadow">
+            <div class="flex items-center gap-1 text-amber-400 text-sm" aria-hidden="true">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <blockquote class="mt-4 text-slate-600 text-sm leading-relaxed">"I translate listings between English and Ukrainian a few hours a week. It's flexible enough to fit around my full-time job."</blockquote>
+            <figcaption class="mt-5 flex items-center gap-3">
+              <span class="h-10 w-10 rounded-full bg-sky-100 text-sky-700 font-bold flex items-center justify-center text-sm">EP</span>
+              <div>
+                <p class="font-semibold text-slate-900 text-sm">Elena Petrova</p>
+                <p class="text-xs text-slate-500">🇺🇦 Ukraine</p>
+              </div>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         FAQ (Alpine.js accordion)
+    ===================================================================== -->
+    <section id="faq" class="py-24 bg-white">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center reveal">
+          <span class="text-blue-600 font-semibold text-sm tracking-wide uppercase">FAQ</span>
+          <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold text-slate-900">Frequently asked questions</h2>
+          <p class="mt-4 text-slate-600">Can't find what you're looking for? Reach out to our support team anytime.</p>
+        </div>
+
+        <div x-data="{ open: 1 }" class="mt-12 space-y-4">
+          <!-- FAQ item 1 -->
+          <div class="reveal border border-slate-200 rounded-xl overflow-hidden">
+            <button @click="open = open === 1 ? null : 1" :aria-expanded="open === 1" class="w-full flex items-center justify-between gap-4 px-5 py-4 text-left font-semibold text-slate-900 hover:bg-slate-50">
+              How do I get paid for completed tasks?
+              <i class="fa-solid fa-chevron-down text-slate-400 text-sm transition-transform shrink-0" :class="open === 1 && 'rotate-180'" aria-hidden="true"></i>
+            </button>
+            <div x-show="open === 1" x-collapse class="px-5 pb-4 text-sm text-slate-600 leading-relaxed">
+              Once a client approves your submitted proof, the reward is added to your TaskProX balance immediately. From there you can withdraw via bank transfer, mobile wallet, or PayPal once you hit the minimum payout threshold for your plan.
+            </div>
+          </div>
+
+          <!-- FAQ item 2 -->
+          <div class="reveal border border-slate-200 rounded-xl overflow-hidden">
+            <button @click="open = open === 2 ? null : 2" :aria-expanded="open === 2" class="w-full flex items-center justify-between gap-4 px-5 py-4 text-left font-semibold text-slate-900 hover:bg-slate-50">
+              Can I switch or cancel my subscription plan?
+              <i class="fa-solid fa-chevron-down text-slate-400 text-sm transition-transform shrink-0" :class="open === 2 && 'rotate-180'" aria-hidden="true"></i>
+            </button>
+            <div x-show="open === 2" x-collapse class="px-5 pb-4 text-sm text-slate-600 leading-relaxed">
+              Yes. You can upgrade, downgrade, or cancel your plan at any time from your account settings. Changes take effect at the start of your next billing cycle, and you'll keep access to your current tier until then.
+            </div>
+          </div>
+
+          <!-- FAQ item 3 -->
+          <div class="reveal border border-slate-200 rounded-xl overflow-hidden">
+            <button @click="open = open === 3 ? null : 3" :aria-expanded="open === 3" class="w-full flex items-center justify-between gap-4 px-5 py-4 text-left font-semibold text-slate-900 hover:bg-slate-50">
+              How does TaskProX prevent fraudulent submissions?
+              <i class="fa-solid fa-chevron-down text-slate-400 text-sm transition-transform shrink-0" :class="open === 3 && 'rotate-180'" aria-hidden="true"></i>
+            </button>
+            <div x-show="open === 3" x-collapse class="px-5 pb-4 text-sm text-slate-600 leading-relaxed">
+              Every submission passes through an AI-assisted review layer that checks proof screenshots, timing patterns, and account history before a client ever sees it. Suspicious activity is flagged for manual review by our trust and safety team.
+            </div>
+          </div>
+
+          <!-- FAQ item 4 -->
+          <div class="reveal border border-slate-200 rounded-xl overflow-hidden">
+            <button @click="open = open === 4 ? null : 4" :aria-expanded="open === 4" class="w-full flex items-center justify-between gap-4 px-5 py-4 text-left font-semibold text-slate-900 hover:bg-slate-50">
+              How do I post a job and hire workers?
+              <i class="fa-solid fa-chevron-down text-slate-400 text-sm transition-transform shrink-0" :class="open === 4 && 'rotate-180'" aria-hidden="true"></i>
+            </button>
+            <div x-show="open === 4" x-collapse class="px-5 pb-4 text-sm text-slate-600 leading-relaxed">
+              Create a client account, describe your task and set a reward, and your job goes live to our worker pool right away. You review and approve submitted proof directly from your dashboard, and only pay for approved work.
+            </div>
+          </div>
+
+          <!-- FAQ item 5 -->
+          <div class="reveal border border-slate-200 rounded-xl overflow-hidden">
+            <button @click="open = open === 5 ? null : 5" :aria-expanded="open === 5" class="w-full flex items-center justify-between gap-4 px-5 py-4 text-left font-semibold text-slate-900 hover:bg-slate-50">
+              What's the minimum withdrawal amount?
+              <i class="fa-solid fa-chevron-down text-slate-400 text-sm transition-transform shrink-0" :class="open === 5 && 'rotate-180'" aria-hidden="true"></i>
+            </button>
+            <div x-show="open === 5" x-collapse class="px-5 pb-4 text-sm text-slate-600 leading-relaxed">
+              The minimum withdrawal is $5 on the Free and Starter plans, with no minimum at all for Professional and Premium members. Withdrawal speed depends on your plan, ranging from 3 days down to instant.
+            </div>
+          </div>
+
+          <!-- FAQ item 6 -->
+          <div class="reveal border border-slate-200 rounded-xl overflow-hidden">
+            <button @click="open = open === 6 ? null : 6" :aria-expanded="open === 6" class="w-full flex items-center justify-between gap-4 px-5 py-4 text-left font-semibold text-slate-900 hover:bg-slate-50">
+              Is TaskProX available in my country?
+              <i class="fa-solid fa-chevron-down text-slate-400 text-sm transition-transform shrink-0" :class="open === 6 && 'rotate-180'" aria-hidden="true"></i>
+            </button>
+            <div x-show="open === 6" x-collapse class="px-5 pb-4 text-sm text-slate-600 leading-relaxed">
+              TaskProX currently operates in over 120 countries with local payout options in most regions. If your country isn't listed at sign-up, reach out to support and we'll let you know about availability.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         CALL TO ACTION
+    ===================================================================== -->
+    <section class="relative py-20 bg-slate-900 overflow-hidden">
+      <div class="absolute -top-20 -left-20 h-72 w-72 bg-blue-600/30 rounded-full blur-3xl" aria-hidden="true"></div>
+      <div class="absolute -bottom-20 -right-20 h-72 w-72 bg-emerald-500/20 rounded-full blur-3xl" aria-hidden="true"></div>
+      <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Ready to start?</h2>
+        <p class="mt-4 text-slate-300 max-w-xl mx-auto">Join the workforce platform built for earners and businesses alike. Get started in minutes — no commitment required.</p>
+        <div class="mt-9 flex flex-col sm:flex-row justify-center gap-4">
+          <a href="#pricing" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-blue-600 text-white font-semibold shadow-lg shadow-blue-600/30 hover:bg-blue-700 hover:-translate-y-0.5 transition-all">
+            Join as Worker <i class="fa-solid fa-arrow-right text-sm" aria-hidden="true"></i>
+          </a>
+          <a href="#" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-white/10 border border-white/20 text-white font-semibold hover:bg-white/20 hover:-translate-y-0.5 transition-all">
+            Post a Job <i class="fa-solid fa-briefcase text-sm" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =====================================================================
+       FOOTER
+  ===================================================================== -->
+  <footer id="site-footer" class="bg-slate-950 text-slate-400 pt-16 pb-8" style="background-color:#0B1322;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-6 gap-10">
+        <!-- Brand + newsletter -->
+        <div class="lg:col-span-2">
+          <a href="#hero" class="flex items-center gap-2" aria-label="TaskProX home">
+            <span class="h-9 w-9 rounded-lg bg-blue-600 flex items-center justify-center" aria-hidden="true"><i class="fa-solid fa-bolt text-white text-sm"></i></span>
+            <span class="text-xl font-extrabold text-white">Task<span class="text-blue-500">ProX</span></span>
+          </a>
+          <p class="mt-4 text-sm leading-relaxed max-w-xs">Complete simple tasks. Earn real rewards. A global micro job platform connecting 100,000+ workers with 20,000+ verified clients.</p>
+
+          <form class="mt-6" onsubmit="return false;">
+            <label for="newsletter-email" class="text-xs font-semibold text-slate-300 uppercase tracking-wide">Newsletter</label>
+            <div class="mt-2 flex">
+              <input id="newsletter-email" type="email" required placeholder="you@email.com" class="w-full px-3.5 py-2.5 rounded-l-lg bg-slate-800 border border-slate-700 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-600" />
+              <button type="submit" class="px-4 py-2.5 rounded-r-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-colors" aria-label="Subscribe to newsletter">
+                <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- About -->
+        <div>
+          <h3 class="text-sm font-bold text-white uppercase tracking-wide">About</h3>
+          <ul class="mt-4 space-y-2.5 text-sm">
+            <li><a href="#why-us" class="hover:text-white transition-colors">Our Story</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Careers</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Press Kit</a></li>
+          </ul>
+        </div>
+
+        <!-- Workers -->
+        <div>
+          <h3 class="text-sm font-bold text-white uppercase tracking-wide">Workers</h3>
+          <ul class="mt-4 space-y-2.5 text-sm">
+            <li><a href="#featured-jobs" class="hover:text-white transition-colors">Browse Jobs</a></li>
+            <li><a href="#categories" class="hover:text-white transition-colors">Categories</a></li>
+            <li><a href="#how-it-works" class="hover:text-white transition-colors">How It Works</a></li>
+            <li><a href="contact.html" class="hover:text-white transition-colors">Help Center</a></li>
+          </ul>
+        </div>
+
+        <!-- Clients -->
+        <div>
+          <h3 class="text-sm font-bold text-white uppercase tracking-wide">Clients</h3>
+          <ul class="mt-4 space-y-2.5 text-sm">
+            <li><a href="post-job.html" class="hover:text-white transition-colors">Post a Job</a></li>
+            <li><a href="#pricing" class="hover:text-white transition-colors">Pricing</a></li>
+            <li><a href="contact.html" class="hover:text-white transition-colors">Enterprise</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">API Access</a></li>
+          </ul>
+        </div>
+
+        <!-- Legal -->
+        <div>
+          <h3 class="text-sm font-bold text-white uppercase tracking-wide">Legal</h3>
+          <ul class="mt-4 space-y-2.5 text-sm">
+            <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Cookie Policy</a></li>
+            <li><a href="#faq" class="hover:text-white transition-colors">FAQ</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="mt-14 pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-xs text-slate-500">© 2026 TaskProX. All rights reserved.</p>
+        <div class="flex items-center gap-4" aria-label="Social media links">
+          <a href="#" aria-label="TaskProX on Facebook" class="h-9 w-9 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors"><i class="fa-brands fa-facebook-f text-sm" aria-hidden="true"></i></a>
+          <a href="#" aria-label="TaskProX on X" class="h-9 w-9 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors"><i class="fa-brands fa-x-twitter text-sm" aria-hidden="true"></i></a>
+          <a href="#" aria-label="TaskProX on LinkedIn" class="h-9 w-9 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors"><i class="fa-brands fa-linkedin-in text-sm" aria-hidden="true"></i></a>
+          <a href="#" aria-label="TaskProX on Instagram" class="h-9 w-9 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors"><i class="fa-brands fa-instagram text-sm" aria-hidden="true"></i></a>
+          <a href="#" aria-label="TaskProX on YouTube" class="h-9 w-9 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors"><i class="fa-brands fa-youtube text-sm" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =====================================================================
+       VANILLA JS: scroll-reveal animation + animated counters
+       (No external JS libraries used here — only the browser's native
+       IntersectionObserver API. Alpine.js above handles all interactivity.)
+  ===================================================================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // --- Scroll-reveal for elements with the .reveal class ---
+      var revealEls = document.querySelectorAll('.reveal');
+      if (prefersReducedMotion) {
+        revealEls.forEach(function (el) { el.classList.add('reveal-in'); });
+      } else {
+        var revealObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('reveal-in');
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        revealEls.forEach(function (el) { revealObserver.observe(el); });
+      }
+
+      // --- Animated counters for the Live Platform Statistics section ---
+      var counterEls = document.querySelectorAll('[data-counter]');
+      var countersStarted = false;
+
+      function animateCounters() {
+        if (countersStarted) return;
+        countersStarted = true;
+        counterEls.forEach(function (el) {
+          var target = parseInt(el.getAttribute('data-target'), 10) || 0;
+          if (prefersReducedMotion) {
+            el.textContent = target.toLocaleString('en-US');
+            return;
+          }
+          var duration = 1800;
+          var startTime = null;
+          function step(timestamp) {
+            if (!startTime) startTime = timestamp;
+            var progress = Math.min((timestamp - startTime) / duration, 1);
+            var eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+            var value = Math.floor(eased * target);
+            el.textContent = value.toLocaleString('en-US');
+            if (progress < 1) {
+              requestAnimationFrame(step);
+            } else {
+              el.textContent = target.toLocaleString('en-US');
+            }
+          }
+          requestAnimationFrame(step);
         });
-    </script>
+      }
 
-<script>
-/**
- * Iframe 元素高亮注入脚本
- * 需要在目标网站中引入此脚本来支持跨域 iframe 高亮功能
- *
- * 使用方法：
- * 1. 将此脚本添加到目标网站的 HTML 中
- * 2. 或通过浏览器扩展、用户脚本等方式注入
- */
-
-(function () {
-  "use strict";
-
-  // 检查是否在 iframe 中
-  if (window.self === window.top) {
-    return; // 不在 iframe 中，不执行
-  }
-
-  // 检查是否已经初始化过
-  if (window.__iframeHighlightInitialized) {
-    return;
-  }
-  window.__iframeHighlightInitialized = true;
-  console.log("Iframe 高亮脚本已加载");
-
-  // 创建高亮覆盖层
-  var overlay = document.createElement("div");
-  overlay.id = "iframe-highlight-overlay";
-  overlay.style.cssText = "\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100vw;\n    height: 100vh;\n    pointer-events: none;\n    z-index: 999999;\n    overflow: hidden;\n  ";
-
-  // 创建悬停高亮框（虚线边框）
-  var highlightBox = document.createElement("div");
-  highlightBox.id = "iframe-highlight-box";
-  highlightBox.style.cssText = "\n    position: absolute;\n    border: 2px dashed #007AFF;\n    background: rgba(0, 122, 255, 0.08);\n    pointer-events: none;\n    display: none;\n    transition: all 0.1s ease;\n    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.8);\n    border-radius: 2px;\n  ";
-
-  // 创建选中节点的常驻高亮框（实线边框）
-  var selectedBox = document.createElement("div");
-  selectedBox.id = "iframe-selected-box";
-  selectedBox.style.cssText = "\n    position: absolute;\n    border: 2px solid #007AFF;\n    pointer-events: none;\n    display: none;\n    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.9), 0 0 8px rgba(255, 107, 53, 0.4);\n    border-radius: 2px;\n    z-index: 1000000;\n  ";
-
-  // 创建悬停标签显示
-  var tagLabel = document.createElement("div");
-  tagLabel.id = "iframe-tag-label";
-  tagLabel.style.cssText = "\n    position: absolute;\n    background: #007AFF;\n    color: white;\n    padding: 2px 6px;\n    font-size: 11px;\n    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;\n    border-radius: 2px;\n    pointer-events: none;\n    display: none;\n    white-space: nowrap;\n    z-index: 1000001;\n    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);\n    font-weight: 500;\n  ";
-
-  // 创建选中节点标签
-  var selectedLabel = document.createElement("div");
-  selectedLabel.id = "iframe-selected-label";
-  selectedLabel.style.cssText = "\n    position: absolute;\n    background: #007AFF;\n    color: white;\n    padding: 3px 8px;\n    font-size: 11px;\n    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;\n    border-radius: 3px;\n    pointer-events: none;\n    display: none;\n    white-space: nowrap;\n    z-index: 1000002;\n    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);\n    font-weight: 600;\n  ";
-  overlay.appendChild(highlightBox);
-  overlay.appendChild(selectedBox);
-  overlay.appendChild(tagLabel);
-  overlay.appendChild(selectedLabel);
-  document.body.appendChild(overlay);
-
-  // 存储当前选中的元素
-  var selectedElement = null;
-  var highlightEnabled = false;
-
-  // 更新选中元素的高亮显示
-  function updateSelectedHighlight(element) {
-    console.log("updateSelectedHighlight called with:", element);
-    if (!element) {
-      selectedBox.style.display = "none";
-      selectedLabel.style.display = "none";
-      selectedElement = null;
-      console.log("Cleared selected highlight");
-      return;
-    }
-    selectedElement = element;
-    var rect = element.getBoundingClientRect();
-    console.log("Selected element rect:", rect);
-
-    // 更新选中高亮框位置
-    selectedBox.style.display = "block";
-    selectedBox.style.left = "".concat(rect.left - 2, "px");
-    selectedBox.style.top = "".concat(rect.top - 2, "px");
-    selectedBox.style.width = "".concat(rect.width + 4, "px");
-    selectedBox.style.height = "".concat(rect.height + 4, "px");
-
-    // 更新选中标签位置和内容
-    selectedLabel.style.display = "block";
-    selectedLabel.textContent = "\u2713 <".concat(element.tagName.toLowerCase(), ">");
-
-    // 计算标签位置，确保不超出视窗
-    var labelTop = rect.top - 28;
-    var labelLeft = rect.left;
-
-    // 如果标签会超出顶部，显示在元素下方
-    if (labelTop < 5) {
-      labelTop = rect.bottom + 5;
-    }
-
-    // 如果标签会超出右侧，向左调整
-    var labelWidth = selectedLabel.offsetWidth || 100; // 预估宽度
-    if (labelLeft + labelWidth > window.innerWidth - 10) {
-      labelLeft = window.innerWidth - labelWidth - 10;
-    }
-    selectedLabel.style.left = "".concat(Math.max(5, labelLeft), "px");
-    selectedLabel.style.top = "".concat(labelTop, "px");
-    console.log("Selected highlight positioned at:", {
-      left: selectedBox.style.left,
-      top: selectedBox.style.top,
-      width: selectedBox.style.width,
-      height: selectedBox.style.height
+      var statsSection = document.querySelector('[data-counters-section]');
+      if (statsSection) {
+        var statsObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              animateCounters();
+              statsObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.3 });
+        statsObserver.observe(statsSection);
+      }
     });
-  }
-  function getElementSelector(element) {
-    if (!(element instanceof Element)) throw new Error('Argument must be a DOM element');
-    var segments = [];
-    var current = element;
-    while (current !== document.documentElement) {
-      var selector = '';
-      // 优先检查唯一ID
-      if (current.id && document.querySelectorAll("#".concat(current.id)).length === 1) {
-        segments.unshift("#".concat(current.id));
-        break; // ID唯一，无需继续向上
-      }
-
-      // 生成类名选择器（取第一个有效类名）
-      var classes = Array.from(current.classList).filter(function (c) {
-        return !c.startsWith('js-');
-      });
-      var className = classes.length > 0 ? ".".concat(classes[0]) : '';
-
-      // 生成位置索引（nth-child）
-      var tag = current.tagName.toLowerCase();
-      if (!className) {
-        var siblings = Array.from(current.parentNode.children);
-        var index = siblings.findIndex(function (el) {
-          return el === current;
-        }) + 1;
-        selector = "".concat(tag, ":nth-child(").concat(index, ")");
-      } else {
-        selector = className;
-      }
-      segments.unshift(selector);
-      current = current.parentElement;
-    }
-
-    // 处理根元素
-    if (current === document.documentElement) {
-      segments.unshift('html');
-    }
-    return segments.join(' > ');
-  }
-
-  // 获取元素文本内容
-  function getElementText(element) {
-    var _element$textContent;
-    if (element.tagName === "INPUT") {
-      return element.value || element.placeholder || "";
-    }
-    if (element.tagName === "TEXTAREA") {
-      return element.value || element.placeholder || "";
-    }
-    var text = ((_element$textContent = element.textContent) === null || _element$textContent === void 0 ? void 0 : _element$textContent.trim()) || "";
-    return text.length > 50 ? text.substring(0, 50) + "..." : text;
-  }
-
-  // 获取元素属性信息
-  function getElementAttributes(element) {
-    var attrs = {};
-    for (var i = 0; i < element.attributes.length; i++) {
-      var attr = element.attributes[i];
-      attrs[attr.name] = attr.value;
-    }
-    return attrs;
-  }
-
-  // 鼠标悬停事件处理
-  function handleMouseOver(e) {
-    if (!highlightEnabled) return;
-    var target = e.target;
-    if (!target || target === overlay || target === highlightBox || target === tagLabel || target === selectedBox || target === selectedLabel) {
-      return;
-    }
-
-    // 避免高亮 html 和 body 元素
-    if (target === document.documentElement || target === document.body) {
-      return;
-    }
-
-    // 如果是已选中的元素，不显示悬停高亮
-    if (target === selectedElement) {
-      highlightBox.style.display = "none";
-      tagLabel.style.display = "none";
-      return;
-    }
-    var rect = target.getBoundingClientRect();
-    var selector = getElementSelector(target);
-    var text = getElementText(target);
-    var attributes = getElementAttributes(target);
-
-    // 更新悬停高亮框位置
-    highlightBox.style.display = "block";
-    highlightBox.style.left = "".concat(rect.left - 2, "px");
-    highlightBox.style.top = "".concat(rect.top - 2, "px");
-    highlightBox.style.width = "".concat(rect.width + 4, "px");
-    highlightBox.style.height = "".concat(rect.height + 4, "px");
-
-    // 更新标签位置和内容
-    tagLabel.style.display = "block";
-    tagLabel.textContent = "<".concat(target.tagName.toLowerCase(), ">");
-
-    // 计算标签位置，确保不超出视窗
-    var labelTop = rect.top - 22;
-    var labelLeft = rect.left;
-
-    // 如果标签会超出顶部，显示在元素下方
-    if (labelTop < 0) {
-      labelTop = rect.bottom + 5;
-    }
-
-    // 如果标签会超出右侧，向左调整
-    if (labelLeft + tagLabel.offsetWidth > window.innerWidth) {
-      labelLeft = window.innerWidth - tagLabel.offsetWidth - 5;
-    }
-    tagLabel.style.left = "".concat(Math.max(0, labelLeft), "px");
-    tagLabel.style.top = "".concat(labelTop, "px");
-
-    // 发送消息到父窗口
-    var elementInfo = {
-      tagName: target.tagName.toLowerCase(),
-      rect: {
-        left: rect.left,
-        top: rect.top,
-        right: rect.right,
-        bottom: rect.bottom,
-        width: rect.width,
-        height: rect.height,
-        x: rect.x,
-        y: rect.y
-      },
-      selector: selector,
-      text: text,
-      attributes: attributes,
-      url: window.location.href,
-      path: window.location.pathname,
-      timestamp: Date.now()
-    };
-    try {
-      window.parent.postMessage({
-        type: "iframe-element-hover",
-        data: elementInfo,
-        source: "iframe-highlight-injector"
-      }, "*");
-    } catch (error) {
-      console.warn("无法发送消息到父窗口:", error);
-    }
-  }
-
-  // 鼠标离开事件处理
-  function handleMouseOut(e) {
-    if (!highlightEnabled) return;
-    var relatedTarget = e.relatedTarget;
-
-    // 如果鼠标移动到高亮相关元素上，不隐藏高亮
-    if (relatedTarget && (relatedTarget === highlightBox || relatedTarget === tagLabel || relatedTarget === overlay || relatedTarget === selectedBox || relatedTarget === selectedLabel)) {
-      return;
-    }
-    highlightBox.style.display = "none";
-    tagLabel.style.display = "none";
-    try {
-      window.parent.postMessage({
-        type: "iframe-element-hover",
-        data: null,
-        source: "iframe-highlight-injector"
-      }, "*");
-    } catch (error) {
-      console.warn("无法发送消息到父窗口:", error);
-    }
-  }
-
-  // 点击事件处理
-  function handleClick(e) {
-    var target = e.target;
-    if (!target || target === overlay || target === highlightBox || target === tagLabel || target === selectedBox || target === selectedLabel) {
-      return;
-    }
-
-    // 避免处理 html 和 body 元素
-    if (target === document.documentElement || target === document.body) {
-      return;
-    }
-
-    // 检查是否是交互元素，这些元素需要保留默认行为
-    var isInteractiveElement = ['input', 'textarea', 'select', 'button', 'a'].includes(target.tagName.toLowerCase());
-
-    // 如果高亮功能启用，对于非交互元素阻止默认行为和事件传播
-    if (highlightEnabled) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    var rect = target.getBoundingClientRect();
-    var selector = getElementSelector(target);
-    var text = getElementText(target);
-    var attributes = getElementAttributes(target);
-    console.log("Element clicked:", {
-      tagName: target.tagName,
-      selector: selector,
-      rect: rect
-    });
-
-    // 立即更新选中高亮
-    updateSelectedHighlight(target);
-
-    // 隐藏悬停高亮，因为现在是选中状态
-    highlightBox.style.display = "none";
-    tagLabel.style.display = "none";
-    var elementInfo = {
-      tagName: target.tagName.toLowerCase(),
-      rect: {
-        left: rect.left,
-        top: rect.top,
-        right: rect.right,
-        bottom: rect.bottom,
-        width: rect.width,
-        height: rect.height,
-        x: rect.x,
-        y: rect.y
-      },
-      selector: selector,
-      text: text,
-      attributes: attributes,
-      url: window.location.href,
-      path: window.location.pathname,
-      timestamp: Date.now()
-    };
-    try {
-      window.parent.postMessage({
-        type: "iframe-element-click",
-        data: elementInfo,
-        source: "iframe-highlight-injector"
-      }, "*");
-    } catch (error) {
-      console.warn("无法发送消息到父窗口:", error);
-    }
-  }
-
-  // 监听来自父窗口的消息
-  function handleParentMessage(event) {
-    console.log("Received message from parent:", event.data);
-    if (event.data.type === "iframe-highlight-toggle") {
-      var enabled = event.data.enabled;
-      console.log("Highlight toggle:", enabled);
-      if (enabled) {
-        enableHighlight();
-      } else {
-        disableHighlight();
-      }
-    } else if (event.data.type === "enable-iframe-highlight") {
-      console.log("Enable iframe highlight");
-      enableHighlight();
-    } else if (event.data.type === "disable-iframe-highlight") {
-      console.log("Disable iframe highlight");
-      disableHighlight();
-    } else if (event.data.type === "toggle-iframe-highlight") {
-      var _enabled = event.data.enabled !== undefined ? event.data.enabled : !highlightEnabled;
-      console.log("Toggle iframe highlight to:", _enabled);
-      if (_enabled) {
-        enableHighlight();
-      } else {
-        disableHighlight();
-      }
-    } else if (event.data.type === "update-selected-element") {
-      var selector = event.data.selector;
-      console.log("Update selected element with selector:", selector);
-      if (selector) {
-        try {
-          var element = document.querySelector(selector);
-          console.log("Found element by selector:", element);
-          updateSelectedHighlight(element);
-        } catch (error) {
-          console.warn("Failed to select element:", error);
-          updateSelectedHighlight(null);
-        }
-      } else {
-        updateSelectedHighlight(null);
-      }
-    } else if (event.data.type === "clear-selected-element") {
-      console.log("Clear selected element");
-      updateSelectedHighlight(null);
-    }
-  }
-
-  // 启用高亮功能
-  function enableHighlight() {
-    console.log("Enabling highlight");
-    document.addEventListener("mouseover", handleMouseOver, true);
-    document.addEventListener("mouseout", handleMouseOut, true);
-    document.addEventListener("click", handleClick, true);
-    highlightEnabled = true;
-    overlay.style.display = "block";
-  }
-
-  // 禁用高亮功能
-  function disableHighlight() {
-    console.log("Disabling highlight");
-    highlightEnabled = false;
-    // 保持事件监听器，但通过 highlightEnabled 变量控制行为
-    // 这样可以保留选中状态的显示
-    highlightBox.style.display = "none";
-    tagLabel.style.display = "none";
-    // 不隐藏 selectedBox 和 selectedLabel，保留选中状态
-  }
-
-  // 完全禁用高亮功能（移除所有监听器）
-  function fullyDisableHighlight() {
-    console.log("Fully disabling highlight");
-    highlightEnabled = false;
-    document.removeEventListener("mouseover", handleMouseOver, true);
-    document.removeEventListener("mouseout", handleMouseOut, true);
-    document.removeEventListener("click", handleClick, true);
-    overlay.style.display = "none";
-    highlightBox.style.display = "none";
-    tagLabel.style.display = "none";
-    selectedBox.style.display = "none";
-    selectedLabel.style.display = "none";
-  }
-
-  // 添加事件监听
-  enableHighlight();
-  window.addEventListener("message", handleParentMessage);
-
-  // 暴露全局函数供外部调用
-  window.__iframeHighlightControl = {
-    enable: enableHighlight,
-    disable: disableHighlight,
-    fullyDisable: fullyDisableHighlight,
-    isEnabled: function isEnabled() {
-      return highlightEnabled;
-    },
-    getSelectedElement: function getSelectedElement() {
-      return selectedElement;
-    },
-    updateSelected: updateSelectedHighlight,
-    // 通过消息发送开关控制
-    sendToggleMessage: function sendToggleMessage(enabled) {
-      window.parent.postMessage({
-        type: 'iframe-highlight-status',
-        enabled: enabled || highlightEnabled,
-        source: 'iframe-highlight-injector'
-      }, '*');
-    }
-  };
-
-  // 通知父窗口脚本已加载
-  try {
-    window.parent.postMessage({
-      type: "iframe-highlight-ready",
-      data: {
-        url: window.location.href,
-        userAgent: navigator.userAgent,
-        timestamp: Date.now()
-      },
-      source: "iframe-highlight-injector"
-    }, "*");
-  } catch (error) {
-    console.warn("无法发送就绪消息到父窗口:", error);
-  }
-
-  // 清理函数
-  window.__iframeHighlightCleanup = function () {
-    fullyDisableHighlight();
-    window.removeEventListener("message", handleParentMessage);
-    if (overlay.parentElement) {
-      overlay.parentElement.removeChild(overlay);
-    }
-    delete window.__iframeHighlightInitialized;
-    delete window.__iframeHighlightCleanup;
-  };
-})();
-
-</script>
+  </script>
 </body>
 </html>
+
+
+
+

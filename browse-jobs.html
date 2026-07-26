@@ -1,0 +1,405 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Browse Jobs — TaskProX</title>
+  <meta name="description" content="Browse thousands of live micro jobs on TaskProX. Filter by category, difficulty, and reward to find tasks that match your skills." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%232563EB%22/><path d=%22M30 52 L44 66 L72 34%22 stroke=%22white%22 stroke-width=%2210%22 fill=%22none%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/></svg>" />
+
+  <!-- Google Font: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome Free -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+  <!-- Tailwind CSS (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Alpine.js (filtering, sorting, mobile filter drawer, mobile menu) -->
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js" defer></script>
+
+  <style>
+    html, body { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; }
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+      outline: 2px solid #2563EB;
+      outline-offset: 2px;
+      border-radius: 6px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+    [x-cloak] { display: none !important; }
+    .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800 antialiased">
+
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-blue-600 focus:text-white focus:px-4 focus:py-2 focus:rounded-lg">
+    Skip to main content
+  </a>
+
+  <!-- =====================================================================
+       HEADER / STICKY NAVIGATION (shared with the landing page)
+  ===================================================================== -->
+  <header x-data="{ mobileOpen: false }" class="fixed top-0 inset-x-0 z-50 glass border-b border-slate-200/70">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Primary">
+      <div class="flex items-center justify-between h-16 lg:h-[72px]">
+
+        <a href="index.html" class="flex items-center gap-2 shrink-0" aria-label="TaskProX home">
+          <span class="h-9 w-9 rounded-lg bg-blue-600 flex items-center justify-center shadow-md shadow-blue-600/30" aria-hidden="true">
+            <i class="fa-solid fa-bolt text-white text-sm"></i>
+          </span>
+          <span class="text-xl font-extrabold tracking-tight text-slate-900">Task<span class="text-blue-600">ProX</span></span>
+        </a>
+
+        <ul class="hidden lg:flex items-center gap-7 text-[14.5px] font-medium text-slate-600">
+          <li><a href="index.html#hero" class="hover:text-blue-600 transition-colors">Home</a></li>
+          <li><a href="browse-jobs.html" aria-current="page" class="text-blue-600">Browse Jobs</a></li>
+          <li><a href="index.html#categories" class="hover:text-blue-600 transition-colors">Categories</a></li>
+          <li><a href="index.html#pricing" class="hover:text-blue-600 transition-colors">Pricing</a></li>
+          <li><a href="index.html#how-it-works" class="hover:text-blue-600 transition-colors">How It Works</a></li>
+          <li><a href="index.html#faq" class="hover:text-blue-600 transition-colors">FAQ</a></li>
+        </ul>
+
+        <div class="hidden lg:flex items-center gap-2.5">
+          <a href="login.html" class="px-3.5 py-2 text-[14.5px] font-semibold text-slate-700 hover:text-blue-600 transition-colors">Login</a>
+          <a href="register.html" class="px-4 py-2 text-[14.5px] font-semibold rounded-lg border border-slate-300 text-slate-700 hover:border-blue-600 hover:text-blue-600 transition-colors">Register</a>
+          <a href="post-job.html" class="px-4 py-2 text-[14.5px] font-semibold rounded-lg bg-blue-600 text-white hover:bg-blue-700 shadow-md shadow-blue-600/25 transition-all hover:-translate-y-0.5">Post a Job</a>
+        </div>
+
+        <button @click="mobileOpen = !mobileOpen" :aria-expanded="mobileOpen" aria-controls="mobile-menu" aria-label="Toggle navigation menu" class="lg:hidden h-10 w-10 flex items-center justify-center rounded-lg text-slate-700 hover:bg-slate-100">
+          <i class="fa-solid text-xl" :class="mobileOpen ? 'fa-xmark' : 'fa-bars'"></i>
+        </button>
+      </div>
+
+      <div id="mobile-menu" x-show="mobileOpen" x-cloak x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" class="lg:hidden border-t border-slate-200 py-4 space-y-1">
+        <a @click="mobileOpen=false" href="index.html#hero" class="block px-2 py-2.5 rounded-lg text-slate-700 font-medium hover:bg-slate-100">Home</a>
+        <a @click="mobileOpen=false" href="browse-jobs.html" class="block px-2 py-2.5 rounded-lg text-blue-600 font-medium bg-blue-50">Browse Jobs</a>
+        <a @click="mobileOpen=false" href="index.html#categories" class="block px-2 py-2.5 rounded-lg text-slate-700 font-medium hover:bg-slate-100">Categories</a>
+        <a @click="mobileOpen=false" href="index.html#pricing" class="block px-2 py-2.5 rounded-lg text-slate-700 font-medium hover:bg-slate-100">Pricing</a>
+        <a @click="mobileOpen=false" href="index.html#how-it-works" class="block px-2 py-2.5 rounded-lg text-slate-700 font-medium hover:bg-slate-100">How It Works</a>
+        <a @click="mobileOpen=false" href="index.html#faq" class="block px-2 py-2.5 rounded-lg text-slate-700 font-medium hover:bg-slate-100">FAQ</a>
+        <div class="pt-3 mt-2 border-t border-slate-200 flex flex-col gap-2.5">
+          <a href="login.html" class="text-center px-4 py-2.5 rounded-lg border border-slate-300 font-semibold text-slate-700">Login</a>
+          <a href="register.html" class="text-center px-4 py-2.5 rounded-lg bg-blue-600 text-white font-semibold shadow-md shadow-blue-600/25">Register</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content" class="pt-16 lg:pt-[72px]">
+
+    <!-- =====================================================================
+         PAGE INTRO BANNER
+    ===================================================================== -->
+    <section class="bg-slate-900 py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-white">Browse jobs</h1>
+        <p class="mt-2 text-slate-300 max-w-xl">Thousands of live micro jobs, updated every minute. Filter by category, difficulty, or reward to find your next task.</p>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         FILTERS + JOB GRID (Alpine-powered client-side filtering)
+    ===================================================================== -->
+    <section
+      x-data="{
+        jobs: [
+          { title: 'Subscribe & watch a YouTube video', company: 'NovaStream Media', initials: 'NS', category: 'YouTube', icon: 'fa-brands fa-youtube', color: 'red', reward: 0.35, time: 5, positions: 1240, difficulty: 'Easy' },
+          { title: 'Install app & submit a written review', company: 'BrightApp Inc.', initials: 'BA', category: 'App Install', icon: 'fa-solid fa-mobile-screen-button', color: 'emerald', reward: 1.20, time: 15, positions: 580, difficulty: 'Medium' },
+          { title: 'Visit website & browse 3 product pages', company: 'PixelCart', initials: 'PC', category: 'Website Visit', icon: 'fa-solid fa-globe', color: 'blue', reward: 0.20, time: 3, positions: 3000, difficulty: 'Easy' },
+          { title: 'Translate product description (EN → FR)', company: 'LinguaBridge', initials: 'LB', category: 'Translation', icon: 'fa-solid fa-language', color: 'violet', reward: 4.50, time: 30, positions: 90, difficulty: 'Hard' },
+          { title: 'Categorize product images for AI training', company: 'DataForge Labs', initials: 'DF', category: 'AI Tasks', icon: 'fa-solid fa-robot', color: 'fuchsia', reward: 2.80, time: 20, positions: 450, difficulty: 'Medium' },
+          { title: 'Follow Instagram page & like 3 posts', company: 'SocialBoost Co.', initials: 'SB', category: 'Instagram', icon: 'fa-brands fa-instagram', color: 'pink', reward: 0.30, time: 4, positions: 2100, difficulty: 'Easy' },
+          { title: 'Like & share a Facebook post', company: 'BlueWave Digital', initials: 'BW', category: 'Facebook', icon: 'fa-brands fa-facebook', color: 'blue', reward: 0.25, time: 4, positions: 1800, difficulty: 'Easy' },
+          { title: 'Watch & comment on a TikTok video', company: 'ViralEdge Studio', initials: 'VE', category: 'TikTok', icon: 'fa-brands fa-tiktok', color: 'slate', reward: 0.40, time: 6, positions: 950, difficulty: 'Easy' },
+          { title: 'Complete a 10-question consumer survey', company: 'InsightPoll', initials: 'IP', category: 'Survey', icon: 'fa-solid fa-clipboard-list', color: 'amber', reward: 1.50, time: 10, positions: 620, difficulty: 'Medium' },
+          { title: 'Enter product data into spreadsheet', company: 'ClerkWorks', initials: 'CW', category: 'Data Entry', icon: 'fa-solid fa-keyboard', color: 'cyan', reward: 3.20, time: 25, positions: 310, difficulty: 'Medium' },
+          { title: 'Write an SEO-optimized product description', company: 'RankForge SEO', initials: 'RF', category: 'SEO', icon: 'fa-solid fa-magnifying-glass-chart', color: 'teal', reward: 5.00, time: 40, positions: 75, difficulty: 'Hard' },
+          { title: 'Leave a verified Google review', company: 'LocalBoost Co.', initials: 'LC', category: 'Google Review', icon: 'fa-brands fa-google', color: 'rose', reward: 0.60, time: 5, positions: 1100, difficulty: 'Easy' },
+          { title: 'Connect & engage on LinkedIn post', company: 'CareerLink Pro', initials: 'CP', category: 'LinkedIn', icon: 'fa-brands fa-linkedin', color: 'blue', reward: 0.45, time: 5, positions: 740, difficulty: 'Easy' },
+          { title: 'Sign up with email for a newsletter', company: 'GrowthMail', initials: 'GM', category: 'Email Signup', icon: 'fa-solid fa-envelope-circle-check', color: 'orange', reward: 0.15, time: 2, positions: 2600, difficulty: 'Easy' },
+          { title: 'Join Discord server & introduce yourself', company: 'CommunityHub', initials: 'CH', category: 'Discord', icon: 'fa-brands fa-discord', color: 'indigo', reward: 0.35, time: 5, positions: 880, difficulty: 'Easy' },
+          { title: 'Join Telegram channel & react to a post', company: 'ChannelBoost', initials: 'CB', category: 'Telegram', icon: 'fa-brands fa-telegram', color: 'sky', reward: 0.28, time: 4, positions: 1050, difficulty: 'Easy' },
+        ],
+        search: '',
+        selectedCategories: [],
+        difficulty: 'all',
+        sortBy: 'newest',
+        showMobileFilters: false,
+        toggleCategory(cat) {
+          if (this.selectedCategories.includes(cat)) {
+            this.selectedCategories = this.selectedCategories.filter(c => c !== cat);
+          } else {
+            this.selectedCategories.push(cat);
+          }
+        },
+        resetFilters() {
+          this.search = '';
+          this.selectedCategories = [];
+          this.difficulty = 'all';
+          this.sortBy = 'newest';
+        },
+        get filteredJobs() {
+          let list = this.jobs.filter(j => {
+            const matchesSearch = (j.title + ' ' + j.company + ' ' + j.category).toLowerCase().includes(this.search.toLowerCase());
+            const matchesCategory = this.selectedCategories.length === 0 || this.selectedCategories.includes(j.category);
+            const matchesDifficulty = this.difficulty === 'all' || j.difficulty === this.difficulty;
+            return matchesSearch && matchesCategory && matchesDifficulty;
+          });
+          if (this.sortBy === 'reward-high') list = list.slice().sort((a, b) => b.reward - a.reward);
+          if (this.sortBy === 'reward-low') list = list.slice().sort((a, b) => a.reward - b.reward);
+          if (this.sortBy === 'positions') list = list.slice().sort((a, b) => b.positions - a.positions);
+          if (this.sortBy === 'quickest') list = list.slice().sort((a, b) => a.time - b.time);
+          return list;
+        },
+        difficultyBadge(d) {
+          return { Easy: 'bg-emerald-50 text-emerald-600', Medium: 'bg-amber-50 text-amber-600', Hard: 'bg-rose-50 text-rose-600' }[d];
+        },
+        iconBadge(c) {
+          return {
+            red: 'bg-red-100 text-red-600', emerald: 'bg-emerald-100 text-emerald-600', blue: 'bg-blue-100 text-blue-600',
+            violet: 'bg-violet-100 text-violet-600', fuchsia: 'bg-fuchsia-100 text-fuchsia-600', pink: 'bg-pink-100 text-pink-600',
+            slate: 'bg-slate-100 text-slate-700', amber: 'bg-amber-100 text-amber-600', cyan: 'bg-cyan-100 text-cyan-600',
+            teal: 'bg-teal-100 text-teal-600', rose: 'bg-rose-100 text-rose-600', orange: 'bg-orange-100 text-orange-600',
+            indigo: 'bg-indigo-100 text-indigo-600', sky: 'bg-sky-100 text-sky-600',
+          }[c];
+        }
+      }"
+      class="py-12 bg-slate-50"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-4 gap-8 items-start">
+
+        <!-- Mobile filter toggle -->
+        <button @click="showMobileFilters = true" class="lg:hidden flex items-center justify-center gap-2 w-full py-3 rounded-xl border border-slate-300 bg-white font-semibold text-sm text-slate-700">
+          <i class="fa-solid fa-sliders" aria-hidden="true"></i> Filters
+        </button>
+
+        <!-- Mobile filter drawer overlay -->
+        <div x-show="showMobileFilters" x-cloak @click="showMobileFilters = false" class="fixed inset-0 bg-slate-900/50 z-40 lg:hidden" aria-hidden="true"></div>
+
+        <!-- Filters sidebar -->
+        <aside
+          class="lg:col-span-1 bg-white rounded-xl border border-slate-200 p-6 space-y-7 lg:sticky lg:top-24
+                 fixed inset-y-0 left-0 z-50 w-80 overflow-y-auto transform transition-transform duration-200 lg:static lg:transform-none lg:w-auto lg:z-auto"
+          :class="showMobileFilters ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
+        >
+          <div class="flex items-center justify-between lg:hidden">
+            <h2 class="font-bold text-slate-900">Filters</h2>
+            <button @click="showMobileFilters = false" aria-label="Close filters" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg" aria-hidden="true"></i></button>
+          </div>
+
+          <!-- Search -->
+          <div>
+            <label for="job-search" class="text-sm font-bold text-slate-900">Search</label>
+            <div class="mt-2 relative">
+              <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm" aria-hidden="true"></i>
+              <input id="job-search" type="search" x-model="search" placeholder="Search title or company"
+                class="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-300 text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600" />
+            </div>
+          </div>
+
+          <!-- Category checkboxes -->
+          <div>
+            <h3 class="text-sm font-bold text-slate-900">Category</h3>
+            <div class="mt-3 space-y-2.5 max-h-64 overflow-y-auto pr-1">
+              <template x-for="cat in ['Website Visit','YouTube','Facebook','Instagram','TikTok','Telegram','Discord','App Install','Survey','Translation','Data Entry','AI Tasks','SEO','Google Review','LinkedIn','Email Signup']" :key="cat">
+                <label class="flex items-center gap-2.5 text-sm text-slate-600 cursor-pointer">
+                  <input type="checkbox" :checked="selectedCategories.includes(cat)" @change="toggleCategory(cat)" class="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-600" />
+                  <span x-text="cat"></span>
+                </label>
+              </template>
+            </div>
+          </div>
+
+          <!-- Difficulty -->
+          <div>
+            <h3 class="text-sm font-bold text-slate-900">Difficulty</h3>
+            <div class="mt-3 space-y-2.5">
+              <label class="flex items-center gap-2.5 text-sm text-slate-600 cursor-pointer">
+                <input type="radio" name="difficulty" value="all" x-model="difficulty" class="text-blue-600 focus:ring-blue-600" /> All levels
+              </label>
+              <label class="flex items-center gap-2.5 text-sm text-slate-600 cursor-pointer">
+                <input type="radio" name="difficulty" value="Easy" x-model="difficulty" class="text-blue-600 focus:ring-blue-600" /> Easy
+              </label>
+              <label class="flex items-center gap-2.5 text-sm text-slate-600 cursor-pointer">
+                <input type="radio" name="difficulty" value="Medium" x-model="difficulty" class="text-blue-600 focus:ring-blue-600" /> Medium
+              </label>
+              <label class="flex items-center gap-2.5 text-sm text-slate-600 cursor-pointer">
+                <input type="radio" name="difficulty" value="Hard" x-model="difficulty" class="text-blue-600 focus:ring-blue-600" /> Hard
+              </label>
+            </div>
+          </div>
+
+          <button @click="resetFilters(); showMobileFilters = false" class="w-full py-2.5 rounded-lg border border-slate-300 text-sm font-semibold text-slate-600 hover:border-blue-600 hover:text-blue-600 transition-colors">
+            Reset filters
+          </button>
+
+          <button @click="showMobileFilters = false" class="lg:hidden w-full py-2.5 rounded-lg bg-blue-600 text-white text-sm font-semibold">
+            Show <span x-text="filteredJobs.length"></span> jobs
+          </button>
+        </aside>
+
+        <!-- Job results -->
+        <div class="lg:col-span-3">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <p class="text-sm text-slate-500"><span class="font-bold text-slate-900" x-text="filteredJobs.length"></span> jobs found</p>
+            <div class="flex items-center gap-2">
+              <label for="sort-by" class="text-sm text-slate-500 shrink-0">Sort by</label>
+              <select id="sort-by" x-model="sortBy" class="px-3 py-2 rounded-lg border border-slate-300 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600">
+                <option value="newest">Newest</option>
+                <option value="reward-high">Highest Reward</option>
+                <option value="reward-low">Lowest Reward</option>
+                <option value="positions">Most Positions</option>
+                <option value="quickest">Quickest</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Job cards grid -->
+          <div class="mt-6 grid sm:grid-cols-2 xl:grid-cols-3 gap-5">
+            <template x-for="job in filteredJobs" :key="job.title + job.company">
+              <article class="bg-white rounded-xl border border-slate-200 p-6 hover:shadow-xl hover:shadow-slate-200 hover:-translate-y-1 transition-all">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <span class="h-11 w-11 rounded-lg font-bold flex items-center justify-center" :class="iconBadge(job.color)" x-text="job.initials"></span>
+                    <div>
+                      <p class="font-bold text-slate-900 text-sm" x-text="job.company"></p>
+                      <p class="text-xs text-slate-400">🌍 Worldwide</p>
+                    </div>
+                  </div>
+                  <span class="px-2.5 py-1 rounded-full text-xs font-bold" :class="difficultyBadge(job.difficulty)" x-text="job.difficulty"></span>
+                </div>
+                <h3 class="mt-4 font-semibold text-slate-800" x-text="job.title"></h3>
+                <p class="mt-1 text-xs text-slate-400"><i :class="job.icon" class="mr-1" aria-hidden="true"></i><span x-text="job.category"></span></p>
+                <div class="mt-4 flex items-center justify-between text-sm">
+                  <span class="text-emerald-600 font-extrabold text-lg" x-text="'$' + job.reward.toFixed(2)"></span>
+                  <span class="text-slate-500"><i class="fa-regular fa-clock mr-1" aria-hidden="true"></i><span x-text="job.time"></span> min</span>
+                </div>
+                <p class="mt-1 text-xs text-slate-400"><span x-text="job.positions.toLocaleString('en-US')"></span> positions available</p>
+                <a href="#" class="mt-4 block text-center w-full py-2.5 rounded-lg bg-blue-600 text-white font-semibold text-sm hover:bg-blue-700 transition-colors">Apply Now</a>
+              </article>
+            </template>
+          </div>
+
+          <!-- Empty state -->
+          <div x-show="filteredJobs.length === 0" x-cloak class="mt-10 text-center py-16 bg-white rounded-xl border border-slate-200">
+            <i class="fa-solid fa-magnifying-glass text-3xl text-slate-300" aria-hidden="true"></i>
+            <p class="mt-4 font-semibold text-slate-700">No jobs match your filters</p>
+            <p class="mt-1 text-sm text-slate-500">Try adjusting your search or clearing a few filters.</p>
+            <button @click="resetFilters()" class="mt-5 px-5 py-2.5 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition-colors">Reset filters</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =====================================================================
+       FOOTER (shared with the landing page)
+  ===================================================================== -->
+  <footer id="site-footer" class="bg-slate-950 text-slate-400 pt-16 pb-8" style="background-color:#0B1322;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-6 gap-10">
+        <!-- Brand + newsletter -->
+        <div class="lg:col-span-2">
+          <a href="index.html" class="flex items-center gap-2" aria-label="TaskProX home">
+            <span class="h-9 w-9 rounded-lg bg-blue-600 flex items-center justify-center" aria-hidden="true"><i class="fa-solid fa-bolt text-white text-sm"></i></span>
+            <span class="text-xl font-extrabold text-white">Task<span class="text-blue-500">ProX</span></span>
+          </a>
+          <p class="mt-4 text-sm leading-relaxed max-w-xs">Complete simple tasks. Earn real rewards. A global micro job platform connecting 100,000+ workers with 20,000+ verified clients.</p>
+
+          <form class="mt-6" onsubmit="return false;">
+            <label for="newsletter-email" class="text-xs font-semibold text-slate-300 uppercase tracking-wide">Newsletter</label>
+            <div class="mt-2 flex">
+              <input id="newsletter-email" type="email" required placeholder="you@email.com" class="w-full px-3.5 py-2.5 rounded-l-lg bg-slate-800 border border-slate-700 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-600" />
+              <button type="submit" class="px-4 py-2.5 rounded-r-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-colors" aria-label="Subscribe to newsletter">
+                <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- About -->
+        <div>
+          <h3 class="text-sm font-bold text-white uppercase tracking-wide">About</h3>
+          <ul class="mt-4 space-y-2.5 text-sm">
+            <li><a href="index.html#why-us" class="hover:text-white transition-colors">Our Story</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Careers</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Press Kit</a></li>
+          </ul>
+        </div>
+
+        <!-- Workers -->
+        <div>
+          <h3 class="text-sm font-bold text-white uppercase tracking-wide">Workers</h3>
+          <ul class="mt-4 space-y-2.5 text-sm">
+            <li><a href="browse-jobs.html" class="hover:text-white transition-colors">Browse Jobs</a></li>
+            <li><a href="index.html#categories" class="hover:text-white transition-colors">Categories</a></li>
+            <li><a href="index.html#how-it-works" class="hover:text-white transition-colors">How It Works</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Help Center</a></li>
+          </ul>
+        </div>
+
+        <!-- Clients -->
+        <div>
+          <h3 class="text-sm font-bold text-white uppercase tracking-wide">Clients</h3>
+          <ul class="mt-4 space-y-2.5 text-sm">
+            <li><a href="post-job.html" class="hover:text-white transition-colors">Post a Job</a></li>
+            <li><a href="index.html#pricing" class="hover:text-white transition-colors">Pricing</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Enterprise</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">API Access</a></li>
+          </ul>
+        </div>
+
+        <!-- Legal -->
+        <div>
+          <h3 class="text-sm font-bold text-white uppercase tracking-wide">Legal</h3>
+          <ul class="mt-4 space-y-2.5 text-sm">
+            <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Cookie Policy</a></li>
+            <li><a href="index.html#faq" class="hover:text-white transition-colors">FAQ</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="mt-14 pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-xs text-slate-500">© 2026 TaskProX. All rights reserved.</p>
+        <div class="flex items-center gap-4" aria-label="Social media links">
+          <a href="#" aria-label="TaskProX on Facebook" class="h-9 w-9 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors"><i class="fa-brands fa-facebook-f text-sm" aria-hidden="true"></i></a>
+          <a href="#" aria-label="TaskProX on X" class="h-9 w-9 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors"><i class="fa-brands fa-x-twitter text-sm" aria-hidden="true"></i></a>
+          <a href="#" aria-label="TaskProX on LinkedIn" class="h-9 w-9 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors"><i class="fa-brands fa-linkedin-in text-sm" aria-hidden="true"></i></a>
+          <a href="#" aria-label="TaskProX on Instagram" class="h-9 w-9 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors"><i class="fa-brands fa-instagram text-sm" aria-hidden="true"></i></a>
+          <a href="#" aria-label="TaskProX on YouTube" class="h-9 w-9 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors"><i class="fa-brands fa-youtube text-sm" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
+
+
+
+
